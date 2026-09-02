@@ -1,0 +1,38 @@
+.contenedor{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.caja{
+    background-color: aquamarine;
+    width: 200px;
+    height: 200px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: black;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.caja1{
+    background-color: brown;
+}
+
+.caja2{
+    background-color: blueviolet;
+}
+
+.caja3{
+    background-color: chartreuse;
+}
+
+@media (max-whith: 600px){
+    .contenedor{
+        flex-direction: column;
+    }
+    
+}
