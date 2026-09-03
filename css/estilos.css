@@ -169,3 +169,125 @@ footer{
 .footer-contacto button:hover{
     background:#0EA5E9;
 }
+
+
+
+
+
+/* =========================
+   CATEGORIAS
+========================= */
+
+.categoria{
+    max-width:1100px;
+    margin:70px auto;
+    padding:0 30px;
+}
+
+.categoria h2{
+    color:#222;
+    font-size:30px;
+    margin-bottom:15px;
+}
+
+.categoria > p{
+    max-width:850px;
+    color:#555;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.link-categoria{
+    display:inline-block;
+    color:#159bd3;
+    font-weight:bold;
+    text-decoration:none;
+    margin-bottom:30px;
+}
+
+.link-categoria:hover{
+    text-decoration:underline;
+}
+
+
+/* =========================
+   PRODUCTOS
+========================= */
+
+.categoria .productos{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:15px;
+    padding:0;
+    margin-top:10px;
+}
+
+.categoria .card{
+    width:auto;
+    background:white;
+    border-radius:8px;
+    padding:10px;
+    text-align:left;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.categoria .card img{
+    width:100%;
+    height:180px;
+    object-fit:contain;
+    border-radius:6px;
+    background:#fafafa;
+}
+
+.categoria .card h3{
+    color:#222;
+    font-size:14px;
+    margin:8px 0;
+}
+
+.precio{
+    color:#777;
+    font-size:11px;
+    margin-top:8px;
+    margin-bottom:4px;
+}
+
+.categoria .card button{
+    background:white;
+    color:#222;
+    border:1px solid #ccc;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:11px;
+}
+
+.categoria .card button:hover{
+    background:#7DD3FC;
+    color:white;
+    border-color:#7DD3FC;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:900px){
+
+    .categoria .productos{
+        grid-template-columns:repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width:500px){
+
+    .categoria{
+        padding:0 15px;
+    }
+
+    .categoria .productos{
+        grid-template-columns:1fr;
+    }
+
+}
