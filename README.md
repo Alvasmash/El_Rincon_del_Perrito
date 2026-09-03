@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🐾 Huellitas
+# 🐾 El Rincon del Perrito 🐾
 
 ### Tienda web para perritos — diseño minimalista, celeste y con estilo vidrio esmerilado
 
@@ -15,9 +15,9 @@
 
 ## 🐶 Sobre el proyecto
 
-**Huellitas** es una landing page para una tienda de productos para perros: alimento, juguetes, accesorios y artículos de cuidado. El diseño está pensado con un enfoque **minimalista**, tarjetas con efecto **glassmorphism** (vidrio esmerilado) y una paleta **celeste** cálida, para transmitir cercanía y confianza a dueños de mascotas.
+**El Rincon del Perrito** es una landing page para una tienda de productos para perros: alimento, juguetes, accesorios y artículos de cuidado. El diseño está pensado con un enfoque **minimalista**, tarjetas con efecto **glassmorphism** (vidrio esmerilado) y una paleta **celeste** cálida, para transmitir cercanía y confianza a dueños de mascotas.
 
-> Hecho con HTML y CSS puro, sin frameworks ni dependencias externas (más allá de las tipografías de Google Fonts).
+> Hecho con HTML y CSS puro, sin frameworks ni dependencias externas
 
 ---
 
@@ -51,17 +51,18 @@
 ## 📂 Estructura del proyecto
 
 ```
-📦 huellitas
- ┣ 📜 PaginaWeb.html      → Página principal (HTML + CSS)
+📦 El_Rincon_del_Perrito
+ ┣ 📁 HTML
+ ┣ ┣ 📜 CamaPerritos.html
+ ┣ ┣ 📜 CollaresPerritos.html
+ ┣ ┣ 📜 JuguetesPerritos.html       
+ ┣ ┣ 📜 PaginaWeb.html      → Página principal (HTML + CSS)
+ ┣ 📁 css 
+ ┣ ┣ 📜 estilos.css         → Archivo con todos los estilos
  ┣ 📁 imagenes/           → Carpeta de imágenes del sitio
- ┃ ┣ 🖼️ hero-perrito.jpg
- ┃ ┣ 🖼️ categoria-alimento.jpg
+ ┃ ┣ 🖼️ categoria-camas.jpg
  ┃ ┣ 🖼️ categoria-juguetes.jpg
  ┃ ┣ 🖼️ categoria-accesorios.jpg
- ┃ ┣ 🖼️ categoria-cuidado.jpg
- ┃ ┣ 🖼️ producto-1.jpg ... producto-6.jpg
- ┃ ┣ 🖼️ nosotros.jpg
- ┃ ┗ 🖼️ cliente-1.jpg ... cliente-3.jpg
  ┗ 📜 README.md           → Este archivo
 ```
 
@@ -71,8 +72,8 @@
 
 1. **Clona el repositorio**
    ```bash
-   git clone https://github.com/Alvasmash/TiendaPerritos.git
-   cd TiendaPerritos
+   git clone https://github.com/Alvasmash/El_Rincon_del_Perrito
+   cd El_Rincon_del_Perrito
    ```
 
 2. **Agrega tus imágenes**
