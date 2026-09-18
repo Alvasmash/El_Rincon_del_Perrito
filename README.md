@@ -48,15 +48,15 @@ Final/
 ├── html/                     # VISTAS DE LA TIENDA
 │   ├── index.html            # Home principal
 │   ├── productos.html        # Catálogo completo
-├── detalle-producto.html     # Detalle de producto
-├── carrito.html              # Carrito de compras (Figura 15)
-├── nosotros.html             # Quiénes somos y equipo Duoc UC
-├── blogs.html                # Noticias y casos curiosos (Figura 6)
-├── blog-detalle-1.html       # Caso Curioso #1
-├── blog-detalle-2.html       # Caso Curioso #2
-├── contacto.html             # Formulario de contacto (Figura 7)
-├── login.html                # Inicio de sesión (Figura 5)
-├── registro.html             # Registro de cliente (Figura 4)
+│   ├── detalle-producto.html     # Detalle de producto
+│   ├──carrito.html              # Carrito de compras (Figura 15)
+│   ├──nosotros.html             # Quiénes somos y equipo Duoc UC
+│   ├──blogs.html                # Noticias y casos curiosos (Figura6)
+│   ├──blog-detalle-1.html       # Caso Curioso #1
+│   ├──blog-detalle-2.html       # Caso Curioso #2
+│   ├──contacto.html             # Formulario de contacto (Figura 7)
+│   ├──login.html                # Inicio de sesión (Figura 5)
+│   ├──registro.html             # Registro de cliente (Figura 4)
 │
 ├── admin/                    # Panel administrativo (Figura 10, 11, 12, 13)
 │   ├── index.html            # Dashboard principal
