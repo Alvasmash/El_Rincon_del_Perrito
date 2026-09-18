@@ -1,0 +1,16 @@
+/* Responsive */
+@media (max-width: 900px) {
+    .categoria .productos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .categoria {
+        padding: 0 15px;
+    }
+
+    .categoria .productos {
+        grid-template-columns: 1fr;
+    }
+}

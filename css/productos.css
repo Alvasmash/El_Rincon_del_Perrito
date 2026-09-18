@@ -1,0 +1,88 @@
+/* Productos */
+.productos {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    width: 220px;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .15);
+}
+
+.card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.card h3 {
+    color: #38BDF8;
+    margin: 10px 0;
+}
+
+.card p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.precio {
+    color: #777;
+    font-size: 11px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+/* Productos de categorías */
+.categoria .productos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.categoria .card {
+    width: auto;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.categoria .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: #fafafa;
+}
+
+.categoria .card h3 {
+    color: #222;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+.categoria .card button {
+    background: white;
+    color: #222;
+    border: 1px solid #ccc;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+.categoria .card button:hover {
+    background: #7DD3FC;
+    color: white;
+    border-color: #7DD3FC;
+}
