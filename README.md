@@ -1,124 +1,75 @@
-<div align="center">
+# 🐾 El Rincón del Perrito — Tienda Online & Sistema Administrativo
 
-# 🐾 El Rincon del Perrito 🐾
-
-### Tienda web para perritos — diseño minimalista, celeste y con estilo vidrio esmerilado
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![Status](https://img.shields.io/badge/estado-en%20desarrollo-4fb8dd?style=for-the-badge)
-![License](https://img.shields.io/badge/licencia-MIT-cdeef8?style=for-the-badge)
-
-</div>
+Proyecto correspondiente a la **Evaluación 1 (30%)** de la Escuela de Informática y Telecomunicaciones de **Duoc UC**.
 
 ---
 
-## 🐶 Sobre el proyecto
+## 📋 Características Principales
 
-**El Rincon del Perrito** es una landing page para una tienda de productos para perros: alimento, juguetes, accesorios y artículos de cuidado. El diseño está pensado con un enfoque **minimalista**, tarjetas con efecto **glassmorphism** (vidrio esmerilado) y una paleta **celeste** cálida, para transmitir cercanía y confianza a dueños de mascotas.
-
-> Hecho con HTML y CSS puro, sin frameworks ni dependencias externas
-
----
-
-## ✨ Características
-
-- 🎨 Diseño minimalista tematizado en celeste, con tarjetas semitransparentes y efecto blur
-- 📱 Totalmente responsive: se adapta a escritorio, tablet y móvil
-- 🧭 Navegación fija con desenfoque al hacer scroll
-- 🛍️ Sección de categorías y productos destacados
-- 💬 Testimonios de clientes
-- 📩 Sección de llamada a la acción (CTA) y footer completo
-- ⚡ Un solo archivo HTML, fácil de personalizar
-
----
-
-## 🖼️ Vista previa
-
-<div align="center">
-
-| Sección | Descripción |
-|---|---|
-| 🏠 Hero | Imagen destacada + tarjetas flotantes con estadísticas |
-| 🐕 Categorías | Alimento, juguetes, accesorios y cuidado |
-| 🛒 Productos | Tarjetas de producto con precio y botón de compra |
-| 💬 Opiniones | Testimonios reales de clientes felices |
-
-</div>
+- **Arquitectura Frontend Modular:** Cada vista tiene su archivo HTML independiente, con hojas de estilos CSS organizadas por componente y scripts JavaScript especializados.
+- **Tienda Completa:**
+  - Home con hero banner y productos destacados.
+  - Catálogo filtrable por categorías (Camas, Juguetes, Collares).
+  - Ficha de detalle de producto con selector de cantidad y productos relacionados.
+  - Carrito de compras funcional con soporte para cupón de descuento (`PERRITO10`) y checkout con persistencia en `localStorage`.
+  - Página institucional "Nosotros" con reseña del equipo de desarrollo de Duoc UC.
+  - Sección de Blogs con dos artículos desarrollados en profundidad.
+  - Formulario de Contacto con validación de dominios y contador de caracteres.
+- **Sistema Administrativo:**
+  - Dashboard con métricas clave (KPIs) y tabla de monitoreo de stock crítico.
+  - Mantenedor de Productos: Listado, creación, edición, eliminación y alertas de inventario bajo.
+  - Mantenedor de Usuarios: Listado, gestión de roles y creación de usuarios con validación de RUN por Módulo 11.
+  - Select dependiente dinámico de Regiones y Comunas de Chile (`js/regiones-comunas.js`).
+  - Historial de órdenes de compra.
+- **Control de Roles:**
+  - **Administrador:** Acceso completo al sistema.
+  - **Vendedor:** Acceso a productos y órdenes de compra únicamente.
+  - **Cliente:** Acceso exclusivo a la tienda.
 
 ---
 
-## 📂 Estructura del proyecto
+## 🔑 Cuentas Demo para Evaluación
 
+| Rol | Correo | Contraseña | RUN |
+| :--- | :--- | :--- | :--- |
+| **Administrador** | `admin@duocuc.cl` | `admin123` | `19011022K` |
+| **Vendedor** | `vendedor@duocuc.cl` | `vendedor123` | `181234567` |
+| **Cliente** | `cliente@gmail.com` | `cliente123` | `201112223` |
+
+*Cupón de descuento para el carrito:* **`PERRITO10`** (10% de descuento).
+
+---
+
+## 📁 Estructura del Proyecto
+
+```text
+Final/
+├── index.html                # Redirector automático a html/index.html
+├── html/                     # VISTAS DE LA TIENDA
+│   ├── index.html            # Home principal
+│   ├── productos.html        # Catálogo completo
+├── detalle-producto.html     # Detalle de producto
+├── carrito.html              # Carrito de compras (Figura 15)
+├── nosotros.html             # Quiénes somos y equipo Duoc UC
+├── blogs.html                # Noticias y casos curiosos (Figura 6)
+├── blog-detalle-1.html       # Caso Curioso #1
+├── blog-detalle-2.html       # Caso Curioso #2
+├── contacto.html             # Formulario de contacto (Figura 7)
+├── login.html                # Inicio de sesión (Figura 5)
+├── registro.html             # Registro de cliente (Figura 4)
+│
+├── admin/                    # Panel administrativo (Figura 10, 11, 12, 13)
+│   ├── index.html            # Dashboard principal
+│   ├── productos.html        # Mantenedor: Lista de productos
+│   ├── producto-form.html    # Mantenedor: Formulario producto
+│   ├── usuarios.html         # Mantenedor: Lista de usuarios
+│   ├── usuario-form.html     # Mantenedor: Formulario usuario
+│   └── ordenes.html          # Listado de pedidos realizados
+│
+├── css/                      # Estilos modulares
+├── js/                       # Módulos JavaScript independientes
+├── Imagenes/                 # Recursos gráficos y fotos
+└── docs/                     # ERS y Guía de Defensa
+    ├── ERS.md                # Especificación de Requerimientos v1
+    └── GUIA_DEFENSA.md       # Guía para la presentación de 15 min
 ```
-📦 El_Rincon_del_Perrito
- ┣ 📁 HTML
- ┣ ┣ 📜 CamaPerritos.html
- ┣ ┣ 📜 CollaresPerritos.html
- ┣ ┣ 📜 JuguetesPerritos.html       
- ┣ ┣ 📜 PaginaWeb.html      → Página principal (HTML + CSS)
- ┣ 📁 css 
- ┣ ┣ 📜 estilos.css         → Archivo con todos los estilos
- ┣ 📁 imagenes/           → Carpeta de imágenes del sitio
- ┃ ┣ 🖼️ categoria-camas.jpg
- ┃ ┣ 🖼️ categoria-juguetes.jpg
- ┃ ┣ 🖼️ categoria-accesorios.jpg
- ┗ 📜 README.md           → Este archivo
-```
-
----
-
-## 🚀 Cómo usarlo
-
-1. **Clona el repositorio**
-   ```bash
-   git clone https://github.com/Alvasmash/El_Rincon_del_Perrito
-   cd El_Rincon_del_Perrito
-   ```
-
-2. **Agrega tus imágenes**
-   Crea una carpeta `imagenes/` en la raíz del proyecto y coloca ahí tus fotos, respetando los nombres indicados en el HTML (o edítalos a tu gusto).
-
-3. **Ábrelo en tu navegador**
-   Simplemente abre `PaginaWeb.html` haciendo doble clic, o usa una extensión como **Live Server** en VS Code para verlo con recarga automática.
-
----
-
-## 🎨 Paleta de colores
-
-<div align="center">
-
-| Color | Hex | Uso |
-|---|---|---|
-| ![#eaf7fc](https://placehold.co/16x16/eaf7fc/eaf7fc.png) | `#EAF7FC` | Fondo claro |
-| ![#4fb8dd](https://placehold.co/16x16/4fb8dd/4fb8dd.png) | `#4FB8DD` | Celeste principal |
-| ![#1d8ab0](https://placehold.co/16x16/1d8ab0/1d8ab0.png) | `#1D8AB0` | Celeste fuerte / acentos |
-| ![#0f3f52](https://placehold.co/16x16/0f3f52/0f3f52.png) | `#0F3F52` | Texto y títulos |
-| ![#ffb27a](https://placehold.co/16x16/ffb27a/ffb27a.png) | `#FFB27A` | Detalles cálidos (etiquetas) |
-
-</div>
-
----
-
-## 🛠️ Tecnologías
-
-- **HTML5** — estructura semántica
-- **CSS3** — variables, grid, flexbox y efectos `backdrop-filter`
-- **Google Fonts** — [Fredoka](https://fonts.google.com/specimen/Fredoka) y [Work Sans](https://fonts.google.com/specimen/Work+Sans)
-
----
-
-## 🗺️ Próximos pasos
-
-- [ ] Conectar formulario de contacto
-- [ ] Agregar carrito de compras funcional
-- [ ] Integrar pasarela de pago
-- [ ] Optimizar imágenes para carga más rápida
-
----
-
-<div align="center">
-
-Hecho con 🐾 y mucho cariño por dueños de perritos, para dueños de perritos.
-
-</div>
