@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs y Noticias — El Rincón del Perrito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/blogs.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="icon" type="image/png" href="../Imagenes/pata_perrito.png">
+</head>
+<body>
+    
+    <header class="encabezado">
+        <div class="barra-superior">
+            <div class="contenedor">
+                <span>📍 Envío gratis a todo Chile por compras sobre $25.000</span>
+                <span>📞 Soporte: +56 9 1234 5678 | Duoc UC</span>
+            </div>
+        </div>
+        <div class="contenedor barra-nav">
+            <a href="index.html" class="marca" title="Volver al inicio">
+                <img src="../Imagenes/pata_perrito.png" alt="Logo El Rincón del Perrito" class="logo">
+                <span>El Rincón del Perrito</span>
+            </a>
+
+            <nav class="menu-nav" id="menu-principal" aria-label="Navegación principal">
+                <a href="index.html" >Home</a>
+                <a href="productos.html" >Productos</a>
+                <a href="nosotros.html" >Nosotros</a>
+                <a href="blogs.html" aria-current="page">Blogs</a>
+                <a href="contacto.html" >Contacto</a>
+                <span id="contenedor-auth-header" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <a href="login.html" class="enlace-destacado" >Iniciar sesión</a>
+                    <a href="registro.html" class="enlace-destacado" >Registrar usuario</a>
+                </span>
+            </nav>
+
+            <a href="carrito.html" class="boton-carrito" aria-label="Ver carrito de compras">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM1 2v2h2l3.6 7.6-1.4 2.4A2 2 0 0 0 7 17h12v-2H7.4l1.1-2h7.5a2 2 0 0 0 1.75-1.03l3.6-6.5A1 1 0 0 0 20.5 4H5.2l-.94-2H1Z"/></svg>
+                <span>Carrito (<span id="contador-carrito">0</span>)</span>
+            </a>
+
+            <button type="button" class="boton-hamburguesa" id="boton-hamburguesa" aria-label="Abrir menú">☰</button>
+        </div>
+    </header>
+    
+
+    <main class="contenedor">
+        <div class="banner-blogs">
+            <h1 class="titulo-seccion centrado">NOTICIAS IMPORTANTES</h1>
+            <p class="subtitulo-seccion">Artículos, consejos veterinarios y datos curiosos para mantener a tu mascota saludable y contenta.</p>
+        </div>
+
+        <!-- Mockup Página Blogs (Figura 6) -->
+        <section class="lista-blogs">
+            <!-- Caso Curioso #1 -->
+            <article class="tarjeta-blog">
+                <img src="../Imagenes/bannerv2.jpg" alt="Alimentación y descanso del perro">
+                <div class="blog-cuerpo">
+                    <span class="blog-etiqueta">Nutrición & Cuidado</span>
+                    <h2>CASO CURIOSO #1: Cómo el descanso nocturno influye en la conducta de tu perrito</h2>
+                    <p>¿Sabías que un perro adulto necesita entre 12 y 14 horas de sueño al día? Descubre por qué contar con una cama ergonómica y un lugar adecuado reduce la ansiedad y los ladridos nocturnos.</p>
+                    <a href="blog-detalle-1.html" class="boton">VER CASO</a>
+                </div>
+            </article>
+
+            <!-- Caso Curioso #2 -->
+            <article class="tarjeta-blog">
+                <img src="../Imagenes/juguetesv3.png" alt="Juguetes e inteligencia canina" style="background: #F4FBFE; object-fit: contain; padding: 20px;">
+                <div class="blog-cuerpo">
+                    <span class="blog-etiqueta">Estimulación Mental</span>
+                    <h2>CASO CURIOSO #2: Enriquecimiento ambiental y juguetes mordedores</h2>
+                    <p>Masticar no es solo diversión: libera endorfinas y limpia la placa bacteriana. Aprende a escoger entre juguetes de caucho, cuerdas y mordedores según la mandíbula de tu canino.</p>
+                    <a href="blog-detalle-2.html" class="boton">VER CASO</a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    
+    <footer class="pie-pagina">
+        <div class="contenedor pie-grid">
+            <div class="pie-col">
+                <h3>El Rincón del Perrito</h3>
+                <p>Tu tienda especializada en productos de alta calidad para el cuidado, comodidad y entretenimiento de tu mejor amigo de cuatro patas.</p>
+                <p><strong>Campus:</strong> Duoc UC — Escuela de Informática</p>
+            </div>
+            <div class="pie-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="index.html">Inicio (Home)</a></li>
+                    <li><a href="productos.html">Todos los Productos</a></li>
+                    <li><a href="nosotros.html">Quiénes Somos</a></li>
+                    <li><a href="blogs.html">Casos y Noticias</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="pie-col">
+                <h4>Categorías</h4>
+                <ul>
+                    <li><a href="productos.html?categoria=camas">Camas Cómodas</a></li>
+                    <li><a href="productos.html?categoria=juguetes">Juguetes Resistentes</a></li>
+                    <li><a href="productos.html?categoria=collares">Collares y Paseo</a></li>
+                    <li><a href="../admin/index.html">Acceso Administrador</a></li>
+                </ul>
+            </div>
+            <div class="pie-col">
+                <h4>Mantente al día</h4>
+                <p>Recibe ofertas exclusivas y tips de cuidado canino en tu correo.</p>
+                <form class="form-newsletter" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte al newsletter!'); this.reset();">
+                    <input type="email" placeholder="tu-correo@gmail.com" required>
+                    <button type="submit">Suscribir</button>
+                </form>
+            </div>
+        </div>
+        <div class="pie-inferior">
+            <div class="contenedor">
+                <p>© 2026 El Rincón del Perrito — Proyecto Evaluación 1 (Duoc UC). Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+
+    <script src="../js/productos-data.js"></script>
+    <script src="../js/usuarios-data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/header.js"></script>
+</body>
+</html>
