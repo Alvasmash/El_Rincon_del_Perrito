@@ -1,0 +1,252 @@
+/* ==========================================================
+   admin.css — Sistema Administrativo (Figuras 10, 11, 12, 13)
+   Sidebar vertical, contenido central, tablas y mantenedores
+   ========================================================== */
+
+.layout-admin {
+    display: flex;
+    min-height: 100vh;
+    background: #F4F8FA;
+}
+
+/* Sidebar lateral */
+.sidebar-admin {
+    width: 260px;
+    background: var(--tinta);
+    color: #D6E9F0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-encabezado {
+    padding: 24px 20px;
+    border-bottom: 1px solid #16465A;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-encabezado img {
+    width: 38px;
+    height: 38px;
+}
+
+.sidebar-encabezado span {
+    font-family: var(--fuente-titulos);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--blanco);
+}
+
+.sidebar-menu {
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radio-chico);
+    color: #D6E9F0;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transicion);
+}
+
+.sidebar-link:hover {
+    background: #194F66;
+    color: var(--blanco);
+}
+
+.sidebar-link.activo {
+    background: var(--celeste-fuerte);
+    color: var(--blanco);
+    font-weight: 600;
+}
+
+.sidebar-footer {
+    padding: 16px 12px;
+    border-top: 1px solid #16465A;
+}
+
+/* Contenido central del admin */
+.contenido-admin {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.topbar-admin {
+    background: var(--blanco);
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--gris-borde);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar-admin h1 {
+    font-size: 1.4rem;
+}
+
+.topbar-usuario {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.9rem;
+}
+
+.panel-principal {
+    padding: 28px;
+    flex: 1;
+}
+
+/* Tarjetas resumen KPI */
+.grid-kpi {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.tarjeta-kpi {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 20px;
+    box-shadow: var(--sombra);
+    border: 1px solid var(--gris-borde);
+    border-left: 4px solid var(--azul-boton);
+}
+
+.tarjeta-kpi.kpi-alerta {
+    border-left-color: var(--alerta);
+}
+
+.tarjeta-kpi h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    margin-bottom: 8px;
+}
+
+.tarjeta-kpi .kpi-numero {
+    font-size: 2rem;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    color: var(--tinta);
+}
+
+/* Tablas de datos del admin (Figura 12) */
+.tarjeta-tabla {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 24px;
+    box-shadow: var(--sombra);
+    border: 1px solid var(--gris-borde);
+}
+
+.tabla-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tabla-filtros {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.tabla-filtros input,
+.tabla-filtros select {
+    padding: 8px 12px;
+    border: 1px solid #C4D9E2;
+    border-radius: var(--radio-chico);
+    font-size: 0.9rem;
+}
+
+.tabla-responsive {
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    text-align: left;
+}
+
+.tabla-admin th {
+    background: #EAF4F8;
+    color: var(--tinta);
+    font-weight: 600;
+    padding: 12px 14px;
+    border-bottom: 2px solid var(--celeste-suave);
+    white-space: nowrap;
+}
+
+.tabla-admin td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #EDF4F7;
+    vertical-align: middle;
+}
+
+.tabla-admin tr:hover td {
+    background: #F8FCFD;
+}
+
+.tabla-acciones {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-accion {
+    padding: 6px 10px;
+    border-radius: var(--radio-chico);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: var(--transicion);
+}
+
+.btn-accion-editar {
+    background: var(--info-fondo);
+    color: var(--info);
+}
+
+.btn-accion-editar:hover {
+    background: #C7D2FE;
+}
+
+.btn-accion-eliminar {
+    background: var(--error-fondo);
+    color: var(--error);
+}
+
+.btn-accion-eliminar:hover {
+    background: #F87171;
+    color: var(--blanco);
+}
+
+.alerta-critica-badge {
+    background: var(--error-fondo);
+    color: var(--error);
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radio-chico);
+    font-size: 0.8rem;
+}

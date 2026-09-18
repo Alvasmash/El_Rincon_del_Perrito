@@ -1,0 +1,140 @@
+/* ==========================================================
+   formularios.css — Estilos y estados de validación en tiempo real
+   Usado en Login, Registro, Contacto y Formularios de Admin
+   ========================================================== */
+
+.tarjeta-formulario {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 36px 40px;
+    box-shadow: var(--sombra);
+    max-width: 640px;
+    margin: 36px auto 60px;
+    border: 1px solid var(--celeste-suave);
+}
+
+.tarjeta-formulario.ancho-medio {
+    max-width: 520px;
+}
+
+.tarjeta-formulario.ancho-grande {
+    max-width: 820px;
+}
+
+.header-formulario {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.header-formulario img.logo-form {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 12px;
+}
+
+.header-formulario h1 {
+    font-size: 1.85rem;
+    margin-bottom: 6px;
+}
+
+.header-formulario p {
+    color: var(--tinta-suave);
+    font-size: 0.95rem;
+}
+
+/* Grupos de formulario */
+.form-grupo {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-fila-doble {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-grupo label {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--tinta);
+}
+
+.form-grupo label .requerido {
+    color: var(--error);
+    margin-left: 2px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #C4D9E2;
+    border-radius: var(--radio-chico);
+    font-family: var(--fuente-texto);
+    font-size: 0.95rem;
+    color: var(--tinta);
+    background: #FAFCFD;
+    transition: var(--transicion);
+}
+
+.form-control:focus {
+    background: var(--blanco);
+    border-color: var(--azul-boton);
+    box-shadow: 0 0 0 3px rgba(79, 184, 221, 0.25);
+    outline: none;
+}
+
+textarea.form-control {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* Estados de validación */
+.form-control.campo-invalido {
+    border-color: var(--error) !important;
+    background-color: #FFF8F8 !important;
+}
+
+.form-control.campo-valido {
+    border-color: var(--exito) !important;
+}
+
+/* Mensajes de error y sugerencia */
+.mensaje-error {
+    display: block;
+    color: var(--error);
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-top: 5px;
+    min-height: 18px;
+}
+
+.mensaje-sugerencia {
+    display: block;
+    color: var(--tinta-clara);
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.contador-caracteres {
+    font-size: 0.78rem;
+    color: var(--tinta-clara);
+    text-align: right;
+    margin-top: 3px;
+}
+
+/* Enlaces al pie de formularios */
+.pie-formulario {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--celeste-suave);
+    font-size: 0.92rem;
+    color: var(--tinta-suave);
+}
+
+.pie-formulario a {
+    font-weight: 600;
+}

@@ -1,0 +1,227 @@
+/* ==========================================================
+   carrito.css — Vista completa del carrito de compras (Figura 15)
+   ========================================================== */
+
+.contenedor-carrito {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 32px;
+    margin-top: 24px;
+    margin-bottom: 60px;
+}
+
+.lista-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Tarjeta de ítem en el carrito */
+.item-carrito {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 18px;
+    box-shadow: var(--sombra);
+    display: grid;
+    grid-template-columns: 90px 1.5fr 110px 110px 36px;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--celeste-suave);
+}
+
+.item-carrito img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    background: #F8FCFD;
+    border-radius: var(--radio-chico);
+    padding: 6px;
+}
+
+.item-carrito .info h3 {
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+}
+
+.item-carrito .info p {
+    font-size: 0.84rem;
+    color: var(--tinta-suave);
+}
+
+.item-carrito .precio-unitario {
+    font-family: var(--fuente-titulos);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--tinta);
+}
+
+.control-cantidades {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--celeste);
+    border-radius: var(--radio-chico);
+    background: var(--blanco);
+}
+
+.control-cantidades button {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--tinta);
+    transition: var(--transicion);
+}
+
+.control-cantidades button:hover {
+    background: var(--celeste-suave);
+}
+
+.control-cantidades span {
+    width: 32px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.item-carrito .btn-eliminar {
+    background: none;
+    border: none;
+    color: var(--error);
+    font-size: 1.3rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radio-chico);
+    transition: var(--transicion);
+}
+
+.item-carrito .btn-eliminar:hover {
+    background: var(--error-fondo);
+}
+
+/* Panel lateral de resumen */
+.resumen-compra {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 24px;
+    box-shadow: var(--sombra);
+    height: fit-content;
+    border: 1px solid var(--celeste-suave);
+}
+
+.resumen-compra h2 {
+    font-size: 1.35rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--celeste-suave);
+}
+
+.resumen-fila {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: var(--tinta-suave);
+}
+
+.resumen-fila.total {
+    font-size: 1.35rem;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    color: var(--azul-boton);
+    padding-top: 14px;
+    border-top: 2px solid var(--celeste-suave);
+    margin-top: 16px;
+    margin-bottom: 24px;
+}
+
+/* Cupón de descuento */
+.seccion-cupon {
+    margin: 20px 0;
+    padding: 16px 0;
+    border-top: 1px dashed var(--celeste-suave);
+    border-bottom: 1px dashed var(--celeste-suave);
+}
+
+.seccion-cupon label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--tinta);
+}
+
+.input-cupon-grupo {
+    display: flex;
+    gap: 8px;
+}
+
+.input-cupon-grupo input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--celeste);
+    border-radius: var(--radio-chico);
+    text-transform: uppercase;
+    font-family: var(--fuente-texto);
+    font-size: 0.9rem;
+}
+
+.input-cupon-grupo button {
+    padding: 8px 14px;
+    background: var(--celeste-fuerte);
+    color: var(--blanco);
+    border: none;
+    border-radius: var(--radio-chico);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.input-cupon-grupo button:hover {
+    background: var(--azul-boton);
+}
+
+.btn-pagar {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    background: #16A34A !important;
+    border-radius: var(--radio-chico);
+    letter-spacing: 0.5px;
+}
+
+.btn-pagar:hover {
+    background: #15803D !important;
+}
+
+/* Carrito vacío */
+.carrito-vacio {
+    text-align: center;
+    background: var(--blanco);
+    padding: 60px 24px;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    grid-column: 1 / -1;
+}
+
+.carrito-vacio svg {
+    width: 72px;
+    height: 72px;
+    fill: var(--celeste);
+    margin-bottom: 16px;
+}
+
+.carrito-vacio h2 {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+}
+
+.carrito-vacio p {
+    color: var(--tinta-suave);
+    margin-bottom: 24px;
+}

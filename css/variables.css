@@ -1,0 +1,45 @@
+/* ==========================================================
+   variables.css — Paleta cromática y variables globales
+   El Rincón del Perrito
+   ========================================================== */
+
+:root {
+    /* Paleta cromática oficial */
+    --celeste-fondo: #EAF7FC;
+    --celeste: #4FB8DD;
+    --celeste-suave: #CDEEF8;
+    --celeste-fuerte: #1D8AB0;
+    --azul-boton: #167094;
+    --azul-boton-hover: #0F5A78;
+    --tinta: #0F3F52;
+    --tinta-suave: #476A79;
+    --tinta-clara: #7C98A5;
+    --calido: #FFB27A;
+    --calido-hover: #F29A5B;
+    --blanco: #FFFFFF;
+    --gris-fondo: #F5F9FA;
+    --gris-borde: #D5E4EB;
+
+    /* Estados y alertas */
+    --error: #B3261E;
+    --error-fondo: #FDE8E8;
+    --exito: #1B7A43;
+    --exito-fondo: #DEF7EC;
+    --alerta: #B45309;
+    --alerta-fondo: #FEF3C7;
+    --info: #1D4ED8;
+    --info-fondo: #DBEAFE;
+
+    /* Tipografía */
+    --fuente-titulos: "Fredoka", "Trebuchet MS", Arial, sans-serif;
+    --fuente-texto: "Work Sans", "Segoe UI", Arial, sans-serif;
+
+    /* Medidas y diseño */
+    --radio: 14px;
+    --radio-chico: 8px;
+    --radio-redondo: 9999px;
+    --ancho-max: 1140px;
+    --sombra: 0 4px 14px rgba(15, 63, 82, 0.08);
+    --sombra-fuerte: 0 8px 24px rgba(15, 63, 82, 0.14);
+    --transicion: all 0.2s ease-in-out;
+}

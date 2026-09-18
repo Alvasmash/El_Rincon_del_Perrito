@@ -1,0 +1,191 @@
+/* ==========================================================
+   detalle-producto.css — Vista de ficha técnica de producto
+   ========================================================== */
+
+.miga-pan {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: var(--tinta-suave);
+    margin: 24px 0 20px;
+}
+
+.miga-pan a {
+    color: var(--celeste-fuerte);
+}
+
+.detalle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 40px;
+    background: var(--blanco);
+    padding: 32px;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    margin-bottom: 48px;
+}
+
+.detalle-galeria {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.foto-principal {
+    width: 100%;
+    height: 380px;
+    background: #F8FCFD;
+    border: 1px solid var(--celeste-suave);
+    border-radius: var(--radio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.foto-principal img {
+    max-height: 340px;
+    object-fit: contain;
+}
+
+.galeria-thumbs {
+    display: flex;
+    gap: 12px;
+}
+
+.thumb-item {
+    width: 70px;
+    height: 70px;
+    background: #F8FCFD;
+    border: 2px solid var(--celeste-suave);
+    border-radius: var(--radio-chico);
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transicion);
+}
+
+.thumb-item.activo,
+.thumb-item:hover {
+    border-color: var(--azul-boton);
+    transform: scale(1.05);
+}
+
+.detalle-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.detalle-info .cat-badge {
+    align-self: flex-start;
+    margin-bottom: 8px;
+}
+
+.detalle-info h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.detalle-codigo {
+    color: var(--tinta-clara);
+    font-size: 0.88rem;
+    margin-bottom: 16px;
+}
+
+.detalle-precio {
+    font-family: var(--fuente-titulos);
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--azul-boton);
+    margin-bottom: 16px;
+}
+
+.detalle-descripcion {
+    font-size: 1rem;
+    color: var(--tinta);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--celeste-suave);
+}
+
+.detalle-caracteristicas {
+    margin-bottom: 24px;
+}
+
+.detalle-caracteristicas li {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.detalle-caracteristicas strong {
+    color: var(--tinta);
+    min-width: 100px;
+}
+
+.alerta-stock-critico {
+    background: var(--alerta-fondo);
+    color: var(--alerta);
+    padding: 10px 14px;
+    border-radius: var(--radio-chico);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.accion-compra {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.selector-cantidad {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--celeste);
+    border-radius: var(--radio-chico);
+    background: var(--blanco);
+    overflow: hidden;
+}
+
+.btn-cant {
+    background: none;
+    border: none;
+    width: 38px;
+    height: 42px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--tinta);
+    cursor: pointer;
+    transition: var(--transicion);
+}
+
+.btn-cant:hover {
+    background: var(--celeste-suave);
+}
+
+.input-cant {
+    width: 50px;
+    height: 42px;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--tinta);
+}
+
+.accion-compra .boton {
+    flex: 1;
+    height: 44px;
+    font-size: 1rem;
+}

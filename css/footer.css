@@ -1,75 +1,92 @@
-/* Footer */
-footer {
-    background: #7DD3FC;
-    color: white;
-    text-align: center;
-    padding: 18px;
+/* ==========================================================
+   footer.css — Pie de página completo de la tienda
+   ========================================================== */
+
+.pie-pagina {
+    background: var(--tinta);
+    color: #D6E9F0;
+    margin-top: 60px;
+    padding-top: 48px;
+    border-top: 4px solid var(--celeste);
 }
 
-.footer {
-    background: #262626;
-    color: white;
+.pie-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+    gap: 36px;
+    padding-bottom: 40px;
+}
+
+.pie-col h3,
+.pie-col h4 {
+    color: var(--celeste-suave);
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+}
+
+.pie-col p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.pie-col ul li {
+    margin-bottom: 8px;
+}
+
+.pie-col ul li a {
+    color: #D6E9F0;
+    font-size: 0.92rem;
+    transition: var(--transicion);
+}
+
+.pie-col ul li a:hover {
+    color: var(--calido);
+    padding-left: 4px;
+}
+
+/* Formulario newsletter en footer */
+.form-newsletter {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 40px 60px;
-    margin-top: 40px;
+    gap: 8px;
+    margin-top: 12px;
 }
 
-.footer-info {
-    max-width: 350px;
+.form-newsletter input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 14px;
+    border-radius: var(--radio-chico);
+    border: 1px solid #1D5C75;
+    background: #174C61;
+    color: var(--blanco);
+    font-family: var(--fuente-texto);
+    font-size: 0.9rem;
 }
 
-.footer-info h2 {
-    color: #7DD3FC;
-    margin-bottom: 15px;
+.form-newsletter input::placeholder {
+    color: #92B5C4;
 }
 
-.footer-info p {
-    margin: 8px 0;
-    color: #d1d5db;
-}
-
-.footer-contacto {
-    width: 350px;
-}
-
-.footer-contacto h3 {
-    margin-bottom: 15px;
-    color: #7DD3FC;
-}
-
-.footer-contacto form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.footer-contacto input,
-.footer-contacto textarea {
-    padding: 12px;
+.form-newsletter button {
+    background: var(--calido);
+    color: var(--tinta);
     border: none;
-    border-radius: 8px;
-    background: #404040;
-    color: white;
-    font-size: 15px;
-}
-
-.footer-contacto input::placeholder,
-.footer-contacto textarea::placeholder {
-    color: #bdbdbd;
-}
-
-.footer-contacto button {
-    background: #38BDF8;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 10px 16px;
+    border-radius: var(--radio-chico);
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
+    transition: var(--transicion);
 }
 
-.footer-contacto button:hover {
-    background: #0EA5E9;
+.form-newsletter button:hover {
+    background: var(--calido-hover);
+}
+
+.pie-inferior {
+    background: #082937;
+    padding: 18px 0;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #98B8C6;
 }

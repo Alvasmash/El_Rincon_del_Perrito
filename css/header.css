@@ -1,37 +1,160 @@
-/* Header */
-header {
-    background: #7DD3FC;
-    color: white;
-    text-align: center;
-    padding: 25px;
+/* ==========================================================
+   header.css — Barra de navegación y encabezado de la tienda
+   ========================================================== */
+
+.encabezado {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(234, 247, 252, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--celeste-suave);
+    box-shadow: 0 2px 8px rgba(15, 63, 82, 0.04);
 }
 
-.contenedor-header {
+.barra-superior {
+    background: #D8EFF7;
+    font-size: 0.82rem;
+    padding: 4px 0;
+    color: var(--tinta-suave);
+    border-bottom: 1px solid rgba(79, 184, 221, 0.2);
+}
+
+.barra-superior .contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.barra-nav {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+    padding: 12px 0;
 }
 
-.logo {
-    width: 60px;
-    height: 60px;
+/* Marca / Logotipo */
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--tinta);
+    font-family: var(--fuente-titulos);
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+
+.marca img.logo {
+    width: 44px;
+    height: 44px;
     object-fit: contain;
+    transition: var(--transicion);
 }
 
-header h1 {
-    color: white;
-    font-size: 32px;
+.marca:hover img.logo {
+    transform: rotate(-10deg) scale(1.05);
 }
 
-/* Banner */
-.banner {
-    width: 100%;
-    overflow: hidden;
+/* Navegación principal */
+.menu-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
 }
 
-.banner img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    display: block;
+.menu-nav a {
+    color: var(--tinta);
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border-radius: var(--radio-chico);
+    transition: var(--transicion);
+}
+
+.menu-nav a:hover {
+    background: var(--celeste-suave);
+    color: var(--celeste-fuerte);
+}
+
+.menu-nav a[aria-current="page"] {
+    background: var(--celeste-suave);
+    color: var(--azul-boton);
+    font-weight: 700;
+}
+
+.enlace-destacado {
+    color: var(--celeste-fuerte) !important;
+    font-weight: 600 !important;
+}
+
+/* Botón de Carrito */
+.boton-carrito {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--blanco);
+    border: 1.5px solid var(--celeste);
+    border-radius: var(--radio-chico);
+    color: var(--tinta);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transicion);
+}
+
+.boton-carrito:hover {
+    background: var(--celeste-suave);
+    color: var(--tinta);
+    transform: scale(1.02);
+}
+
+.boton-carrito svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--azul-boton);
+}
+
+.badge-contador {
+    background: var(--calido);
+    color: var(--tinta);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: var(--radio-redondo);
+}
+
+/* Perfil de usuario activo en header */
+.usuario-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    background: var(--celeste-suave);
+    padding: 5px 12px;
+    border-radius: var(--radio-redondo);
+}
+
+.btn-cerrar-sesion {
+    background: none;
+    border: none;
+    color: var(--error);
+    font-size: 0.82rem;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+/* Botón hamburguesa móvil */
+.boton-hamburguesa {
+    display: none;
+    background: var(--blanco);
+    border: 1px solid var(--celeste);
+    color: var(--tinta);
+    padding: 8px 12px;
+    border-radius: var(--radio-chico);
+    font-weight: 600;
+    cursor: pointer;
 }

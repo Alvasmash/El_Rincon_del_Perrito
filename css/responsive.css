@@ -1,16 +1,122 @@
-/* Responsive */
-@media (max-width: 900px) {
-    .categoria .productos {
+/* ==========================================================
+   responsive.css — Estilos adaptativos para tabletas y móviles
+   ========================================================== */
+
+@media (max-width: 1024px) {
+    .grid-productos {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .pie-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+    }
+
+    .grid-kpi {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 500px) {
-    .categoria {
-        padding: 0 15px;
+@media (max-width: 768px) {
+    .boton-hamburguesa {
+        display: block;
+        margin-left: auto;
     }
 
-    .categoria .productos {
+    .menu-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: var(--blanco);
+        padding: 16px 20px;
+        box-shadow: var(--sombra-fuerte);
+        border-bottom: 2px solid var(--celeste);
+    }
+
+    .menu-nav.abierto {
+        display: flex;
+    }
+
+    .menu-nav a {
+        width: 100%;
+        padding: 10px 14px;
+    }
+
+    .hero-banner img {
+        height: 250px;
+    }
+
+    .hero-texto {
+        position: static;
+        transform: none;
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .grid-productos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .detalle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contenedor-carrito {
+        grid-template-columns: 1fr;
+    }
+
+    .item-carrito {
+        grid-template-columns: 70px 1fr 30px;
+        grid-template-areas:
+            "img info del"
+            "img precio cant";
+        gap: 10px;
+    }
+
+    .tarjeta-blog {
+        grid-template-columns: 1fr;
+    }
+
+    .seccion-mision-vision {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-equipo {
+        grid-template-columns: 1fr;
+    }
+
+    .layout-admin {
+        flex-direction: column;
+    }
+
+    .sidebar-admin {
+        width: 100%;
+    }
+
+    .form-fila-doble {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .grid-productos {
+        grid-template-columns: 1fr;
+    }
+
+    .pie-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-formulario {
+        padding: 24px 18px;
+    }
+
+    .grid-kpi {
         grid-template-columns: 1fr;
     }
 }
