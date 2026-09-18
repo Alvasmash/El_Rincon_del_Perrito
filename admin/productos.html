@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenedor de Productos — Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="icon" type="image/png" href="../Imagenes/pata_perrito.png">
+</head>
+<body>
+    <div class="layout-admin">
+        
+    <aside class="sidebar-admin">
+        <div class="sidebar-encabezado">
+            <img src="../Imagenes/pata_perrito.png" alt="Logo">
+            <span>Panel de Gestión</span>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="index.html" class="sidebar-link ">
+                <span>📊</span> Dashboard
+            </a>
+            <a href="productos.html" class="sidebar-link activo">
+                <span>📦</span> Productos
+            </a>
+            <a href="producto-form.html" class="sidebar-link " id="link-sidebar-nuevo-prod">
+                <span>➕</span> Nuevo Producto
+            </a>
+            <a href="usuarios.html" class="sidebar-link " id="link-sidebar-usuarios">
+                <span>👥</span> Usuarios
+            </a>
+            <a href="usuario-form.html" class="sidebar-link " id="link-sidebar-nuevo-usr">
+                <span>👤</span> Nuevo Usuario
+            </a>
+            <a href="ordenes.html" class="sidebar-link ">
+                <span>📑</span> Órdenes
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
+                <span>🏠</span> Ir a la Tienda
+            </a>
+            <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
+                <span>🚪</span> Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+    
+
+        <div class="contenido-admin">
+            
+    <header class="topbar-admin">
+        <h1>Mantenedor de Productos</h1>
+        <div class="topbar-usuario">
+            <span id="nombre-usuario-admin">Cargando usuario...</span>
+            <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
+        </div>
+    </header>
+    
+
+            <main class="panel-principal">
+                <div class="tarjeta-tabla">
+                    <div class="tabla-header">
+                        <div class="tabla-filtros">
+                            <input type="text" id="filtro-buscar" placeholder="Buscar por nombre o código...">
+                            <select id="filtro-categoria">
+                                <option value="">Todas las categorías</option>
+                                <option value="camas">Camas</option>
+                                <option value="juguetes">Juguetes</option>
+                                <option value="collares">Collares</option>
+                            </select>
+                        </div>
+                        <a href="producto-form.html" class="boton" id="btn-nuevo-producto">➕ Nuevo Producto</a>
+                    </div>
+
+                    <div class="tabla-responsive">
+                        <table class="tabla-admin">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre del Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Stock Crítico</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-productos-body">
+                                <tr><td colspan="7" style="text-align: center; padding: 20px;">Cargando inventario...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/productos-data.js"></script>
+    <script src="../js/usuarios-data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/admin-productos.js"></script>
+</body>
+</html>
