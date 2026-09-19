@@ -372,4 +372,4 @@ JSON.parse(localStorage.getItem("clave"));
 
 El sistema es una simulación frontend. `localStorage` no equivale a una base de datos real y las contraseñas se almacenan en el navegador.
 
-Por eso, el proyecto sirve para demostrar la lógica de una tienda y su panel administrativo, pero no debe considerarse un sistema listo para producción sin backend, autenticación segura y base de datos.
+Por eso, el proyecto sirve para demostrar la lógica de una tienda y su panel administrativo, pero no debe considerarse un sistema listo para producción sin backend, autenticación segura y base de datos
