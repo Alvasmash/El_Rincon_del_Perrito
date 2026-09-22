@@ -122,10 +122,13 @@ function renderizarCarrito() {
 
     const carrito = obtenerCarrito();
 
+
+    // Correcion: Si el carrito está vacio mostrar el emoji
     if (carrito.length === 0) {
         contenedor.innerHTML = `
             <div class="carrito-vacio">
-                <svg viewBox="0 0 24 24"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM1 2v2h2l3.6 7.6-1.4 2.4A2 2 0 0 0 7 17h12v-2H7.4l1.1-2h7.5a2 2 0 0 0 1.75-1.03l3.6-6.5A1 1 0 0 0 20.5 4H5.2l-.94-2H1Z"/></svg>
+                <!-- Icono del carrito. -->
+                <span class="icono-carrito-vacio" aria-hidden="true" style="font-size: 5rem;">🛒</span>
                 <h2>Tu carrito está vacío</h2>
                 <p>Aún no has agregado ningún producto para consentir a tu perrito.</p>
                 <a href="productos.html" class="boton">Ver Catálogo de Productos</a>
