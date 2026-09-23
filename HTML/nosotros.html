@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Permite utilizar tildes, ñ y otros caracteres especiales. -->
     <meta charset="UTF-8">
+
+    <!-- Adapta la página al tamaño de la pantalla. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nosotros y Desarrolladores — El Rincón del Perrito</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo utilizadas en la página. -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/nosotros.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Icono que aparece en la pestaña del navegador. -->
     <link rel="icon" type="image/png" href="../Imagenes/pata_perrito.png">
 </head>
+
 <body>
-    
+
+    <!-- Encabezado principal del sitio. -->
     <header class="encabezado">
         <div class="barra-superior">
             <div class="contenedor">
@@ -24,6 +31,8 @@
                 <span>📞 Soporte: +56 9 1234 5678 | Duoc UC</span>
             </div>
         </div>
+
+        <!-- Menú principal de navegación. -->
         <div class="contenedor barra-nav">
             <a href="index.html" class="marca" title="Volver al inicio">
                 <img src="../Imagenes/pata_perrito.png" alt="Logo El Rincón del Perrito" class="logo">
@@ -31,46 +40,53 @@
             </a>
 
             <nav class="menu-nav" id="menu-principal" aria-label="Navegación principal">
-                <a href="index.html" >Home</a>
-                <a href="productos.html" >Productos</a>
+                <a href="index.html">Home</a>
+                <a href="productos.html">Productos</a>
                 <a href="nosotros.html" aria-current="page">Nosotros</a>
-                <a href="blogs.html" >Blogs</a>
-                <a href="contacto.html" >Contacto</a>
+                <a href="blogs.html">Blogs</a>
+                <a href="contacto.html">Contacto</a>
+
+                <!-- JavaScript utiliza este contenedor para controlar el estado del usuario. -->
                 <span id="contenedor-auth-header" style="display: inline-flex; align-items: center; gap: 8px;">
-                    <a href="login.html" class="enlace-destacado" >Iniciar sesión</a>
-                    <a href="registro.html" class="enlace-destacado" >Registrar usuario</a>
+                    <a href="login.html" class="enlace-destacado">Iniciar sesión</a>
+                    <a href="registro.html" class="enlace-destacado">Registrar usuario</a>
                 </span>
             </nav>
 
+            <!-- Enlace al carrito con su contador de productos. -->
             <a href="carrito.html" class="boton-carrito" aria-label="Ver carrito de compras">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM1 2v2h2l3.6 7.6-1.4 2.4A2 2 0 0 0 7 17h12v-2H7.4l1.1-2h7.5a2 2 0 0 0 1.75-1.03l3.6-6.5A1 1 0 0 0 20.5 4H5.2l-.94-2H1Z"/></svg>
+                <!-- Icono del carrito. -->
+                <span aria-hidden="true">🛒</span>
                 <span>Carrito (<span id="contador-carrito">0</span>)</span>
             </a>
 
+            <!-- Botón para abrir el menú en pantallas pequeñas. -->
             <button type="button" class="boton-hamburguesa" id="boton-hamburguesa" aria-label="Abrir menú">☰</button>
         </div>
     </header>
-    
 
     <main class="contenedor">
+
+        <!-- Presentación general de la empresa. -->
         <section class="hero-nosotros">
             <h1 class="titulo-seccion centrado">Sobre El Rincón del Perrito</h1>
             <p>Somos una tienda especializada creada con la convicción de que las mascotas son parte fundamental de la familia. Nos dedicamos a diseñar y distribuir productos ergonómicos, duraderos y seguros para perritos en todo Chile.</p>
         </section>
 
-        <!-- Misión y Visión -->
+        <!-- Misión y visión de la empresa. -->
         <section class="seccion-mision-vision">
             <article class="tarjeta-mision">
                 <h2>🎯 Nuestra Misión</h2>
                 <p>Brindar soluciones accesibles y de excelente calidad para el bienestar de perros de todas las razas y edades, fomentando el juego saludable, el descanso confortable y la tenencia responsable en cada hogar.</p>
             </article>
+
             <article class="tarjeta-mision">
                 <h2>🌟 Nuestra Visión</h2>
                 <p>Ser la tienda online de referencia en Chile para dueños de perritos, reconocida por nuestra atención cercana, cumplimiento ético y desarrollo de tecnología accesible y amigable.</p>
             </article>
         </section>
 
-        <!-- Requisito PDF: "Una página web en donde explican de qué se trata la empresa, su misión y los desarrolladores." -->
+        <!-- Información del equipo encargado del desarrollo. -->
         <section class="seccion-equipo">
             <h2 class="titulo-seccion centrado">Equipo de Desarrollo Duoc UC</h2>
             <p class="subtitulo-seccion" style="text-align: center;">Estudiantes de la Escuela de Informática y Telecomunicaciones a cargo de la arquitectura y desarrollo.</p>
@@ -82,12 +98,14 @@
                     <p class="rol">Líder Frontend & Arquitectura</p>
                     <p>Encargado de la estructura semántica HTML5, diseño responsivo CSS modular y experiencia de usuario integral.</p>
                 </article>
+
                 <article class="tarjeta-miembro">
                     <div class="avatar-desarrollador">💻</div>
                     <h3>Desarrollador JavaScript</h3>
                     <p class="rol">Lógica de Negocio & Carrito</p>
                     <p>Implementación del algoritmo Módulo 11 para RUN chileno, validaciones en tiempo real y persistencia en LocalStorage.</p>
                 </article>
+
                 <article class="tarjeta-miembro">
                     <div class="avatar-desarrollador">🛠️</div>
                     <h3>Administrador del Sistema</h3>
@@ -98,7 +116,7 @@
         </section>
     </main>
 
-    
+    <!-- Pie de página con información, navegación y suscripción. -->
     <footer class="pie-pagina">
         <div class="contenedor pie-grid">
             <div class="pie-col">
@@ -106,6 +124,7 @@
                 <p>Tu tienda especializada en productos de alta calidad para el cuidado, comodidad y entretenimiento de tu mejor amigo de cuatro patas.</p>
                 <p><strong>Campus:</strong> Duoc UC — Escuela de Informática</p>
             </div>
+
             <div class="pie-col">
                 <h4>Navegación</h4>
                 <ul>
@@ -116,6 +135,7 @@
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
+
             <div class="pie-col">
                 <h4>Categorías</h4>
                 <ul>
@@ -125,23 +145,27 @@
                     <li><a href="../admin/index.html">Acceso Administrador</a></li>
                 </ul>
             </div>
+
             <div class="pie-col">
                 <h4>Mantente al día</h4>
                 <p>Recibe ofertas exclusivas y tips de cuidado canino en tu correo.</p>
+
+                <!-- Evita recargar la página, muestra un mensaje y limpia el formulario. -->
                 <form class="form-newsletter" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte al newsletter!'); this.reset();">
                     <input type="email" placeholder="tu-correo@gmail.com" required>
                     <button type="submit">Suscribir</button>
                 </form>
             </div>
         </div>
+
         <div class="pie-inferior">
             <div class="contenedor">
                 <p>© 2026 El Rincón del Perrito — Proyecto Evaluación 1 (Duoc UC). Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
-    
 
+    <!-- Scripts para datos, autenticación y funcionamiento del encabezado. -->
     <script src="../js/productos-data.js"></script>
     <script src="../js/usuarios-data.js"></script>
     <script src="../js/auth.js"></script>
