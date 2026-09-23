@@ -4,142 +4,240 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Producto — Admin</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo utilizadas por el formulario. -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/formularios.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Icono mostrado en la pestaña del navegador. -->
     <link rel="icon" type="image/png" href="../Imagenes/pata_perrito.png">
 </head>
+
 <body>
     <div class="layout-admin">
-        
-    <aside class="sidebar-admin">
-        <div class="sidebar-encabezado">
-            <img src="../Imagenes/pata_perrito.png" alt="Logo">
-            <span>Panel de Gestión</span>
-        </div>
-        <nav class="sidebar-menu">
-            <a href="index.html" class="sidebar-link ">
-                <span>📊</span> Dashboard
-            </a>
-            <a href="productos.html" class="sidebar-link ">
-                <span>📦</span> Productos
-            </a>
-            <a href="producto-form.html" class="sidebar-link activo" id="link-sidebar-nuevo-prod">
-                <span>➕</span> Nuevo Producto
-            </a>
-            <a href="usuarios.html" class="sidebar-link " id="link-sidebar-usuarios">
-                <span>👥</span> Usuarios
-            </a>
-            <a href="usuario-form.html" class="sidebar-link " id="link-sidebar-nuevo-usr">
-                <span>👤</span> Nuevo Usuario
-            </a>
-            <a href="ordenes.html" class="sidebar-link ">
-                <span>📑</span> Órdenes
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
-                <span>🏠</span> Ir a la Tienda
-            </a>
-            <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
-                <span>🚪</span> Cerrar Sesión
-            </a>
-        </div>
-    </aside>
-    
+
+        <!-- Barra lateral de navegación del panel. -->
+        <aside class="sidebar-admin">
+            <div class="sidebar-encabezado">
+                <img src="../Imagenes/pata_perrito.png" alt="Logo">
+                <span>Panel de Gestión</span>
+            </div>
+
+            <!-- Opciones disponibles dentro del panel administrativo. -->
+            <nav class="sidebar-menu">
+                <a href="index.html" class="sidebar-link">
+                    <span>📊</span> Dashboard
+                </a>
+
+                <a href="productos.html" class="sidebar-link">
+                    <span>📦</span> Productos
+                </a>
+
+                <a href="producto-form.html" class="sidebar-link activo" id="link-sidebar-nuevo-prod">
+                    <span>➕</span> Nuevo Producto
+                </a>
+
+                <a href="usuarios.html" class="sidebar-link" id="link-sidebar-usuarios">
+                    <span>👥</span> Usuarios
+                </a>
+
+                <a href="usuario-form.html" class="sidebar-link" id="link-sidebar-nuevo-usr">
+                    <span>👤</span> Nuevo Usuario
+                </a>
+
+                <a href="ordenes.html" class="sidebar-link">
+                    <span>📑</span> Órdenes
+                </a>
+            </nav>
+
+            <!-- Acciones generales del panel. -->
+            <div class="sidebar-footer">
+                <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
+                    <span>🏠</span> Ir a la Tienda
+                </a>
+
+                <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
+                    <span>🚪</span> Cerrar Sesión
+                </a>
+            </div>
+        </aside>
 
         <div class="contenido-admin">
-            
-    <header class="topbar-admin">
-        <h1>Gestión de Producto</h1>
-        <div class="topbar-usuario">
-            <span id="nombre-usuario-admin">Cargando usuario...</span>
-            <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
-        </div>
-    </header>
-    
+
+            <!-- Barra superior con información del usuario actual. -->
+            <header class="topbar-admin">
+                <h1>Gestión de Producto</h1>
+
+                <div class="topbar-usuario">
+                    <span id="nombre-usuario-admin">Cargando usuario...</span>
+                    <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
+                </div>
+            </header>
 
             <main class="panel-principal">
+
+                <!-- Contenedor principal del formulario de producto. -->
                 <section class="tarjeta-formulario ancho-grande" style="margin: 0 auto;">
                     <div class="header-formulario" style="text-align: left; margin-bottom: 20px;">
-                        <h2 id="titulo-form-producto" style="font-size: 1.6rem; color: var(--azul-boton);">Nuevo Producto</h2>
+                        <h2 id="titulo-form-producto" style="font-size: 1.6rem; color: var(--azul-boton);">
+                            Nuevo Producto
+                        </h2>
                         <p>Complete las características y disponibilidad del producto según las reglas de negocio.</p>
                     </div>
 
+                    <!-- novalidate permite que las validaciones sean controladas por JavaScript. -->
                     <form id="form-producto" novalidate>
+
+                        <!-- Código y categoría del producto. -->
                         <div class="form-fila-doble">
-                            <!-- Código producto: Requerido, texto, min 3 -->
+
+                            <!-- Código producto: Requerido, texto, min 3. -->
                             <div class="form-grupo">
-                                <label for="prod-codigo">CÓDIGO PRODUCTO <span class="requerido">*</span></label>
-                                <input type="text" id="prod-codigo" class="form-control" placeholder="Ej: CAM005" minlength="3" required>
+                                <label for="prod-codigo">
+                                    CÓDIGO PRODUCTO <span class="requerido">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="prod-codigo"
+                                    class="form-control"
+                                    placeholder="Ej: CAM005"
+                                    minlength="3"
+                                    required
+                                >
+
                                 <span class="mensaje-error" id="error-prod-codigo"></span>
                                 <span class="mensaje-sugerencia">Mínimo 3 caracteres.</span>
                             </div>
 
-                            <!-- Categoría: Requerido, select -->
+                            <!-- Categoría: Requerida, seleccionada desde una lista. -->
                             <div class="form-grupo">
-                                <label for="prod-categoria">CATEGORÍA <span class="requerido">*</span></label>
+                                <label for="prod-categoria">
+                                    CATEGORÍA <span class="requerido">*</span>
+                                </label>
+
                                 <select id="prod-categoria" class="form-control" required>
                                     <option value="">-- Seleccionar categoría --</option>
                                     <option value="camas">Camas</option>
                                     <option value="juguetes">Juguetes</option>
                                     <option value="collares">Collares</option>
                                 </select>
+
                                 <span class="mensaje-error" id="error-prod-categoria"></span>
                             </div>
                         </div>
 
-                        <!-- Nombre: Requerido, máx 100 -->
+                        <!-- Nombre del producto. -->
                         <div class="form-grupo">
-                            <label for="prod-nombre">NOMBRE DEL PRODUCTO <span class="requerido">*</span></label>
-                            <input type="text" id="prod-nombre" class="form-control" placeholder="Ej: Cama Suave Antiestrés" maxlength="100" required>
+                            <label for="prod-nombre">
+                                NOMBRE DEL PRODUCTO <span class="requerido">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="prod-nombre"
+                                class="form-control"
+                                placeholder="Ej: Cama Suave Antiestrés"
+                                maxlength="100"
+                                required
+                            >
+
                             <span class="mensaje-error" id="error-prod-nombre"></span>
                             <span class="mensaje-sugerencia">Máximo 100 caracteres.</span>
                         </div>
 
-                        <!-- Descripción: Opcional, máx 500 -->
+                        <!-- Descripción opcional del producto. -->
                         <div class="form-grupo">
                             <label for="prod-descripcion">DESCRIPCIÓN (Opcional)</label>
-                            <textarea id="prod-descripcion" class="form-control" placeholder="Detalle los beneficios, material y uso recomendado..." maxlength="500"></textarea>
+
+                            <textarea
+                                id="prod-descripcion"
+                                class="form-control"
+                                placeholder="Detalle los beneficios, material y uso recomendado..."
+                                maxlength="500"
+                            ></textarea>
+
                             <span class="mensaje-error" id="error-prod-descripcion"></span>
                             <span class="mensaje-sugerencia">Máximo 500 caracteres.</span>
                         </div>
 
+                        <!-- Precio y stock actual del producto. -->
                         <div class="form-fila-doble">
-                            <!-- Precio: Requerido, mín 0 (0 = FREE), decimales permitidos -->
+
+                            <!-- Precio: Requerido, mínimo 0 y permite decimales. -->
                             <div class="form-grupo">
-                                <label for="prod-precio">PRECIO ($ CLP) <span class="requerido">*</span></label>
-                                <input type="number" id="prod-precio" class="form-control" placeholder="15990" min="0" step="0.5" required>
+                                <label for="prod-precio">
+                                    PRECIO ($ CLP) <span class="requerido">*</span>
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="prod-precio"
+                                    class="form-control"
+                                    placeholder="15990"
+                                    min="0"
+                                    step="0.5"
+                                    required
+                                >
+
                                 <span class="mensaje-error" id="error-prod-precio"></span>
-                                <span class="mensaje-sugerencia">Mínimo 0 (0 se considerará producto GRATIS / FREE).</span>
+                                <span class="mensaje-sugerencia">
+                                    Mínimo 0 (0 se considerará producto GRATIS / FREE).
+                                </span>
                             </div>
 
-                            <!-- Stock: Requerido, mín 0, solo enteros -->
+                            <!-- Stock: Requerido, mínimo 0 y solo números enteros. -->
                             <div class="form-grupo">
-                                <label for="prod-stock">STOCK (Inventario) <span class="requerido">*</span></label>
-                                <input type="number" id="prod-stock" class="form-control" placeholder="10" min="0" step="1" required>
+                                <label for="prod-stock">
+                                    STOCK (Inventario) <span class="requerido">*</span>
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="prod-stock"
+                                    class="form-control"
+                                    placeholder="10"
+                                    min="0"
+                                    step="1"
+                                    required
+                                >
+
                                 <span class="mensaje-error" id="error-prod-stock"></span>
-                                <span class="mensaje-sugerencia">Solo números enteros mayor o igual a 0.</span>
+                                <span class="mensaje-sugerencia">
+                                    Solo números enteros mayor o igual a 0.
+                                </span>
                             </div>
                         </div>
 
+                        <!-- Stock crítico e imagen del producto. -->
                         <div class="form-fila-doble">
-                            <!-- Stock Crítico: Opcional, mín 0, solo enteros -->
+
+                            <!-- Stock crítico: Opcional, mínimo 0 y solo números enteros. -->
                             <div class="form-grupo">
                                 <label for="prod-stock-critico">STOCK CRÍTICO (Alerta)</label>
-                                <input type="number" id="prod-stock-critico" class="form-control" placeholder="3" min="0" step="1">
+
+                                <input
+                                    type="number"
+                                    id="prod-stock-critico"
+                                    class="form-control"
+                                    placeholder="3"
+                                    min="0"
+                                    step="1"
+                                >
+
                                 <span class="mensaje-error" id="error-prod-stock-critico"></span>
-                                <span class="mensaje-sugerencia">Dispara alerta visual cuando stock &le; stock crítico.</span>
+                                <span class="mensaje-sugerencia">
+                                    Dispara alerta visual cuando stock &le; stock crítico.
+                                </span>
                             </div>
 
-                            <!-- Imagen: Opcional -->
+                            <!-- Selección de la imagen asociada al producto. -->
                             <div class="form-grupo">
                                 <label for="prod-imagen">IMAGEN DEL PRODUCTO</label>
+
                                 <select id="prod-imagen" class="form-control">
                                     <option value="cama.png">Cama de Madera (cama.png)</option>
                                     <option value="camav2.png">Cama Térmica (camav2.png)</option>
@@ -157,9 +255,15 @@
                             </div>
                         </div>
 
+                        <!-- Acciones para guardar o cancelar el formulario. -->
                         <div style="display: flex; gap: 12px; margin-top: 24px;">
-                            <button type="submit" class="boton" style="padding: 12px 24px;">Guardar Producto</button>
-                            <a href="productos.html" class="boton boton-secundario">Cancelar</a>
+                            <button type="submit" class="boton" style="padding: 12px 24px;">
+                                Guardar Producto
+                            </button>
+
+                            <a href="productos.html" class="boton boton-secundario">
+                                Cancelar
+                            </a>
                         </div>
                     </form>
                 </section>
@@ -167,6 +271,7 @@
         </div>
     </div>
 
+    <!-- Archivos con datos, validaciones, autenticación y lógica del formulario. -->
     <script src="../js/productos-data.js"></script>
     <script src="../js/usuarios-data.js"></script>
     <script src="../js/validaciones.js"></script>
