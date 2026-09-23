@@ -2,6 +2,7 @@
    nosotros.css — Información de la empresa y desarrolladores
    ========================================================== */
 
+/* Encabezado principal de la página Nosotros. */
 .hero-nosotros {
     text-align: center;
     padding: 40px 20px 20px;
@@ -9,16 +10,19 @@
     margin: 0 auto;
 }
 
+/* Título principal de la sección. */
 .hero-nosotros h1 {
     font-size: 2.4rem;
     margin-bottom: 12px;
 }
 
+/* Texto descriptivo del encabezado. */
 .hero-nosotros p {
     font-size: 1.15rem;
     color: var(--tinta-suave);
 }
 
+/* Organiza las tarjetas de misión y visión en dos columnas. */
 .seccion-mision-vision {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -26,6 +30,7 @@
     margin: 36px 0 60px;
 }
 
+/* Tarjeta que contiene la misión o visión de la empresa. */
 .tarjeta-mision {
     background: var(--blanco);
     border-radius: var(--radio);
@@ -34,6 +39,7 @@
     border: 1px solid var(--celeste-suave);
 }
 
+/* Título de las tarjetas de misión y visión. */
 .tarjeta-mision h2 {
     font-size: 1.4rem;
     margin-bottom: 12px;
@@ -41,10 +47,13 @@
 }
 
 /* Sección Desarrolladores / Equipo Duoc UC */
+
+/* Contenedor general de la sección del equipo. */
 .seccion-equipo {
     margin-bottom: 70px;
 }
 
+/* Distribuye las tarjetas de los desarrolladores en tres columnas. */
 .grid-equipo {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -52,6 +61,7 @@
     margin-top: 24px;
 }
 
+/* Tarjeta individual de cada integrante del equipo. */
 .tarjeta-miembro {
     background: var(--blanco);
     border-radius: var(--radio);
@@ -62,11 +72,13 @@
     transition: var(--transicion);
 }
 
+/* Eleva la tarjeta al pasar el cursor. */
 .tarjeta-miembro:hover {
     transform: translateY(-4px);
     box-shadow: var(--sombra-fuerte);
 }
 
+/* Avatar o identificador visual del desarrollador. */
 .avatar-desarrollador {
     width: 90px;
     height: 90px;
@@ -82,11 +94,13 @@
     border: 3px solid var(--celeste);
 }
 
+/* Nombre del integrante del equipo. */
 .tarjeta-miembro h3 {
     font-size: 1.2rem;
     margin-bottom: 4px;
 }
 
+/* Cargo o rol del integrante. */
 .tarjeta-miembro .rol {
     color: var(--celeste-fuerte);
     font-size: 0.9rem;
@@ -94,6 +108,7 @@
     margin-bottom: 12px;
 }
 
+/* Descripción del integrante del equipo. */
 .tarjeta-miembro p {
     color: var(--tinta-suave);
     font-size: 0.88rem;
