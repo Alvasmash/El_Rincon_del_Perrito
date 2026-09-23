@@ -3,13 +3,14 @@
    Sidebar vertical, contenido central, tablas y mantenedores
    ========================================================== */
 
+/* Estructura general del panel administrativo. */
 .layout-admin {
     display: flex;
     min-height: 100vh;
     background: #F4F8FA;
 }
 
-/* Sidebar lateral */
+/* Barra lateral del panel administrativo. */
 .sidebar-admin {
     width: 260px;
     background: var(--tinta);
@@ -20,6 +21,7 @@
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Encabezado de la barra lateral. */
 .sidebar-encabezado {
     padding: 24px 20px;
     border-bottom: 1px solid #16465A;
@@ -28,11 +30,13 @@
     gap: 12px;
 }
 
+/* Tamaño del logo dentro del encabezado. */
 .sidebar-encabezado img {
     width: 38px;
     height: 38px;
 }
 
+/* Nombre o título mostrado junto al logo. */
 .sidebar-encabezado span {
     font-family: var(--fuente-titulos);
     font-size: 1.15rem;
@@ -40,6 +44,7 @@
     color: var(--blanco);
 }
 
+/* Contenedor de los enlaces del menú lateral. */
 .sidebar-menu {
     padding: 20px 12px;
     display: flex;
@@ -48,6 +53,7 @@
     flex: 1;
 }
 
+/* Estilo general de los enlaces del menú. */
 .sidebar-link {
     display: flex;
     align-items: center;
@@ -61,23 +67,26 @@
     transition: var(--transicion);
 }
 
+/* Cambia el aspecto del enlace cuando se pasa el cursor. */
 .sidebar-link:hover {
     background: #194F66;
     color: var(--blanco);
 }
 
+/* Marca visualmente la sección que está activa. */
 .sidebar-link.activo {
     background: var(--celeste-fuerte);
     color: var(--blanco);
     font-weight: 600;
 }
 
+/* Pie de la barra lateral. */
 .sidebar-footer {
     padding: 16px 12px;
     border-top: 1px solid #16465A;
 }
 
-/* Contenido central del admin */
+/* Contenedor principal del contenido administrativo. */
 .contenido-admin {
     flex: 1;
     display: flex;
@@ -85,6 +94,7 @@
     min-width: 0;
 }
 
+/* Barra superior del contenido administrativo. */
 .topbar-admin {
     background: var(--blanco);
     padding: 14px 28px;
@@ -94,10 +104,12 @@
     align-items: center;
 }
 
+/* Título de la sección actual. */
 .topbar-admin h1 {
     font-size: 1.4rem;
 }
 
+/* Información del usuario en la barra superior. */
 .topbar-usuario {
     display: flex;
     align-items: center;
@@ -105,12 +117,13 @@
     font-size: 0.9rem;
 }
 
+/* Espacio principal donde se muestran los contenidos. */
 .panel-principal {
     padding: 28px;
     flex: 1;
 }
 
-/* Tarjetas resumen KPI */
+/* Tarjetas de resumen con indicadores principales (KPI). */
 .grid-kpi {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -127,6 +140,7 @@
     border-left: 4px solid var(--azul-boton);
 }
 
+/* Marca las tarjetas KPI que muestran una alerta. */
 .tarjeta-kpi.kpi-alerta {
     border-left-color: var(--alerta);
 }
@@ -138,6 +152,7 @@
     margin-bottom: 8px;
 }
 
+/* Número principal mostrado dentro de una tarjeta KPI. */
 .tarjeta-kpi .kpi-numero {
     font-size: 2rem;
     font-family: var(--fuente-titulos);
@@ -145,7 +160,7 @@
     color: var(--tinta);
 }
 
-/* Tablas de datos del admin (Figura 12) */
+/* Contenedor de las tablas utilizadas en el panel administrativo. */
 .tarjeta-tabla {
     background: var(--blanco);
     border-radius: var(--radio);
@@ -154,6 +169,7 @@
     border: 1px solid var(--gris-borde);
 }
 
+/* Encabezado de cada tabla y sus controles. */
 .tabla-header {
     display: flex;
     justify-content: space-between;
@@ -163,6 +179,7 @@
     gap: 12px;
 }
 
+/* Agrupa los campos de búsqueda y filtros. */
 .tabla-filtros {
     display: flex;
     gap: 10px;
@@ -177,10 +194,12 @@
     font-size: 0.9rem;
 }
 
+/* Permite desplazar horizontalmente las tablas en pantallas pequeñas. */
 .tabla-responsive {
     overflow-x: auto;
 }
 
+/* Tabla principal utilizada en el panel administrativo. */
 .tabla-admin {
     width: 100%;
     border-collapse: collapse;
@@ -188,6 +207,7 @@
     text-align: left;
 }
 
+/* Encabezados de las columnas de la tabla. */
 .tabla-admin th {
     background: #EAF4F8;
     color: var(--tinta);
@@ -197,21 +217,25 @@
     white-space: nowrap;
 }
 
+/* Celdas normales de la tabla. */
 .tabla-admin td {
     padding: 12px 14px;
     border-bottom: 1px solid #EDF4F7;
     vertical-align: middle;
 }
 
+/* Resalta una fila cuando el cursor pasa sobre ella. */
 .tabla-admin tr:hover td {
     background: #F8FCFD;
 }
 
+/* Agrupa los botones de acciones de cada fila. */
 .tabla-acciones {
     display: flex;
     gap: 8px;
 }
 
+/* Estilo base de los botones de acción. */
 .btn-accion {
     padding: 6px 10px;
     border-radius: var(--radio-chico);
@@ -223,25 +247,30 @@
     transition: var(--transicion);
 }
 
+/* Botón utilizado para editar registros. */
 .btn-accion-editar {
     background: var(--info-fondo);
     color: var(--info);
 }
 
+/* Cambia el fondo del botón editar al pasar el cursor. */
 .btn-accion-editar:hover {
     background: #C7D2FE;
 }
 
+/* Botón utilizado para eliminar registros. */
 .btn-accion-eliminar {
     background: var(--error-fondo);
     color: var(--error);
 }
 
+/* Cambia el aspecto del botón eliminar al pasar el cursor. */
 .btn-accion-eliminar:hover {
     background: #F87171;
     color: var(--blanco);
 }
 
+/* Etiqueta que indica que un producto tiene stock crítico. */
 .alerta-critica-badge {
     background: var(--error-fondo);
     color: var(--error);
