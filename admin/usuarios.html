@@ -4,74 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mantenedor de Usuarios — Admin</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo utilizadas por el mantenedor de usuarios. -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Icono mostrado en la pestaña del navegador. -->
     <link rel="icon" type="image/png" href="../Imagenes/pata_perrito.png">
 </head>
+
 <body>
     <div class="layout-admin">
-        
-    <aside class="sidebar-admin">
-        <div class="sidebar-encabezado">
-            <img src="../Imagenes/pata_perrito.png" alt="Logo">
-            <span>Panel de Gestión</span>
-        </div>
-        <nav class="sidebar-menu">
-            <a href="index.html" class="sidebar-link ">
-                <span>📊</span> Dashboard
-            </a>
-            <a href="productos.html" class="sidebar-link ">
-                <span>📦</span> Productos
-            </a>
-            <a href="producto-form.html" class="sidebar-link " id="link-sidebar-nuevo-prod">
-                <span>➕</span> Nuevo Producto
-            </a>
-            <a href="usuarios.html" class="sidebar-link activo" id="link-sidebar-usuarios">
-                <span>👥</span> Usuarios
-            </a>
-            <a href="usuario-form.html" class="sidebar-link " id="link-sidebar-nuevo-usr">
-                <span>👤</span> Nuevo Usuario
-            </a>
-            <a href="ordenes.html" class="sidebar-link ">
-                <span>📑</span> Órdenes
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
-                <span>🏠</span> Ir a la Tienda
-            </a>
-            <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
-                <span>🚪</span> Cerrar Sesión
-            </a>
-        </div>
-    </aside>
-    
+
+        <!-- Barra lateral de navegación del panel. -->
+        <aside class="sidebar-admin">
+            <div class="sidebar-encabezado">
+                <img src="../Imagenes/pata_perrito.png" alt="Logo">
+                <span>Panel de Gestión</span>
+            </div>
+
+            <!-- Opciones disponibles dentro del panel administrativo. -->
+            <nav class="sidebar-menu">
+                <a href="index.html" class="sidebar-link">
+                    <span>📊</span> Dashboard
+                </a>
+
+                <a href="productos.html" class="sidebar-link">
+                    <span>📦</span> Productos
+                </a>
+
+                <a href="producto-form.html" class="sidebar-link" id="link-sidebar-nuevo-prod">
+                    <span>➕</span> Nuevo Producto
+                </a>
+
+                <a href="usuarios.html" class="sidebar-link activo" id="link-sidebar-usuarios">
+                    <span>👥</span> Usuarios
+                </a>
+
+                <a href="usuario-form.html" class="sidebar-link" id="link-sidebar-nuevo-usr">
+                    <span>👤</span> Nuevo Usuario
+                </a>
+
+                <a href="ordenes.html" class="sidebar-link">
+                    <span>📑</span> Órdenes
+                </a>
+            </nav>
+
+            <!-- Acciones generales del panel. -->
+            <div class="sidebar-footer">
+                <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
+                    <span>🏠</span> Ir a la Tienda
+                </a>
+
+                <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
+                    <span>🚪</span> Cerrar Sesión
+                </a>
+            </div>
+        </aside>
 
         <div class="contenido-admin">
-            
-    <header class="topbar-admin">
-        <h1>Mantenedor de Usuarios</h1>
-        <div class="topbar-usuario">
-            <span id="nombre-usuario-admin">Cargando usuario...</span>
-            <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
-        </div>
-    </header>
-    
+
+            <!-- Barra superior con información del usuario actual. -->
+            <header class="topbar-admin">
+                <h1>Mantenedor de Usuarios</h1>
+
+                <div class="topbar-usuario">
+                    <span id="nombre-usuario-admin">Cargando usuario...</span>
+                    <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
+                </div>
+            </header>
 
             <main class="panel-principal">
+
+                <!-- Contenedor principal de la tabla de usuarios. -->
                 <div class="tarjeta-tabla">
+
+                    <!-- Buscador y acceso al formulario de nuevo usuario. -->
                     <div class="tabla-header">
                         <div class="tabla-filtros">
-                            <input type="text" id="filtro-buscar-usuario" placeholder="Buscar por RUN, nombre o correo...">
+
+                            <!-- Permite buscar usuarios por RUN, nombre o correo. -->
+                            <input
+                                type="text"
+                                id="filtro-buscar-usuario"
+                                placeholder="Buscar por RUN, nombre o correo..."
+                            >
                         </div>
-                        <a href="usuario-form.html" class="boton">➕ Nuevo Usuario</a>
+
+                        <!-- Redirige al formulario para crear un nuevo usuario. -->
+                        <a href="usuario-form.html" class="boton">
+                            ➕ Nuevo Usuario
+                        </a>
                     </div>
 
+                    <!-- Permite desplazar la tabla horizontalmente en pantallas pequeñas. -->
                     <div class="tabla-responsive">
                         <table class="tabla-admin">
                             <thead>
@@ -85,8 +113,14 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
+
+                            <!-- admin-usuarios.js genera las filas de usuarios aquí. -->
                             <tbody id="tabla-usuarios-body">
-                                <tr><td colspan="7" style="text-align: center; padding: 20px;">Cargando usuarios...</td></tr>
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 20px;">
+                                        Cargando usuarios...
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -95,6 +129,7 @@
         </div>
     </div>
 
+    <!-- Archivos con datos, autenticación y lógica del mantenedor. -->
     <script src="../js/productos-data.js"></script>
     <script src="../js/usuarios-data.js"></script>
     <script src="../js/auth.js"></script>
