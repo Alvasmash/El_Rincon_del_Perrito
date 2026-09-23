@@ -2,27 +2,34 @@
    responsive.css — Estilos adaptativos para tabletas y móviles
    ========================================================== */
 
+/* Ajustes para pantallas medianas, como tabletas y notebooks pequeños. */
 @media (max-width: 1024px) {
+    /* Reduce la cantidad de columnas del catálogo. */
     .grid-productos {
         grid-template-columns: repeat(3, 1fr);
     }
 
+    /* Organiza el footer en dos columnas. */
     .pie-grid {
         grid-template-columns: 1fr 1fr;
         gap: 28px;
     }
 
+    /* Reduce los indicadores administrativos a dos columnas. */
     .grid-kpi {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* Ajustes para pantallas pequeñas, como celulares. */
 @media (max-width: 768px) {
+    /* Muestra el botón hamburguesa para abrir el menú móvil. */
     .boton-hamburguesa {
         display: block;
         margin-left: auto;
     }
 
+    /* Oculta el menú principal hasta que se active. */
     .menu-nav {
         display: none;
         flex-direction: column;
@@ -36,19 +43,23 @@
         border-bottom: 2px solid var(--celeste);
     }
 
+    /* Muestra el menú cuando JavaScript agrega la clase "abierto". */
     .menu-nav.abierto {
         display: flex;
     }
 
+    /* Hace que cada enlace ocupe todo el ancho disponible. */
     .menu-nav a {
         width: 100%;
         padding: 10px 14px;
     }
 
+    /* Reduce la altura de la imagen principal del banner. */
     .hero-banner img {
         height: 250px;
     }
 
+    /* Quita la posición superpuesta del texto del banner en móvil. */
     .hero-texto {
         position: static;
         transform: none;
@@ -57,19 +68,23 @@
         box-shadow: none;
     }
 
+    /* Reduce el catálogo a dos columnas. */
     .grid-productos {
         grid-template-columns: repeat(2, 1fr);
         gap: 16px;
     }
 
+    /* Coloca la galería y la información del producto en una sola columna. */
     .detalle-grid {
         grid-template-columns: 1fr;
     }
 
+    /* Coloca el carrito y su resumen en una sola columna. */
     .contenedor-carrito {
         grid-template-columns: 1fr;
     }
 
+    /* Reorganiza cada producto del carrito para pantallas pequeñas. */
     .item-carrito {
         grid-template-columns: 70px 1fr 30px;
         grid-template-areas:
@@ -78,44 +93,55 @@
         gap: 10px;
     }
 
+    /* Coloca la imagen y el contenido del blog en una sola columna. */
     .tarjeta-blog {
         grid-template-columns: 1fr;
     }
 
+    /* Apila las tarjetas de misión y visión verticalmente. */
     .seccion-mision-vision {
         grid-template-columns: 1fr;
     }
 
+    /* Muestra los integrantes del equipo en una sola columna. */
     .grid-equipo {
         grid-template-columns: 1fr;
     }
 
+    /* Cambia el panel administrativo a una distribución vertical. */
     .layout-admin {
         flex-direction: column;
     }
 
+    /* Hace que la barra lateral ocupe todo el ancho disponible. */
     .sidebar-admin {
         width: 100%;
     }
 
+    /* Apila los campos dobles del formulario verticalmente. */
     .form-fila-doble {
         grid-template-columns: 1fr;
     }
 }
 
+/* Ajustes para celulares pequeños. */
 @media (max-width: 520px) {
+    /* Muestra una sola tarjeta de producto por fila. */
     .grid-productos {
         grid-template-columns: 1fr;
     }
 
+    /* Coloca todas las columnas del footer una debajo de otra. */
     .pie-grid {
         grid-template-columns: 1fr;
     }
 
+    /* Reduce el espacio interno de los formularios. */
     .tarjeta-formulario {
         padding: 24px 18px;
     }
 
+    /* Muestra cada indicador administrativo en una sola columna. */
     .grid-kpi {
         grid-template-columns: 1fr;
     }
