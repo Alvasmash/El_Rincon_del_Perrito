@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("form-registro");
     if (!form) return;
 
-    // Inicializar selects dependientes de regiones y comunas
+    // Inicializa los selectores de región y comuna con datos del arreglo JavaScript.
     inicializarSelectsRegionComuna("registro-region", "registro-comuna");
 
     const inputRun = document.getElementById("registro-run");
@@ -37,75 +37,98 @@ document.addEventListener("DOMContentLoaded", () => {
     const errComuna = document.getElementById("error-registro-comuna");
     const errDireccion = document.getElementById("error-registro-direccion");
 
+    // Valida el RUN y comprueba que no esté registrado previamente.
     function validarRun() {
         const res = validarRunChileno(inputRun.value);
+
         if (!res.valido) {
             mostrarErrorCampo(inputRun, errRun, res.mensaje);
             return false;
         }
+
+        // Evita registrar dos usuarios con el mismo RUN.
         if (buscarUsuarioPorRun(inputRun.value)) {
             mostrarErrorCampo(inputRun, errRun, "Este RUN ya se encuentra registrado.");
             return false;
         }
+
         limpiarErrorCampo(inputRun, errRun);
         return true;
     }
 
+    // Comprueba que el nombre sea obligatorio y respete el límite de caracteres.
     function validarNombre() {
         const res = validarLargoTexto(inputNombre.value, true, 2, 50, "El nombre");
+
         if (!res.valido) {
             mostrarErrorCampo(inputNombre, errNombre, res.mensaje);
             return false;
         }
+
         limpiarErrorCampo(inputNombre, errNombre);
         return true;
     }
 
+    // Comprueba que los apellidos sean obligatorios y respeten el límite establecido.
     function validarApellidos() {
         const res = validarLargoTexto(inputApellidos.value, true, 2, 100, "Los apellidos");
+
         if (!res.valido) {
             mostrarErrorCampo(inputApellidos, errApellidos, res.mensaje);
             return false;
         }
+
         limpiarErrorCampo(inputApellidos, errApellidos);
         return true;
     }
 
+    // Valida el formato del correo y comprueba que no esté registrado.
     function validarCorreo() {
         const res = validarCorreoPermitido(inputCorreo.value, true);
+
         if (!res.valido) {
             mostrarErrorCampo(inputCorreo, errCorreo, res.mensaje);
             return false;
         }
+
+        // Evita registrar dos usuarios con el mismo correo.
         if (buscarUsuarioPorCorreo(inputCorreo.value)) {
             mostrarErrorCampo(inputCorreo, errCorreo, "Este correo ya se encuentra registrado.");
             return false;
         }
+
         limpiarErrorCampo(inputCorreo, errCorreo);
         return true;
     }
 
+    // Comprueba que la contraseña exista y tenga una longitud válida.
     function validarClave() {
         const val = inputClave.value;
+
         if (!val || val.length < 4 || val.length > 20) {
             mostrarErrorCampo(inputClave, errClave, "La contraseña debe tener entre 4 y 20 caracteres.");
             return false;
         }
+
         limpiarErrorCampo(inputClave, errClave);
         return true;
     }
 
+    // Comprueba que la confirmación coincida con la contraseña original.
     function validarClaveConfirm() {
         if (inputClaveConfirm.value !== inputClave.value) {
             mostrarErrorCampo(inputClaveConfirm, errClaveConfirm, "Las contraseñas no coinciden.");
             return false;
         }
+
         limpiarErrorCampo(inputClaveConfirm, errClaveConfirm);
         return true;
     }
 
+    // Valida que tanto la región como la comuna hayan sido seleccionadas.
     function validarRegionYComuna() {
         let ok = true;
+
         if (!selectRegion.value) {
             mostrarErrorCampo(selectRegion, errRegion, "Seleccione una región.");
             ok = false;
@@ -119,19 +142,24 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             limpiarErrorCampo(selectComuna, errComuna);
         }
+
         return ok;
     }
 
+    // Comprueba que la dirección sea obligatoria y respete el límite de caracteres.
     function validarDireccion() {
         const res = validarLargoTexto(inputDireccion.value, true, 5, 300, "La dirección");
+
         if (!res.valido) {
             mostrarErrorCampo(inputDireccion, errDireccion, res.mensaje);
             return false;
         }
+
         limpiarErrorCampo(inputDireccion, errDireccion);
         return true;
     }
 
+    // Ejecuta las validaciones mientras el usuario escribe o sale de cada campo.
     inputRun.addEventListener("input", validarRun);
     inputRun.addEventListener("blur", validarRun);
 
@@ -156,9 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
     inputDireccion.addEventListener("input", validarDireccion);
     inputDireccion.addEventListener("blur", validarDireccion);
 
+    // Controla el envío final del formulario.
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        // Ejecuta todas las validaciones antes de registrar al usuario.
         const v1 = validarRun();
         const v2 = validarNombre();
         const v3 = validarApellidos();
@@ -186,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 fechaNacimiento: inputFecha ? inputFecha.value : ""
             };
 
+            // Guarda al usuario y crea automáticamente su sesión.
             guardarOActualizarUsuario(nuevoUsuario);
             iniciarSesionUsuario(nuevoUsuario);
 
