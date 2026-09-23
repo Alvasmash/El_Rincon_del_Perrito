@@ -4,103 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrativo — El Rincón del Perrito</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo principales del panel administrativo. -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Icono mostrado en la pestaña del navegador. -->
     <link rel="icon" type="image/png" href="../Imagenes/pata_perrito.png">
 </head>
+
 <body>
     <div class="layout-admin">
-        
-    <aside class="sidebar-admin">
-        <div class="sidebar-encabezado">
-            <img src="../Imagenes/pata_perrito.png" alt="Logo">
-            <span>Panel de Gestión</span>
-        </div>
-        <nav class="sidebar-menu">
-            <a href="index.html" class="sidebar-link activo">
-                <span>📊</span> Dashboard
-            </a>
-            <a href="productos.html" class="sidebar-link ">
-                <span>📦</span> Productos
-            </a>
-            <a href="producto-form.html" class="sidebar-link " id="link-sidebar-nuevo-prod">
-                <span>➕</span> Nuevo Producto
-            </a>
-            <a href="usuarios.html" class="sidebar-link " id="link-sidebar-usuarios">
-                <span>👥</span> Usuarios
-            </a>
-            <a href="usuario-form.html" class="sidebar-link " id="link-sidebar-nuevo-usr">
-                <span>👤</span> Nuevo Usuario
-            </a>
-            <a href="ordenes.html" class="sidebar-link ">
-                <span>📑</span> Órdenes
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
-                <span>🏠</span> Ir a la Tienda
-            </a>
-            <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
-                <span>🚪</span> Cerrar Sesión
-            </a>
-        </div>
-    </aside>
-    
+
+        <!-- Barra lateral de navegación del panel. -->
+        <aside class="sidebar-admin">
+            <div class="sidebar-encabezado">
+                <img src="../Imagenes/pata_perrito.png" alt="Logo">
+                <span>Panel de Gestión</span>
+            </div>
+
+            <!-- Opciones disponibles dentro del panel administrativo. -->
+            <nav class="sidebar-menu">
+                <a href="index.html" class="sidebar-link activo">
+                    <span>📊</span> Dashboard
+                </a>
+
+                <a href="productos.html" class="sidebar-link">
+                    <span>📦</span> Productos
+                </a>
+
+                <a href="producto-form.html" class="sidebar-link" id="link-sidebar-nuevo-prod">
+                    <span>➕</span> Nuevo Producto
+                </a>
+
+                <a href="usuarios.html" class="sidebar-link" id="link-sidebar-usuarios">
+                    <span>👥</span> Usuarios
+                </a>
+
+                <a href="usuario-form.html" class="sidebar-link" id="link-sidebar-nuevo-usr">
+                    <span>👤</span> Nuevo Usuario
+                </a>
+
+                <a href="ordenes.html" class="sidebar-link">
+                    <span>📑</span> Órdenes
+                </a>
+            </nav>
+
+            <!-- Acciones generales del panel. -->
+            <div class="sidebar-footer">
+                <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
+                    <span>🏠</span> Ir a la Tienda
+                </a>
+
+                <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
+                    <span>🚪</span> Cerrar Sesión
+                </a>
+            </div>
+        </aside>
 
         <div class="contenido-admin">
-            
-    <header class="topbar-admin">
-        <h1>¡HOLA Administrador!</h1>
-        <div class="topbar-usuario">
-            <span id="nombre-usuario-admin">Cargando usuario...</span>
-            <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
-        </div>
-    </header>
-    
+
+            <!-- Barra superior con información de la sesión actual. -->
+            <header class="topbar-admin">
+                <h1>¡HOLA Administrador!</h1>
+
+                <div class="topbar-usuario">
+                    <span id="nombre-usuario-admin">Cargando usuario...</span>
+                    <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
+                </div>
+            </header>
 
             <main class="panel-principal">
-                <!-- Tarjetas KPI de Resumen -->
+
+                <!-- Tarjetas KPI con los principales datos del sistema. -->
                 <div class="grid-kpi">
                     <div class="tarjeta-kpi">
                         <h4>Total Productos</h4>
                         <div class="kpi-numero" id="kpi-productos">0</div>
                     </div>
+
                     <div class="tarjeta-kpi kpi-alerta">
                         <h4>Alertas Stock Crítico</h4>
                         <div class="kpi-numero" id="kpi-stock-critico" style="color: var(--error);">0</div>
                     </div>
+
                     <div class="tarjeta-kpi" id="kpi-card-usuarios">
                         <h4>Usuarios Registrados</h4>
                         <div class="kpi-numero" id="kpi-usuarios">0</div>
                     </div>
+
                     <div class="tarjeta-kpi">
                         <h4>Órdenes Realizadas</h4>
                         <div class="kpi-numero" id="kpi-ordenes">0</div>
                     </div>
                 </div>
 
-                <!-- Accesos directos y bienvenida -->
+                <!-- Mensaje de bienvenida y accesos directos. -->
                 <div class="tarjeta-tabla" style="margin-bottom: 24px;">
-                    <h2 style="font-size: 1.3rem; margin-bottom: 12px; color: var(--azul-boton);">Bienvenido al Sistema de Gestión</h2>
+                    <h2 style="font-size: 1.3rem; margin-bottom: 12px; color: var(--azul-boton);">
+                        Bienvenido al Sistema de Gestión
+                    </h2>
+
                     <p style="color: var(--tinta-suave); margin-bottom: 18px; line-height: 1.6;">
-                        Desde este panel puedes supervisar el inventario de la tienda, agregar nuevos productos, monitorear los niveles de stock crítico, gestionar usuarios y revisar las órdenes de compra emitidas por los clientes.
+                        Desde este panel puedes supervisar el inventario de la tienda, agregar nuevos productos,
+                        monitorear los niveles de stock crítico, gestionar usuarios y revisar las órdenes de compra
+                        emitidas por los clientes.
                     </p>
+
                     <div style="display: flex; gap: 12px; flex-wrap: wrap;">
                         <a href="productos.html" class="boton">Ver Catálogo de Productos</a>
-                        <a href="producto-form.html" class="boton boton-calido" id="btn-home-nuevo-prod">Registrar Nuevo Producto</a>
-                        <a href="usuarios.html" class="boton boton-secundario" id="btn-home-usuarios">Gestión de Usuarios</a>
-                        <a href="ordenes.html" class="boton boton-secundario">Ver Órdenes</a>
+
+                        <a href="producto-form.html" class="boton boton-calido" id="btn-home-nuevo-prod">
+                            Registrar Nuevo Producto
+                        </a>
+
+                        <a href="usuarios.html" class="boton boton-secundario" id="btn-home-usuarios">
+                            Gestión de Usuarios
+                        </a>
+
+                        <a href="ordenes.html" class="boton boton-secundario">
+                            Ver Órdenes
+                        </a>
                     </div>
                 </div>
 
-                <!-- Tabla de productos con stock bajo para monitoreo rápido -->
+                <!-- Tabla utilizada para monitorear productos con stock crítico. -->
                 <div class="tarjeta-tabla">
-                    <h3 style="font-size: 1.15rem; margin-bottom: 14px;">⚠️ Productos con Stock Crítico (Atención inmediata)</h3>
+                    <h3 style="font-size: 1.15rem; margin-bottom: 14px;">
+                        ⚠️ Productos con Stock Crítico (Atención inmediata)
+                    </h3>
+
                     <div class="tabla-responsive">
                         <table class="tabla-admin">
                             <thead>
@@ -113,8 +148,11 @@
                                     <th>Acción</th>
                                 </tr>
                             </thead>
+
                             <tbody id="tabla-kpi-criticos-body">
-                                <tr><td colspan="6" style="text-align: center;">Cargando...</td></tr>
+                                <tr>
+                                    <td colspan="6" style="text-align: center;">Cargando...</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -123,21 +161,35 @@
         </div>
     </div>
 
+    <!-- Archivos con los datos y funciones de autenticación. -->
     <script src="../js/productos-data.js"></script>
     <script src="../js/usuarios-data.js"></script>
     <script src="../js/auth.js"></script>
+
     <script>
+        // Espera a que el HTML termine de cargar antes de ejecutar el código.
         document.addEventListener("DOMContentLoaded", () => {
+
+            // Comprueba que el usuario tenga permisos para acceder al panel.
             if (!verificarAccesoAdmin(true)) return;
 
+            // Obtiene los datos del usuario que inició sesión.
             const sesion = obtenerSesionActual();
+
             if (sesion) {
-                document.getElementById("nombre-usuario-admin").textContent = "¡Hola, " + sesion.nombre + "!";
+                // Muestra el nombre del usuario en la barra superior.
+                document.getElementById("nombre-usuario-admin").textContent =
+                    "¡Hola, " + sesion.nombre + "!";
+
+                // Muestra el rol actual del usuario.
                 const badgeRol = document.getElementById("rol-usuario-admin");
                 badgeRol.textContent = sesion.rol;
+
                 if (sesion.rol === "Vendedor") {
+                    // Cambia el estilo visual del rol Vendedor.
                     badgeRol.className = "badge badge-alerta";
-                    // Ocultar accesos a usuarios para rol Vendedor
+
+                    // Oculta las funciones que requieren permisos de Administrador.
                     const linkUsr = document.getElementById("link-sidebar-usuarios");
                     const linkNuevoUsr = document.getElementById("link-sidebar-nuevo-usr");
                     const linkNuevoProd = document.getElementById("link-sidebar-nuevo-prod");
@@ -154,31 +206,51 @@
                 }
             }
 
-            // Actualizar contadores KPI
+            // Obtiene los datos necesarios para actualizar los indicadores del dashboard.
             const productos = obtenerProductos();
             const usuarios = obtenerUsuarios();
             const ordenes = JSON.parse(localStorage.getItem("rincon_perrito_ordenes_v1")) || [];
-            const criticos = productos.filter(p => p.stockCritico && p.stock <= p.stockCritico);
 
+            // Filtra los productos cuyo stock está en el nivel crítico configurado.
+            const criticos = productos.filter(
+                p => p.stockCritico && p.stock <= p.stockCritico
+            );
+
+            // Actualiza los valores mostrados en las tarjetas KPI.
             document.getElementById("kpi-productos").textContent = productos.length;
             document.getElementById("kpi-stock-critico").textContent = criticos.length;
             document.getElementById("kpi-usuarios").textContent = usuarios.length;
             document.getElementById("kpi-ordenes").textContent = ordenes.length;
 
-            // Renderizar tabla de críticos
+            // Obtiene el cuerpo de la tabla donde se mostrarán los productos críticos.
             const tbody = document.getElementById("tabla-kpi-criticos-body");
+
             if (criticos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--exito); font-weight: 600;">✅ Todo el inventario se encuentra sobre el stock crítico.</td></tr>';
+                // Muestra un mensaje cuando ningún producto tiene stock crítico.
+                tbody.innerHTML =
+                    '<tr><td colspan="6" style="text-align: center; color: var(--exito); font-weight: 600;">✅ Todo el inventario se encuentra sobre el stock crítico.</td></tr>';
             } else {
+                // Genera una fila de la tabla por cada producto con stock crítico.
                 tbody.innerHTML = criticos.map(p => `
                     <tr>
                         <td><strong>${p.codigo || p.id}</strong></td>
                         <td>${p.nombre}</td>
-                        <td><span class="badge badge-info">${CATEGORIAS[p.categoria] || p.categoria}</span></td>
-                        <td><span class="alerta-critica-badge">${p.stock} unid.</span></td>
+                        <td>
+                            <span class="badge badge-info">
+                                ${CATEGORIAS[p.categoria] || p.categoria}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="alerta-critica-badge">
+                                ${p.stock} unid.
+                            </span>
+                        </td>
                         <td>${p.stockCritico} unid.</td>
                         <td>
-                            <a href="producto-form.html?id=${encodeURIComponent(p.id)}" class="btn-accion btn-accion-editar">Reabastecer / Editar</a>
+                            <a href="producto-form.html?id=${encodeURIComponent(p.id)}"
+                                class="btn-accion btn-accion-editar">
+                                Reabastecer / Editar
+                            </a>
                         </td>
                     </tr>
                 `).join("");
