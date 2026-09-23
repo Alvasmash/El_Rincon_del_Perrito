@@ -7,6 +7,7 @@ function crearTarjetaProducto(p) {
     const stockBajo = !sinStock && p.stockCritico && p.stock <= p.stockCritico;
     const precioTxt = formatearPrecio(p.precio);
 
+    // Genera la tarjeta visual de cada producto.
     return `
         <article class="tarjeta-producto">
             ${sinStock ? '<span class="sin-stock-tag">Agotado</span>' : ''}
@@ -35,15 +36,17 @@ function inicializarCatalogo() {
     const contenedor = document.getElementById("grid-productos");
     if (!contenedor) return;
 
+    // Obtiene la categoría y el límite de productos desde la URL y el HTML.
     const urlParams = new URLSearchParams(window.location.search);
     const catParam = urlParams.get("categoria");
     const limiteParam = parseInt(contenedor.dataset.limite, 10) || 0;
 
     let productos = catParam ? productosPorCategoria(catParam) : obtenerProductos();
 
-    // Marcar filtro activo
+    // Marca visualmente el filtro de categoría que está seleccionado.
     document.querySelectorAll(".filtro-btn").forEach(btn => {
         const cat = btn.dataset.categoria;
+
         if ((!catParam && !cat) || catParam === cat) {
             btn.classList.add("activo");
         } else {
@@ -52,11 +55,13 @@ function inicializarCatalogo() {
     });
 
     const contadorCatalogo = document.getElementById("conteo-catalogo");
+
     if (contadorCatalogo) {
         const catNombre = CATEGORIAS[catParam] || "Todos los productos";
         contadorCatalogo.textContent = `Mostrando ${productos.length} producto(s) en ${catNombre}`;
     }
 
+    // Limita la cantidad de productos mostrados cuando el HTML define un límite.
     if (limiteParam > 0) {
         productos = productos.slice(0, limiteParam);
     }
@@ -66,7 +71,9 @@ function inicializarCatalogo() {
         return;
     }
 
+    // Convierte cada producto en una tarjeta HTML y las muestra en el catálogo.
     contenedor.innerHTML = productos.map(crearTarjetaProducto).join("");
 }
 
+// Espera a que el HTML termine de cargar antes de inicializar el catálogo.
 document.addEventListener("DOMContentLoaded", inicializarCatalogo);
