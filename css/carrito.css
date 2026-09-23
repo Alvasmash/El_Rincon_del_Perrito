@@ -2,6 +2,7 @@
    carrito.css — Vista completa del carrito de compras (Figura 15)
    ========================================================== */
 
+/* Distribuye la lista de productos y el resumen de compra. */
 .contenedor-carrito {
     display: grid;
     grid-template-columns: 1.8fr 1fr;
@@ -10,13 +11,14 @@
     margin-bottom: 60px;
 }
 
+/* Organiza verticalmente los productos del carrito. */
 .lista-carrito {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* Tarjeta de ítem en el carrito */
+/* Tarjeta individual de cada producto agregado al carrito. */
 .item-carrito {
     background: var(--blanco);
     border-radius: var(--radio);
@@ -29,6 +31,7 @@
     border: 1px solid var(--celeste-suave);
 }
 
+/* Imagen del producto dentro del carrito. */
 .item-carrito img {
     width: 90px;
     height: 90px;
@@ -38,16 +41,19 @@
     padding: 6px;
 }
 
+/* Nombre del producto dentro de la información del ítem. */
 .item-carrito .info h3 {
     font-size: 1.05rem;
     margin-bottom: 4px;
 }
 
+/* Descripción o información secundaria del producto. */
 .item-carrito .info p {
     font-size: 0.84rem;
     color: var(--tinta-suave);
 }
 
+/* Precio individual del producto. */
 .item-carrito .precio-unitario {
     font-family: var(--fuente-titulos);
     font-size: 1.1rem;
@@ -55,6 +61,7 @@
     color: var(--tinta);
 }
 
+/* Contenedor de los controles para aumentar o disminuir cantidades. */
 .control-cantidades {
     display: flex;
     align-items: center;
@@ -63,6 +70,7 @@
     background: var(--blanco);
 }
 
+/* Botones de suma y resta de cantidad. */
 .control-cantidades button {
     background: none;
     border: none;
@@ -74,10 +82,12 @@
     transition: var(--transicion);
 }
 
+/* Cambia el fondo de los botones al pasar el cursor. */
 .control-cantidades button:hover {
     background: var(--celeste-suave);
 }
 
+/* Número que muestra la cantidad seleccionada. */
 .control-cantidades span {
     width: 32px;
     text-align: center;
@@ -85,6 +95,7 @@
     font-size: 0.95rem;
 }
 
+/* Botón para eliminar un producto del carrito. */
 .item-carrito .btn-eliminar {
     background: none;
     border: none;
@@ -100,11 +111,12 @@
     transition: var(--transicion);
 }
 
+/* Muestra un fondo de error al pasar el cursor sobre eliminar. */
 .item-carrito .btn-eliminar:hover {
     background: var(--error-fondo);
 }
 
-/* Panel lateral de resumen */
+/* Panel lateral que muestra el resumen de la compra. */
 .resumen-compra {
     background: var(--blanco);
     border-radius: var(--radio);
@@ -114,6 +126,7 @@
     border: 1px solid var(--celeste-suave);
 }
 
+/* Título del panel de resumen. */
 .resumen-compra h2 {
     font-size: 1.35rem;
     margin-bottom: 20px;
@@ -121,6 +134,7 @@
     border-bottom: 2px solid var(--celeste-suave);
 }
 
+/* Fila individual del subtotal, descuento u otros valores. */
 .resumen-fila {
     display: flex;
     justify-content: space-between;
@@ -129,6 +143,7 @@
     color: var(--tinta-suave);
 }
 
+/* Fila especial utilizada para mostrar el total final. */
 .resumen-fila.total {
     font-size: 1.35rem;
     font-family: var(--fuente-titulos);
@@ -140,7 +155,7 @@
     margin-bottom: 24px;
 }
 
-/* Cupón de descuento */
+/* Sección donde se ingresa un cupón de descuento. */
 .seccion-cupon {
     margin: 20px 0;
     padding: 16px 0;
@@ -148,6 +163,7 @@
     border-bottom: 1px dashed var(--celeste-suave);
 }
 
+/* Etiqueta que identifica el campo del cupón. */
 .seccion-cupon label {
     display: block;
     font-size: 0.85rem;
@@ -156,11 +172,13 @@
     color: var(--tinta);
 }
 
+/* Agrupa el campo de cupón y su botón. */
 .input-cupon-grupo {
     display: flex;
     gap: 8px;
 }
 
+/* Campo donde se escribe el código del cupón. */
 .input-cupon-grupo input {
     flex: 1;
     padding: 8px 12px;
@@ -171,6 +189,7 @@
     font-size: 0.9rem;
 }
 
+/* Botón utilizado para aplicar el cupón. */
 .input-cupon-grupo button {
     padding: 8px 14px;
     background: var(--celeste-fuerte);
@@ -181,10 +200,12 @@
     cursor: pointer;
 }
 
+/* Cambia el color del botón del cupón al pasar el cursor. */
 .input-cupon-grupo button:hover {
     background: var(--azul-boton);
 }
 
+/* Botón principal para realizar el pago. */
 .btn-pagar {
     width: 100%;
     padding: 14px;
@@ -195,11 +216,12 @@
     letter-spacing: 0.5px;
 }
 
+/* Oscurece el botón de pago al pasar el cursor. */
 .btn-pagar:hover {
     background: #15803D !important;
 }
 
-/* Carrito vacío */
+/* Contenedor que se muestra cuando el carrito no tiene productos. */
 .carrito-vacio {
     text-align: center;
     background: var(--blanco);
@@ -209,18 +231,13 @@
     grid-column: 1 / -1;
 }
 
-.carrito-vacio svg {
-    width: 72px;
-    height: 72px;
-    fill: var(--celeste);
-    margin-bottom: 16px;
-}
-
+/* Título mostrado cuando el carrito está vacío. */
 .carrito-vacio h2 {
     font-size: 1.6rem;
     margin-bottom: 8px;
 }
 
+/* Mensaje descriptivo del carrito vacío. */
 .carrito-vacio p {
     color: var(--tinta-suave);
     margin-bottom: 24px;
