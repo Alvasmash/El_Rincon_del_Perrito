@@ -7,19 +7,22 @@
    ========================================================== */
 
 const CLAVE_CARRITO = "rincon_perrito_carrito_v1";
-let cuponAplicado = null; // { codigo: 'PERRITO10', descuentoPorc: 0.10 }
+let cuponAplicado = null; // Guarda el cupón activo y su porcentaje de descuento.
 
 function obtenerCarrito() {
     try {
+        // Recupera el carrito guardado y lo convierte desde JSON a un arreglo.
         const raw = localStorage.getItem(CLAVE_CARRITO);
         return raw ? JSON.parse(raw) : [];
     } catch (e) {
+        // Si los datos guardados no son válidos, devuelve un carrito vacío.
         return [];
     }
 }
 
 function guardarCarrito(items) {
     try {
+        // Guarda el carrito en LocalStorage y actualiza el contador del encabezado.
         localStorage.setItem(CLAVE_CARRITO, JSON.stringify(items));
         if (typeof actualizarContadorHeader === "function") {
             actualizarContadorHeader();
@@ -32,6 +35,7 @@ function guardarCarrito(items) {
 
 function agregarAlCarrito(productoId, cantidad = 1) {
     const producto = buscarProductoPorId(productoId);
+
     if (!producto) {
         mostrarToast("Producto no encontrado.", "error");
         return;
@@ -47,6 +51,7 @@ function agregarAlCarrito(productoId, cantidad = 1) {
     const cantActual = itemExistente ? itemExistente.cantidad : 0;
     const nuevaCant = cantActual + cantidad;
 
+    // Impide agregar más unidades de las disponibles en stock.
     if (nuevaCant > producto.stock) {
         mostrarToast(`Solo quedan ${producto.stock} unidades disponibles de ${producto.nombre}.`, "alerta");
         return;
@@ -80,11 +85,13 @@ function modificarCantidad(productoId, delta) {
 
     item.cantidad += delta;
 
+    // Si la cantidad llega a cero, elimina el producto del carrito.
     if (item.cantidad <= 0) {
         eliminarDelCarrito(productoId);
         return;
     }
 
+    // Limita la cantidad según el stock disponible.
     if (item.cantidad > stockMax) {
         item.cantidad = stockMax;
         mostrarToast(`No hay más de ${stockMax} unidades disponibles.`, "alerta");
@@ -96,7 +103,10 @@ function modificarCantidad(productoId, delta) {
 
 function eliminarDelCarrito(productoId) {
     let carrito = obtenerCarrito();
+
+    // filter() crea un nuevo arreglo excluyendo el producto indicado.
     carrito = carrito.filter(it => it.id !== productoId);
+
     guardarCarrito(carrito);
     renderizarCarrito();
     mostrarToast("Producto eliminado del carrito.", "info");
@@ -107,6 +117,8 @@ function aplicarCupon() {
     if (!input) return;
 
     const codigo = input.value.trim().toUpperCase();
+
+    // Comprueba si el código ingresado corresponde al cupón disponible.
     if (codigo === "PERRITO10") {
         cuponAplicado = { codigo: "PERRITO10", descuentoPorc: 0.10 };
         mostrarToast("¡Cupón del 10% de descuento aplicado!", "exito");
@@ -122,8 +134,7 @@ function renderizarCarrito() {
 
     const carrito = obtenerCarrito();
 
-
-    // Correcion: Si el carrito está vacio mostrar el emoji
+    // Si el carrito está vacío, muestra el mensaje correspondiente.
     if (carrito.length === 0) {
         contenedor.innerHTML = `
             <div class="carrito-vacio">
@@ -138,9 +149,12 @@ function renderizarCarrito() {
     }
 
     let subtotal = 0;
+
+    // Genera el contenido de cada producto y calcula el subtotal.
     const itemsHtml = carrito.map(item => {
         const totalFila = item.precio * item.cantidad;
         subtotal += totalFila;
+
         return `
             <div class="item-carrito">
                 <img src="../Imagenes/${item.imagen}" alt="${item.nombre}">
@@ -160,9 +174,12 @@ function renderizarCarrito() {
     }).join("");
 
     let descuento = 0;
+
     if (cuponAplicado) {
+        // Calcula el descuento aplicando el porcentaje al subtotal.
         descuento = Math.round(subtotal * cuponAplicado.descuentoPorc);
     }
+
     const totalFinal = Math.max(0, subtotal - descuento);
 
     contenedor.innerHTML = `
@@ -219,7 +236,7 @@ function procesarPagoCarrito(totalMonto) {
         estado: "Completado"
     };
 
-    // Descontar stock de productos
+    // Descuenta del stock la cantidad comprada de cada producto.
     const productos = obtenerProductos();
     carrito.forEach(item => {
         const prod = productos.find(p => p.id === item.id);
@@ -229,7 +246,7 @@ function procesarPagoCarrito(totalMonto) {
     });
     guardarProductos(productos);
 
-    // Guardar orden
+    // Recupera las órdenes anteriores y agrega la nueva al comienzo.
     try {
         const ordenesPrevias = JSON.parse(localStorage.getItem("rincon_perrito_ordenes_v1")) || [];
         ordenesPrevias.unshift(nuevaOrden);
@@ -238,9 +255,10 @@ function procesarPagoCarrito(totalMonto) {
         console.error("Error al registrar la orden:", e);
     }
 
-    // Vaciar carrito
+    // Vacía el carrito y elimina el cupón aplicado.
     localStorage.removeItem(CLAVE_CARRITO);
     cuponAplicado = null;
+
     if (typeof actualizarContadorHeader === "function") {
         actualizarContadorHeader();
     }
@@ -249,12 +267,14 @@ function procesarPagoCarrito(totalMonto) {
     window.location.href = "index.html";
 }
 
-// Delegación de eventos para botones data-agregar en cualquier página
+// Permite agregar productos al carrito usando elementos con el atributo data-agregar.
 document.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-agregar]");
     if (!btn) return;
+
     const prodId = btn.dataset.agregar;
     agregarAlCarrito(prodId, 1);
 });
 
+// Espera a que el HTML termine de cargar antes de mostrar el carrito.
 document.addEventListener("DOMContentLoaded", renderizarCarrito);
