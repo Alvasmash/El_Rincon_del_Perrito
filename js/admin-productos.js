@@ -13,7 +13,7 @@ function inicializarAdminProductos() {
     const sesion = obtenerSesionActual();
     const esSoloVendedor = sesion && sesion.rol === "Vendedor";
 
-    // Si es solo vendedor, ocultar botón "Nuevo Producto"
+    // Oculta "Nuevo Producto" cuando el usuario tiene rol Vendedor.
     const btnNuevo = document.getElementById("btn-nuevo-producto");
     if (btnNuevo && esSoloVendedor) {
         btnNuevo.style.display = "none";
@@ -22,10 +22,12 @@ function inicializarAdminProductos() {
     function renderizarTabla(filtroTexto = "", filtroCat = "") {
         let productos = obtenerProductos();
 
+        // Filtra los productos por categoría seleccionada.
         if (filtroCat) {
             productos = productos.filter(p => p.categoria === filtroCat);
         }
 
+        // Filtra por nombre o código usando el texto ingresado.
         if (filtroTexto) {
             const query = filtroTexto.toLowerCase();
             productos = productos.filter(p =>
@@ -34,13 +36,17 @@ function inicializarAdminProductos() {
             );
         }
 
+        // Muestra un mensaje cuando no existen productos que coincidan.
         if (productos.length === 0) {
             tablaBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 24px;">No se encontraron productos.</td></tr>';
             return;
         }
 
+        // Genera las filas de la tabla con los productos filtrados.
         tablaBody.innerHTML = productos.map(p => {
+            // Comprueba si el stock está en el nivel crítico configurado.
             const esCritico = p.stockCritico && p.stock <= p.stockCritico;
+
             return `
                 <tr>
                     <td><strong>${p.codigo || 'N/A'}</strong></td>
@@ -76,12 +82,14 @@ function inicializarAdminProductos() {
     const selectCat = document.getElementById("filtro-categoria");
 
     if (inputBuscar) {
+        // Actualiza la tabla mientras el usuario escribe en el buscador.
         inputBuscar.addEventListener("input", () => {
             renderizarTabla(inputBuscar.value, selectCat ? selectCat.value : "");
         });
     }
 
     if (selectCat) {
+        // Actualiza la tabla cuando cambia la categoría seleccionada.
         selectCat.addEventListener("change", () => {
             renderizarTabla(inputBuscar ? inputBuscar.value : "", selectCat.value);
         });
@@ -93,6 +101,8 @@ function inicializarAdminProductos() {
 function confirmarEliminarProducto(id) {
     const prod = buscarProductoPorId(id);
     if (!prod) return;
+
+    // Pide confirmación antes de eliminar el producto.
     if (confirm(`¿Está seguro de eliminar el producto "${prod.nombre}" (${prod.codigo})?`)) {
         eliminarProducto(id);
         mostrarToast("Producto eliminado con éxito.", "info");
@@ -100,7 +110,9 @@ function confirmarEliminarProducto(id) {
     }
 }
 
+// Espera a que el HTML termine de cargar antes de iniciar la gestión de productos.
 document.addEventListener("DOMContentLoaded", () => {
+    // Comprueba que el usuario tenga permisos para acceder a esta sección.
     if (verificarAccesoAdmin(true)) {
         inicializarAdminProductos();
     }
