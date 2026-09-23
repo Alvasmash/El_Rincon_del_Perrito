@@ -19,9 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const errCorreo = document.getElementById("error-contacto-correo");
     const errComentario = document.getElementById("error-contacto-comentario");
 
-    // Validar nombre en vivo
+    // Valida el nombre mientras el usuario escribe o sale del campo.
     function validarCampoNombre() {
         const res = validarLargoTexto(inputNombre.value, true, 2, 100, "El nombre completo");
+
         if (!res.valido) {
             mostrarErrorCampo(inputNombre, errNombre, res.mensaje);
             return false;
@@ -31,9 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Validar correo en vivo
+    // Valida el correo según los dominios permitidos.
     function validarCampoCorreo() {
         const res = validarCorreoPermitido(inputCorreo.value, true);
+
         if (!res.valido) {
             mostrarErrorCampo(inputCorreo, errCorreo, res.mensaje);
             return false;
@@ -43,14 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Validar comentario y actualizar contador
+    // Valida el comentario y actualiza el contador de caracteres.
     function validarCampoComentario() {
         const largo = inputComentario.value.length;
+
         if (contadorChars) {
             contadorChars.textContent = `${largo}/500 caracteres`;
             contadorChars.style.color = largo > 500 ? "var(--error)" : "var(--tinta-clara)";
         }
+
         const res = validarLargoTexto(inputComentario.value, true, 10, 500, "El comentario");
+
         if (!res.valido) {
             mostrarErrorCampo(inputComentario, errComentario, res.mensaje);
             return false;
@@ -69,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     inputComentario.addEventListener("input", validarCampoComentario);
     inputComentario.addEventListener("blur", validarCampoComentario);
 
+    // Controla el envío y comprueba todos los campos antes de guardar.
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -84,13 +90,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 fecha: new Date().toLocaleString()
             };
 
+            // Recupera los mensajes anteriores y agrega el nuevo al final.
             const guardados = JSON.parse(localStorage.getItem("rincon_perrito_contacto_v1")) || [];
             guardados.push(nuevoMensaje);
             localStorage.setItem("rincon_perrito_contacto_v1", JSON.stringify(guardados));
 
             mostrarToast("¡Mensaje enviado con éxito! Nos contactaremos a la brevedad.", "exito");
             form.reset();
+
+            // Elimina las clases visuales de validación después de enviar.
             document.querySelectorAll(".form-control").forEach(inp => inp.classList.remove("campo-valido"));
+
             if (contadorChars) contadorChars.textContent = "0/500 caracteres";
         } else {
             mostrarToast("Por favor corrija los campos con errores.", "error");
