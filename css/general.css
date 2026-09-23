@@ -2,6 +2,7 @@
    general.css — Reseteo base, tipografía y componentes globales
    ========================================================== */
 
+/* Elimina márgenes y rellenos predeterminados y ajusta el modelo de caja. */
 *,
 *::before,
 *::after {
@@ -10,10 +11,12 @@
     box-sizing: border-box;
 }
 
+/* Activa desplazamiento suave al navegar dentro de la página. */
 html {
     scroll-behavior: smooth;
 }
 
+/* Configuración general del cuerpo de la página. */
 body {
     background-color: var(--celeste-fondo);
     color: var(--tinta);
@@ -25,10 +28,12 @@ body {
     flex-direction: column;
 }
 
+/* Permite que el contenido principal ocupe el espacio disponible. */
 main {
     flex: 1;
 }
 
+/* Estilos generales para todos los títulos. */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--fuente-titulos);
     color: var(--tinta);
@@ -36,27 +41,33 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
+/* Estilo base para los enlaces. */
 a {
     color: var(--celeste-fuerte);
     text-decoration: none;
     transition: var(--transicion);
 }
 
+/* Cambia el color de los enlaces al pasar el cursor. */
 a:hover {
     color: var(--azul-boton-hover);
 }
 
+/* Ajusta las imágenes para que no superen el ancho de su contenedor. */
 img {
     max-width: 100%;
     height: auto;
     display: block;
 }
 
+/* Elimina las viñetas y numeración predeterminadas de las listas. */
 ul, ol {
     list-style: none;
 }
 
 /* Contenedor central */
+
+/* Limita el ancho del contenido y lo centra horizontalmente. */
 .contenedor {
     width: 100%;
     max-width: var(--ancho-max);
@@ -65,6 +76,8 @@ ul, ol {
 }
 
 /* Título de sección o página */
+
+/* Estilo general para los títulos de las secciones. */
 .titulo-seccion {
     font-size: 2rem;
     margin: 36px 0 16px;
@@ -72,6 +85,7 @@ ul, ol {
     padding-bottom: 8px;
 }
 
+/* Línea decorativa ubicada debajo del título. */
 .titulo-seccion::after {
     content: "";
     position: absolute;
@@ -83,15 +97,18 @@ ul, ol {
     border-radius: 2px;
 }
 
+/* Centra el texto del título. */
 .titulo-seccion.centrado {
     text-align: center;
 }
 
+/* Centra la línea decorativa cuando el título está centrado. */
 .titulo-seccion.centrado::after {
     left: 50%;
     transform: translateX(-50%);
 }
 
+/* Estilo para el texto secundario de una sección. */
 .subtitulo-seccion {
     color: var(--tinta-suave);
     margin-bottom: 28px;
@@ -99,6 +116,8 @@ ul, ol {
 }
 
 /* Botones estándar */
+
+/* Estilo base compartido por los botones principales. */
 .boton,
 button[type="submit"],
 button[type="button"].btn-primario {
@@ -119,6 +138,7 @@ button[type="button"].btn-primario {
     transition: var(--transicion);
 }
 
+/* Efecto visual de los botones al pasar el cursor. */
 .boton:hover,
 button[type="submit"]:hover,
 button[type="button"].btn-primario:hover {
@@ -127,35 +147,42 @@ button[type="button"].btn-primario:hover {
     transform: translateY(-1px);
 }
 
+/* Botón secundario con fondo claro. */
 .boton-secundario {
     background: var(--blanco);
     color: var(--tinta);
     border: 1px solid var(--celeste);
 }
 
+/* Cambia el fondo del botón secundario al pasar el cursor. */
 .boton-secundario:hover {
     background: var(--celeste-suave);
     color: var(--tinta);
 }
 
+/* Botón con el color cálido principal del diseño. */
 .boton-calido {
     background: var(--calido);
     color: var(--tinta);
 }
 
+/* Oscurece el botón cálido al pasar el cursor. */
 .boton-calido:hover {
     background: var(--calido-hover);
 }
 
+/* Botón utilizado para acciones peligrosas o destructivas. */
 .boton-peligro {
     background: var(--error);
     color: var(--blanco);
 }
 
+/* Oscurece el botón de peligro al pasar el cursor. */
 .boton-peligro:hover {
     background: #901D16;
 }
 
+/* Estilo común para botones deshabilitados. */
 .boton:disabled,
 button:disabled {
     background: #A9BFC9 !important;
@@ -165,6 +192,8 @@ button:disabled {
 }
 
 /* Badges / Etiquetas */
+
+/* Estilo base de las etiquetas informativas. */
 .badge {
     display: inline-block;
     padding: 4px 10px;
@@ -175,27 +204,33 @@ button:disabled {
     letter-spacing: 0.5px;
 }
 
+/* Badge para indicar un estado exitoso. */
 .badge-exito {
     background: var(--exito-fondo);
     color: var(--exito);
 }
 
+/* Badge para indicar una advertencia. */
 .badge-alerta {
     background: var(--alerta-fondo);
     color: var(--alerta);
 }
 
+/* Badge para indicar un error. */
 .badge-error {
     background: var(--error-fondo);
     color: var(--error);
 }
 
+/* Badge para información general. */
 .badge-info {
     background: var(--info-fondo);
     color: var(--info);
 }
 
 /* Sistema de aviso emergente (Toast) */
+
+/* Contenedor base de los mensajes emergentes. */
 .aviso-toast {
     position: fixed;
     bottom: 24px;
@@ -217,25 +252,31 @@ button:disabled {
     max-width: 420px;
 }
 
+/* Hace visible el mensaje emergente cuando se agrega esta clase. */
 .aviso-toast.visible {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
 }
 
+/* Color del mensaje cuando indica una operación exitosa. */
 .aviso-toast.toast-exito {
     background: var(--exito);
 }
 
+/* Color del mensaje cuando informa de un error. */
 .aviso-toast.toast-error {
     background: var(--error);
 }
 
+/* Color del mensaje cuando muestra una advertencia. */
 .aviso-toast.toast-alerta {
     background: var(--alerta);
 }
 
 /* Enfoque accesible */
+
+/* Muestra un indicador visible al navegar mediante teclado. */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
