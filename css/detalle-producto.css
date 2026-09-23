@@ -2,6 +2,7 @@
    detalle-producto.css — Vista de ficha técnica de producto
    ========================================================== */
 
+/* Ruta de navegación que indica dónde se encuentra el usuario. */
 .miga-pan {
     display: flex;
     align-items: center;
@@ -11,10 +12,12 @@
     margin: 24px 0 20px;
 }
 
+/* Estilo de los enlaces dentro de la ruta de navegación. */
 .miga-pan a {
     color: var(--celeste-fuerte);
 }
 
+/* Distribuye la galería y la información del producto en dos columnas. */
 .detalle-grid {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
@@ -26,12 +29,14 @@
     margin-bottom: 48px;
 }
 
+/* Organiza verticalmente la galería de imágenes. */
 .detalle-galeria {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
+/* Contenedor principal donde se muestra la imagen del producto. */
 .foto-principal {
     width: 100%;
     height: 380px;
@@ -44,16 +49,19 @@
     padding: 20px;
 }
 
+/* Ajusta la imagen principal para que se mantenga dentro del contenedor. */
 .foto-principal img {
     max-height: 340px;
     object-fit: contain;
 }
 
+/* Contenedor de las miniaturas de la galería. */
 .galeria-thumbs {
     display: flex;
     gap: 12px;
 }
 
+/* Miniatura individual de una imagen del producto. */
 .thumb-item {
     width: 70px;
     height: 70px;
@@ -68,33 +76,39 @@
     transition: var(--transicion);
 }
 
+/* Destaca la miniatura seleccionada o sobre la que está el cursor. */
 .thumb-item.activo,
 .thumb-item:hover {
     border-color: var(--azul-boton);
     transform: scale(1.05);
 }
 
+/* Organiza verticalmente la información del producto. */
 .detalle-info {
     display: flex;
     flex-direction: column;
 }
 
+/* Alinea la etiqueta de categoría al inicio del contenido. */
 .detalle-info .cat-badge {
     align-self: flex-start;
     margin-bottom: 8px;
 }
 
+/* Nombre principal del producto. */
 .detalle-info h1 {
     font-size: 2rem;
     margin-bottom: 8px;
 }
 
+/* Código identificador del producto. */
 .detalle-codigo {
     color: var(--tinta-clara);
     font-size: 0.88rem;
     margin-bottom: 16px;
 }
 
+/* Precio principal mostrado en la ficha del producto. */
 .detalle-precio {
     font-family: var(--fuente-titulos);
     font-size: 2.2rem;
@@ -103,6 +117,7 @@
     margin-bottom: 16px;
 }
 
+/* Descripción detallada del producto. */
 .detalle-descripcion {
     font-size: 1rem;
     color: var(--tinta);
@@ -112,10 +127,12 @@
     border-bottom: 1px solid var(--celeste-suave);
 }
 
+/* Lista de características técnicas o información adicional. */
 .detalle-caracteristicas {
     margin-bottom: 24px;
 }
 
+/* Organiza cada característica en una fila. */
 .detalle-caracteristicas li {
     display: flex;
     gap: 10px;
@@ -123,11 +140,13 @@
     font-size: 0.95rem;
 }
 
+/* Destaca el nombre de cada característica. */
 .detalle-caracteristicas strong {
     color: var(--tinta);
     min-width: 100px;
 }
 
+/* Aviso mostrado cuando el stock está en un nivel crítico. */
 .alerta-stock-critico {
     background: var(--alerta-fondo);
     color: var(--alerta);
@@ -141,6 +160,7 @@
     gap: 8px;
 }
 
+/* Agrupa los controles necesarios para agregar el producto al carrito. */
 .accion-compra {
     display: flex;
     align-items: center;
@@ -149,6 +169,7 @@
     padding-top: 20px;
 }
 
+/* Contenedor del selector de cantidad. */
 .selector-cantidad {
     display: flex;
     align-items: center;
@@ -158,6 +179,7 @@
     overflow: hidden;
 }
 
+/* Botones para aumentar o disminuir la cantidad. */
 .btn-cant {
     background: none;
     border: none;
@@ -170,10 +192,12 @@
     transition: var(--transicion);
 }
 
+/* Cambia el fondo de los botones de cantidad al pasar el cursor. */
 .btn-cant:hover {
     background: var(--celeste-suave);
 }
 
+/* Campo que muestra la cantidad seleccionada. */
 .input-cant {
     width: 50px;
     height: 42px;
@@ -184,6 +208,7 @@
     color: var(--tinta);
 }
 
+/* Hace que el botón de agregar ocupe el espacio disponible. */
 .accion-compra .boton {
     flex: 1;
     height: 44px;
