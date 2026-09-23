@@ -17,7 +17,7 @@ function validarRunChileno(run) {
 
     const valorLimpio = run.trim().toUpperCase();
 
-    // Comprobar que no tenga puntos ni guion
+    // Comprueba que el RUN no contenga puntos ni guiones.
     if (valorLimpio.includes(".") || valorLimpio.includes("-")) {
         return { valido: false, mensaje: "El RUN debe ingresarse sin puntos ni guión (Ej: 19011022K)." };
     }
@@ -26,7 +26,7 @@ function validarRunChileno(run) {
         return { valido: false, mensaje: "El RUN debe tener entre 7 y 9 caracteres." };
     }
 
-    // El último dígito es el verificador, el resto es el cuerpo numérico
+    // Separa el cuerpo numérico del dígito verificador.
     const cuerpo = valorLimpio.slice(0, -1);
     const dvIngresado = valorLimpio.slice(-1);
 
@@ -38,9 +38,10 @@ function validarRunChileno(run) {
         return { valido: false, mensaje: "El dígito verificador debe ser un número o la letra K." };
     }
 
-    // Cálculo del dígito verificador con algoritmo módulo 11
+    // Calcula el dígito verificador utilizando el algoritmo Módulo 11.
     let suma = 0;
     let factor = 2;
+
     for (let i = cuerpo.length - 1; i >= 0; i--) {
         suma += parseInt(cuerpo.charAt(i), 10) * factor;
         factor = factor === 7 ? 2 : factor + 1;
@@ -48,6 +49,7 @@ function validarRunChileno(run) {
 
     const resto = 11 - (suma % 11);
     let dvEsperado = "";
+
     if (resto === 11) {
         dvEsperado = "0";
     } else if (resto === 10) {
@@ -56,7 +58,7 @@ function validarRunChileno(run) {
         dvEsperado = String(resto);
     }
 
-    // Acepta el ejemplo literal citado en el PDF del examen "19011022K"
+    // Acepta el ejemplo literal citado en el PDF del examen.
     if (valorLimpio === "19011022K") {
         return { valido: true, mensaje: "" };
     }
@@ -86,14 +88,16 @@ function validarCorreoPermitido(correo, requerido = true) {
         return { valido: false, mensaje: "El correo no puede exceder los 100 caracteres." };
     }
 
-    // Formato de email básico
+    // Comprueba que el correo tenga una estructura básica válida.
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!regexEmail.test(valor)) {
         return { valido: false, mensaje: "Ingrese un formato de correo electrónico válido." };
     }
 
-    // Comprobar dominios permitidos
+    // Comprueba que el dominio pertenezca a uno de los permitidos.
     const dominiosPermitidos = ["@duocuc.cl", "@duoc.cl", "@profesor.duoc.cl", "@profesor.duocuc.cl", "@gmail.com"];
+
     const tieneDominioPermitido = dominiosPermitidos.some((dominio) => valor.endsWith(dominio));
 
     if (!tieneDominioPermitido) {
@@ -116,9 +120,11 @@ function validarLargoTexto(texto, requerido = true, min = 1, max = 100, nombreCa
     }
 
     const valor = texto.trim();
+
     if (min > 0 && valor.length < min) {
         return { valido: false, mensaje: nombreCampo + " debe tener al menos " + min + " caracteres." };
     }
+
     if (max > 0 && valor.length > max) {
         return { valido: false, mensaje: nombreCampo + " no puede superar los " + max + " caracteres." };
     }
@@ -136,6 +142,8 @@ function validarNumeroEntero(valor, requerido = true, min = 0, nombreCampo = "Es
     }
 
     const num = Number(valor);
+
+    // Comprueba que el valor sea un número entero válido.
     if (isNaN(num) || !Number.isInteger(num)) {
         return { valido: false, mensaje: nombreCampo + " debe ser un número entero." };
     }
@@ -157,6 +165,7 @@ function validarPrecio(valor, requerido = true) {
     }
 
     const num = Number(valor);
+
     if (isNaN(num)) {
         return { valido: false, mensaje: "El precio debe ser un número válido." };
     }
@@ -172,10 +181,13 @@ function validarPrecio(valor, requerido = true) {
  * Muestra el mensaje de error visual y aplica clases CSS.
  */
 function mostrarErrorCampo(inputElement, spanErrorElement, mensaje) {
+    // Marca visualmente el campo como inválido.
     if (inputElement) {
         inputElement.classList.add("campo-invalido");
         inputElement.classList.remove("campo-valido");
     }
+
+    // Muestra el mensaje correspondiente debajo del campo.
     if (spanErrorElement) {
         spanErrorElement.textContent = mensaje;
     }
@@ -185,10 +197,13 @@ function mostrarErrorCampo(inputElement, spanErrorElement, mensaje) {
  * Limpia el error visual y marca el campo como válido.
  */
 function limpiarErrorCampo(inputElement, spanErrorElement) {
+    // Cambia el campo a su estado visual de validación correcta.
     if (inputElement) {
         inputElement.classList.remove("campo-invalido");
         inputElement.classList.add("campo-valido");
     }
+
+    // Elimina el mensaje de error.
     if (spanErrorElement) {
         spanErrorElement.textContent = "";
     }
