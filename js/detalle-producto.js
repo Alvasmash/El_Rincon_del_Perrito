@@ -6,10 +6,12 @@ function inicializarDetalleProducto() {
     const contenedor = document.getElementById("vista-detalle");
     if (!contenedor) return;
 
+    // Obtiene el ID del producto desde la URL y busca sus datos.
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
     const producto = buscarProductoPorId(id);
 
+    // Muestra un mensaje si el producto no existe.
     if (!producto) {
         contenedor.innerHTML = `
             <div class="carrito-vacio">
@@ -21,10 +23,12 @@ function inicializarDetalleProducto() {
         return;
     }
 
+    // Cambia el título de la pestaña según el producto seleccionado.
     document.title = producto.nombre + " — El Rincón del Perrito";
 
-    // Miga de pan
+    // Genera la miga de pan con la categoría y nombre del producto.
     const migaPan = document.getElementById("miga-pan-dinamica");
+
     if (migaPan) {
         migaPan.innerHTML = `
             <a href="index.html">Home</a> &gt;
@@ -37,6 +41,7 @@ function inicializarDetalleProducto() {
     const stockBajo = !sinStock && producto.stockCritico && producto.stock <= producto.stockCritico;
     const precioTxt = formatearPrecio(producto.precio);
 
+    // Genera toda la información visual de la ficha del producto.
     contenedor.innerHTML = `
         <div class="detalle-grid">
             <div class="detalle-galeria">
@@ -96,12 +101,14 @@ function inicializarDetalleProducto() {
         </section>
     `;
 
-    // Renderizar relacionados
+    // Busca productos de la misma categoría y excluye el producto actual.
     const relGrid = document.getElementById("relacionados-grid");
+
     if (relGrid) {
         const rels = productosPorCategoria(producto.categoria)
             .filter(p => p.id !== producto.id)
             .slice(0, 4);
+
         if (rels.length > 0) {
             relGrid.innerHTML = rels.map(crearTarjetaProducto).join("");
         } else {
@@ -110,29 +117,40 @@ function inicializarDetalleProducto() {
     }
 }
 
+// Cambia la imagen principal y marca la miniatura seleccionada.
 function cambiarFoto(ruta, elementoThumb) {
     const mainImg = document.getElementById("img-principal");
+
     if (mainImg) mainImg.src = ruta;
+
     document.querySelectorAll(".thumb-item").forEach(t => t.classList.remove("activo"));
+
     if (elementoThumb) elementoThumb.classList.add("activo");
 }
 
+// Aumenta o disminuye la cantidad respetando el mínimo y máximo permitido.
 function ajustarInputDetalle(cambio, maximo = 10) {
     const input = document.getElementById("input-cantidad-detalle");
     if (!input) return;
+
     let val = parseInt(input.value, 10) || 1;
     val += cambio;
+
     if (val < 1) val = 1;
     if (val > maximo) val = maximo;
+
     input.value = val;
 }
 
+// Envía el producto y la cantidad seleccionada a la función del carrito.
 function agregarDesdeDetalle(productoId) {
     const input = document.getElementById("input-cantidad-detalle");
     const cantidad = input ? parseInt(input.value, 10) : 1;
+
     if (typeof agregarAlCarrito === "function") {
         agregarAlCarrito(productoId, cantidad);
     }
 }
 
+// Espera a que el HTML termine de cargar antes de mostrar el detalle.
 document.addEventListener("DOMContentLoaded", inicializarDetalleProducto);
