@@ -4,72 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Órdenes de Compra — Admin & Vendedor</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo utilizadas por el panel administrativo. -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Icono mostrado en la pestaña del navegador. -->
     <link rel="icon" type="image/png" href="../Imagenes/pata_perrito.png">
 </head>
+
 <body>
     <div class="layout-admin">
-        
-    <aside class="sidebar-admin">
-        <div class="sidebar-encabezado">
-            <img src="../Imagenes/pata_perrito.png" alt="Logo">
-            <span>Panel de Gestión</span>
-        </div>
-        <nav class="sidebar-menu">
-            <a href="index.html" class="sidebar-link ">
-                <span>📊</span> Dashboard
-            </a>
-            <a href="productos.html" class="sidebar-link ">
-                <span>📦</span> Productos
-            </a>
-            <a href="producto-form.html" class="sidebar-link " id="link-sidebar-nuevo-prod">
-                <span>➕</span> Nuevo Producto
-            </a>
-            <a href="usuarios.html" class="sidebar-link " id="link-sidebar-usuarios">
-                <span>👥</span> Usuarios
-            </a>
-            <a href="usuario-form.html" class="sidebar-link " id="link-sidebar-nuevo-usr">
-                <span>👤</span> Nuevo Usuario
-            </a>
-            <a href="ordenes.html" class="sidebar-link activo">
-                <span>📑</span> Órdenes
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
-                <span>🏠</span> Ir a la Tienda
-            </a>
-            <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
-                <span>🚪</span> Cerrar Sesión
-            </a>
-        </div>
-    </aside>
-    
+
+        <!-- Barra lateral de navegación del panel. -->
+        <aside class="sidebar-admin">
+            <div class="sidebar-encabezado">
+                <img src="../Imagenes/pata_perrito.png" alt="Logo">
+                <span>Panel de Gestión</span>
+            </div>
+
+            <!-- Opciones disponibles dentro del panel administrativo. -->
+            <nav class="sidebar-menu">
+                <a href="index.html" class="sidebar-link">
+                    <span>📊</span> Dashboard
+                </a>
+
+                <a href="productos.html" class="sidebar-link">
+                    <span>📦</span> Productos
+                </a>
+
+                <a href="producto-form.html" class="sidebar-link" id="link-sidebar-nuevo-prod">
+                    <span>➕</span> Nuevo Producto
+                </a>
+
+                <a href="usuarios.html" class="sidebar-link" id="link-sidebar-usuarios">
+                    <span>👥</span> Usuarios
+                </a>
+
+                <a href="usuario-form.html" class="sidebar-link" id="link-sidebar-nuevo-usr">
+                    <span>👤</span> Nuevo Usuario
+                </a>
+
+                <a href="ordenes.html" class="sidebar-link activo">
+                    <span>📑</span> Órdenes
+                </a>
+            </nav>
+
+            <!-- Acciones generales del panel. -->
+            <div class="sidebar-footer">
+                <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
+                    <span>🏠</span> Ir a la Tienda
+                </a>
+
+                <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
+                    <span>🚪</span> Cerrar Sesión
+                </a>
+            </div>
+        </aside>
 
         <div class="contenido-admin">
-            
-    <header class="topbar-admin">
-        <h1>Listado de Órdenes de Compra</h1>
-        <div class="topbar-usuario">
-            <span id="nombre-usuario-admin">Cargando usuario...</span>
-            <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
-        </div>
-    </header>
-    
+
+            <!-- Barra superior con información del usuario actual. -->
+            <header class="topbar-admin">
+                <h1>Listado de Órdenes de Compra</h1>
+
+                <div class="topbar-usuario">
+                    <span id="nombre-usuario-admin">Cargando usuario...</span>
+                    <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
+                </div>
+            </header>
 
             <main class="panel-principal">
+
+                <!-- Contenedor de la tabla de órdenes generadas. -->
                 <div class="tarjeta-tabla">
                     <div class="tabla-header">
                         <h2 style="font-size: 1.25rem;">Pedidos Generados desde la Tienda</h2>
-                        <span style="color: var(--tinta-suave); font-size: 0.88rem;">Vista autorizada para Vendedor y Administrador</span>
+                        <span style="color: var(--tinta-suave); font-size: 0.88rem;">
+                            Vista autorizada para Vendedor y Administrador
+                        </span>
                     </div>
 
+                    <!-- Permite desplazar la tabla horizontalmente en pantallas pequeñas. -->
                     <div class="tabla-responsive">
                         <table class="tabla-admin">
                             <thead>
@@ -82,8 +100,14 @@
                                     <th>Estado</th>
                                 </tr>
                             </thead>
+
+                            <!-- admin-ordenes.js genera las filas de esta tabla. -->
                             <tbody id="tabla-ordenes-body">
-                                <tr><td colspan="6" style="text-align: center; padding: 20px;">Cargando pedidos...</td></tr>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 20px;">
+                                        Cargando pedidos...
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -92,18 +116,24 @@
         </div>
     </div>
 
+    <!-- Archivos con datos, autenticación y funciones utilizadas por la página. -->
     <script src="../js/productos-data.js"></script>
     <script src="../js/usuarios-data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/admin-ordenes.js"></script>
+
     <script>
+        // Espera a que el HTML termine de cargar antes de revisar la sesión.
         document.addEventListener("DOMContentLoaded", () => {
             const sesion = obtenerSesionActual();
+
             if (sesion && sesion.rol === "Vendedor") {
+                // Oculta las opciones que requieren permisos de Administrador.
                 const linkUsr = document.getElementById("link-sidebar-usuarios");
                 const linkNuevoUsr = document.getElementById("link-sidebar-nuevo-usr");
                 const linkNuevoProd = document.getElementById("link-sidebar-nuevo-prod");
+
                 if (linkUsr) linkUsr.style.display = "none";
                 if (linkNuevoUsr) linkNuevoUsr.style.display = "none";
                 if (linkNuevoProd) linkNuevoProd.style.display = "none";
