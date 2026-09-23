@@ -2,7 +2,7 @@
    productos.css — Catálogo, tarjetas de producto y filtros
    ========================================================== */
 
-/* Banner de portada */
+/* Banner principal de la portada. */
 .hero-banner {
     position: relative;
     width: 100%;
@@ -11,12 +11,14 @@
     border-bottom: 3px solid var(--celeste);
 }
 
+/* Imagen principal del banner. */
 .hero-banner img {
     width: 100%;
     height: 380px;
     object-fit: cover;
 }
 
+/* Contenedor del texto que aparece sobre el banner. */
 .hero-texto {
     position: absolute;
     top: 50%;
@@ -30,12 +32,14 @@
     box-shadow: var(--sombra-fuerte);
 }
 
+/* Título principal dentro del banner. */
 .hero-texto h1 {
     font-size: 2.1rem;
     margin-bottom: 10px;
     color: var(--tinta);
 }
 
+/* Texto descriptivo dentro del banner. */
 .hero-texto p {
     color: var(--tinta-suave);
     margin-bottom: 20px;
@@ -43,6 +47,8 @@
 }
 
 /* Filtros por categoría */
+
+/* Contenedor de los botones de filtro. */
 .filtros-categoria {
     display: flex;
     flex-wrap: wrap;
@@ -50,6 +56,7 @@
     margin: 20px 0 24px;
 }
 
+/* Botón individual para filtrar productos por categoría. */
 .filtro-btn {
     padding: 8px 18px;
     border-radius: var(--radio-redondo);
@@ -63,17 +70,20 @@
     transition: var(--transicion);
 }
 
+/* Cambia el aspecto del filtro al pasar el cursor. */
 .filtro-btn:hover {
     background: var(--celeste-suave);
     color: var(--azul-boton);
 }
 
+/* Marca el filtro que está seleccionado actualmente. */
 .filtro-btn.activo {
     background: var(--azul-boton);
     border-color: var(--azul-boton);
     color: var(--blanco);
 }
 
+/* Información general mostrada sobre el catálogo. */
 .info-catalogo {
     display: flex;
     justify-content: space-between;
@@ -84,6 +94,8 @@
 }
 
 /* Grid de productos */
+
+/* Distribuye las tarjetas de productos en cuatro columnas. */
 .grid-productos {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -92,6 +104,8 @@
 }
 
 /* Tarjeta individual */
+
+/* Contenedor visual de cada producto del catálogo. */
 .tarjeta-producto {
     background: var(--blanco);
     border-radius: var(--radio);
@@ -104,11 +118,13 @@
     position: relative;
 }
 
+/* Eleva la tarjeta y aumenta su sombra al pasar el cursor. */
 .tarjeta-producto:hover {
     transform: translateY(-4px);
     box-shadow: var(--sombra-fuerte);
 }
 
+/* Contenedor de la imagen del producto. */
 .tarjeta-producto .img-contenedor {
     width: 100%;
     height: 190px;
@@ -121,16 +137,19 @@
     margin-bottom: 12px;
 }
 
+/* Ajusta la imagen para que se mantenga dentro del contenedor. */
 .tarjeta-producto .img-contenedor img {
     max-height: 170px;
     object-fit: contain;
     transition: var(--transicion);
 }
 
+/* Amplía ligeramente la imagen al pasar el cursor sobre la tarjeta. */
 .tarjeta-producto:hover .img-contenedor img {
     transform: scale(1.05);
 }
 
+/* Categoría del producto mostrada sobre su nombre. */
 .tarjeta-producto .etiqueta-cat {
     font-size: 0.75rem;
     color: var(--celeste-fuerte);
@@ -139,20 +158,24 @@
     margin-bottom: 4px;
 }
 
+/* Nombre del producto. */
 .tarjeta-producto h3 {
     font-size: 1.05rem;
     margin-bottom: 6px;
     line-height: 1.3;
 }
 
+/* Enlace que contiene el nombre del producto. */
 .tarjeta-producto h3 a {
     color: var(--tinta);
 }
 
+/* Cambia el color del nombre al pasar el cursor. */
 .tarjeta-producto h3 a:hover {
     color: var(--azul-boton);
 }
 
+/* Descripción corta del producto. */
 .tarjeta-producto .descripcion-corta {
     font-size: 0.84rem;
     color: var(--tinta-suave);
@@ -160,6 +183,7 @@
     flex: 1;
 }
 
+/* Fila inferior que contiene precio y botón de compra. */
 .tarjeta-producto .precio-fila {
     display: flex;
     justify-content: space-between;
@@ -169,6 +193,7 @@
     border-top: 1px dashed var(--celeste-suave);
 }
 
+/* Precio mostrado en cada tarjeta. */
 .tarjeta-producto .precio {
     font-family: var(--fuente-titulos);
     font-size: 1.25rem;
@@ -176,12 +201,14 @@
     color: var(--azul-boton);
 }
 
+/* Ajusta el tamaño del botón para agregar el producto al carrito. */
 .tarjeta-producto .btn-agregar {
     padding: 7px 14px;
     font-size: 0.88rem;
     border-radius: var(--radio-redondo);
 }
 
+/* Etiqueta que indica que un producto está agotado. */
 .sin-stock-tag {
     position: absolute;
     top: 12px;
