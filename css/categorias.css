@@ -1,16 +1,18 @@
-/* Categorías */
+/* Sección general de categorías. */
 .categoria {
     max-width: 1100px;
     margin: 70px auto;
     padding: 0 30px;
 }
 
+/* Título principal de la sección. */
 .categoria h2 {
     color: #222;
     font-size: 30px;
     margin-bottom: 15px;
 }
 
+/* Descripción de la categoría. */
 .categoria > p {
     max-width: 850px;
     color: #555;
@@ -18,6 +20,7 @@
     margin-bottom: 15px;
 }
 
+/* Enlace para acceder a la categoría correspondiente. */
 .link-categoria {
     display: inline-block;
     color: #159bd3;
@@ -26,6 +29,7 @@
     margin-bottom: 30px;
 }
 
+/* Subraya el enlace cuando se pasa el cursor. */
 .link-categoria:hover {
     text-decoration: underline;
 }
