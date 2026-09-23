@@ -56,20 +56,27 @@ const USUARIOS_INICIALES = [
 
 function obtenerUsuarios() {
     try {
+        // Recupera los usuarios guardados y los convierte desde JSON a un arreglo.
         const data = localStorage.getItem(CLAVE_USUARIOS);
+
         if (data) {
             const arr = JSON.parse(data);
+
+            // Usa los datos guardados solo si forman un arreglo con usuarios.
             if (Array.isArray(arr) && arr.length > 0) return arr;
         }
     } catch (e) {
         console.error("Error al leer usuarios de localStorage:", e);
     }
+
+    // Si no existen usuarios guardados, carga los usuarios iniciales.
     guardarUsuarios(USUARIOS_INICIALES);
     return USUARIOS_INICIALES;
 }
 
 function guardarUsuarios(lista) {
     try {
+        // Convierte el arreglo a JSON para poder almacenarlo en LocalStorage.
         localStorage.setItem(CLAVE_USUARIOS, JSON.stringify(lista));
         return true;
     } catch (e) {
@@ -80,36 +87,57 @@ function guardarUsuarios(lista) {
 
 function buscarUsuarioPorCorreo(correo) {
     if (!correo) return undefined;
+
     const buscado = correo.trim().toLowerCase();
+
+    // Normaliza @duoc.cl y @duocuc.cl para considerarlos equivalentes.
     const canonico = buscado.replace("@duoc.cl", "@duocuc.cl");
+
     return obtenerUsuarios().find((u) => {
         const usrCorreo = u.correo.trim().toLowerCase();
         const usrCanonico = usrCorreo.replace("@duoc.cl", "@duocuc.cl");
+
+        // Busca coincidencias tanto con el correo original como con su versión normalizada.
         return usrCorreo === buscado || usrCanonico === canonico;
     });
 }
 
 function buscarUsuarioPorRun(run) {
     if (!run) return undefined;
+
+    // Elimina puntos, guiones y otros caracteres antes de comparar el RUN.
     const limpio = run.trim().replace(/[^0-9kK]/g, "").toUpperCase();
+
+    // Busca un usuario cuyo RUN coincida con el valor normalizado.
     return obtenerUsuarios().find((u) => u.run.trim().toUpperCase() === limpio);
 }
 
 function guardarOActualizarUsuario(usuario) {
     const usuarios = obtenerUsuarios();
-    const indice = usuarios.findIndex((u) => u.run.toUpperCase() === usuario.run.toUpperCase());
+
+    // Busca el usuario por RUN para saber si debe actualizarse o agregarse.
+    const indice = usuarios.findIndex(
+        (u) => u.run.toUpperCase() === usuario.run.toUpperCase()
+    );
+
     if (indice >= 0) {
+        // Actualiza los datos manteniendo los campos que ya existían.
         usuarios[indice] = { ...usuarios[indice], ...usuario };
     } else {
+        // Agrega el usuario cuando todavía no existe.
         usuarios.push(usuario);
     }
+
     guardarUsuarios(usuarios);
     return true;
 }
 
 function eliminarUsuario(run) {
     let usuarios = obtenerUsuarios();
+
+    // Filtra el usuario indicado y conserva todos los demás.
     usuarios = usuarios.filter((u) => u.run.toUpperCase() !== run.toUpperCase());
+
     guardarUsuarios(usuarios);
     return true;
 }
