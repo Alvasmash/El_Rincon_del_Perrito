@@ -121,35 +121,53 @@ const REGIONES_Y_COMUNAS = [
 ];
 
 function inicializarSelectsRegionComuna(selectRegionElement, selectComunaElement, regionInicial = "", comunaInicial = "") {
-    const selRegion = typeof selectRegionElement === "string" ? document.getElementById(selectRegionElement) : selectRegionElement;
-    const selComuna = typeof selectComunaElement === "string" ? document.getElementById(selectComunaElement) : selectComunaElement;
+    // Permite recibir los elementos HTML directamente o sus IDs.
+    const selRegion = typeof selectRegionElement === "string"
+        ? document.getElementById(selectRegionElement)
+        : selectRegionElement;
+
+    const selComuna = typeof selectComunaElement === "string"
+        ? document.getElementById(selectComunaElement)
+        : selectComunaElement;
 
     if (!selRegion || !selComuna) return;
 
+    // Limpia el selector y agrega todas las regiones disponibles.
     selRegion.innerHTML = '<option value="">-- Seleccione una región --</option>';
+
     REGIONES_Y_COMUNAS.forEach((item) => {
         const opt = document.createElement("option");
         opt.value = item.region;
         opt.textContent = item.region;
+
         if (item.region === regionInicial) opt.selected = true;
+
         selRegion.appendChild(opt);
     });
 
     function actualizarComunas(regionSeleccionada, comSeleccionada = "") {
+        // Reinicia la lista de comunas cada vez que cambia la región.
         selComuna.innerHTML = '<option value="">-- Seleccione la comuna --</option>';
+
         if (!regionSeleccionada) {
             selComuna.disabled = true;
             return;
         }
 
+        // Busca en el arreglo la región seleccionada.
         const hallada = REGIONES_Y_COMUNAS.find((r) => r.region === regionSeleccionada);
+
         if (hallada) {
             selComuna.disabled = false;
+
+            // Agrega solamente las comunas pertenecientes a esa región.
             hallada.comunas.forEach((com) => {
                 const opt = document.createElement("option");
                 opt.value = com;
                 opt.textContent = com;
+
                 if (com === comSeleccionada) opt.selected = true;
+
                 selComuna.appendChild(opt);
             });
         } else {
@@ -157,10 +175,12 @@ function inicializarSelectsRegionComuna(selectRegionElement, selectComunaElement
         }
     }
 
+    // Actualiza las comunas automáticamente al cambiar de región.
     selRegion.addEventListener("change", (e) => {
         actualizarComunas(e.target.value);
     });
 
+    // Mantiene región y comuna al cargar datos existentes en modo edición.
     if (regionInicial) {
         actualizarComunas(regionInicial, comunaInicial);
     } else {
