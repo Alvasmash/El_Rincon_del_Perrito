@@ -12,11 +12,13 @@
    ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Comprueba que el usuario tenga permisos para acceder al formulario.
     if (!verificarAccesoAdmin(false)) return;
 
     const form = document.getElementById("form-usuario-admin");
     if (!form) return;
 
+    // Obtiene el RUN desde la URL para saber si se está editando un usuario.
     const params = new URLSearchParams(window.location.search);
     const runParam = params.get("run");
     const esEdicion = Boolean(runParam);
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputDireccion = document.getElementById("usr-direccion");
     const inputTelefono = document.getElementById("usr-telefono");
 
+    // Referencias a los espacios donde se muestran los errores.
     const errRun = document.getElementById("error-usr-run");
     const errNombre = document.getElementById("error-usr-nombre");
     const errApellidos = document.getElementById("error-usr-apellidos");
@@ -51,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let regInicial = "";
     let comInicial = "";
 
+    // Si es edición, busca el usuario y carga sus datos en el formulario.
     if (esEdicion) {
         const u = buscarUsuarioPorRun(runParam);
         if (u) {
@@ -69,19 +73,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Carga las regiones y comunas manteniendo los valores del usuario si está editando.
     inicializarSelectsRegionComuna("usr-region", "usr-comuna", regInicial, comInicial);
 
     function validarRun() {
         if (esEdicion) return true;
+
         const res = validarRunChileno(inputRun.value);
         if (!res.valido) {
             mostrarErrorCampo(inputRun, errRun, res.mensaje);
             return false;
         }
+
+        // Comprueba que el RUN no esté registrado en otro usuario.
         if (buscarUsuarioPorRun(inputRun.value)) {
             mostrarErrorCampo(inputRun, errRun, "Este RUN ya está registrado.");
             return false;
         }
+
         limpiarErrorCampo(inputRun, errRun);
         return true;
     }
@@ -112,11 +121,14 @@ document.addEventListener("DOMContentLoaded", () => {
             mostrarErrorCampo(inputCorreo, errCorreo, res.mensaje);
             return false;
         }
+
+        // Comprueba que el correo no esté siendo usado por otro usuario.
         const existente = buscarUsuarioPorCorreo(inputCorreo.value);
         if (existente && (!esEdicion || existente.run !== runParam)) {
             mostrarErrorCampo(inputCorreo, errCorreo, "Este correo ya está en uso.");
             return false;
         }
+
         limpiarErrorCampo(inputCorreo, errCorreo);
         return true;
     }
@@ -133,18 +145,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function validarRegionYComuna() {
         let ok = true;
+
         if (!selectRegion.value) {
             mostrarErrorCampo(selectRegion, errRegion, "Seleccione una región.");
             ok = false;
         } else {
             limpiarErrorCampo(selectRegion, errRegion);
         }
+
         if (!selectComuna.value) {
             mostrarErrorCampo(selectComuna, errComuna, "Seleccione una comuna.");
             ok = false;
         } else {
             limpiarErrorCampo(selectComuna, errComuna);
         }
+
         return ok;
     }
 
@@ -158,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
+    // Ejecuta las validaciones mientras el usuario completa el formulario.
     inputRun.addEventListener("input", validarRun);
     inputNombre.addEventListener("input", validarNombre);
     inputApellidos.addEventListener("input", validarApellidos);
@@ -167,9 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
     selectComuna.addEventListener("change", validarRegionYComuna);
     inputDireccion.addEventListener("input", validarDireccion);
 
+    // Controla el envío final del formulario.
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        // Ejecuta todas las validaciones antes de guardar.
         const v1 = validarRun();
         const v2 = validarNombre();
         const v3 = validarApellidos();
@@ -193,6 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 fechaNacimiento: inputFecha ? inputFecha.value : ""
             };
 
+            // Guarda los datos y muestra un mensaje según la operación realizada.
             guardarOActualizarUsuario(usuarioGuardar);
             alert(esEdicion ? "Usuario actualizado correctamente." : "Usuario creado correctamente.");
             window.location.href = "usuarios.html";
