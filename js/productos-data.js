@@ -19,6 +19,7 @@ const CATEGORIAS = {
     collares: "Collares"
 };
 
+// Productos que se cargan automáticamente cuando no existen datos guardados.
 const PRODUCTOS_INICIALES = [
     {
         id: "cama-madera",
@@ -168,20 +169,27 @@ const PRODUCTOS_INICIALES = [
 
 function obtenerProductos() {
     try {
+        // Recupera los productos guardados y los convierte desde JSON a un arreglo.
         const almacenados = localStorage.getItem(CLAVE_PRODUCTOS);
+
         if (almacenados) {
             const arr = JSON.parse(almacenados);
+
+            // Usa los datos guardados solo si forman un arreglo con productos.
             if (Array.isArray(arr) && arr.length > 0) return arr;
         }
     } catch (e) {
         console.error("Error al leer productos de localStorage:", e);
     }
+
+    // Si no existen productos guardados, carga el catálogo inicial.
     guardarProductos(PRODUCTOS_INICIALES);
     return PRODUCTOS_INICIALES;
 }
 
 function guardarProductos(lista) {
     try {
+        // Convierte el arreglo a JSON para poder almacenarlo en LocalStorage.
         localStorage.setItem(CLAVE_PRODUCTOS, JSON.stringify(lista));
         return true;
     } catch (e) {
@@ -191,41 +199,60 @@ function guardarProductos(lista) {
 }
 
 function buscarProductoPorId(id) {
+    // Busca un producto utilizando su identificador único.
     return obtenerProductos().find((p) => p.id === id);
 }
 
 function buscarProductoPorCodigo(codigo) {
     if (!codigo) return undefined;
-    return obtenerProductos().find((p) => p.codigo && p.codigo.trim().toUpperCase() === codigo.trim().toUpperCase());
+
+    // Compara códigos ignorando diferencias entre mayúsculas y minúsculas.
+    return obtenerProductos().find(
+        (p) => p.codigo && p.codigo.trim().toUpperCase() === codigo.trim().toUpperCase()
+    );
 }
 
 function productosPorCategoria(categoria) {
     const todos = obtenerProductos();
+
     if (!categoria) return todos;
+
+    // Filtra los productos que pertenecen a la categoría indicada.
     return todos.filter((p) => p.categoria === categoria);
 }
 
 function guardarOActualizarProducto(producto) {
     const productos = obtenerProductos();
+
+    // Busca si el producto ya existe para actualizarlo o agregar uno nuevo.
     const indice = productos.findIndex((p) => p.id === producto.id);
+
     if (indice >= 0) {
         productos[indice] = { ...productos[indice], ...producto };
     } else {
         productos.push(producto);
     }
+
     guardarProductos(productos);
     return true;
 }
 
 function eliminarProducto(id) {
     let productos = obtenerProductos();
+
+    // Filtra el producto indicado y conserva todos los demás.
     productos = productos.filter((p) => p.id !== id);
+
     guardarProductos(productos);
     return true;
 }
 
 function formatearPrecio(valor) {
     const num = Number(valor) || 0;
+
+    // El precio cero se muestra como "GRATIS".
     if (num === 0) return "GRATIS";
+
+    // Redondea el precio y agrega puntos como separadores de miles.
     return "$" + String(Math.round(num)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
