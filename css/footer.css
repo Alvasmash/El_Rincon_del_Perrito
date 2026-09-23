@@ -2,6 +2,7 @@
    footer.css — Pie de página completo de la tienda
    ========================================================== */
 
+/* Contenedor general del pie de página. */
 .pie-pagina {
     background: var(--tinta);
     color: #D6E9F0;
@@ -10,6 +11,7 @@
     border-top: 4px solid var(--celeste);
 }
 
+/* Distribuye las columnas principales del footer. */
 .pie-grid {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
@@ -17,6 +19,7 @@
     padding-bottom: 40px;
 }
 
+/* Títulos de las diferentes columnas del footer. */
 .pie-col h3,
 .pie-col h4 {
     color: var(--celeste-suave);
@@ -24,34 +27,41 @@
     margin-bottom: 16px;
 }
 
+/* Texto descriptivo dentro de las columnas. */
 .pie-col p {
     font-size: 0.92rem;
     line-height: 1.6;
     margin-bottom: 10px;
 }
 
+/* Espaciado entre los elementos de las listas. */
 .pie-col ul li {
     margin-bottom: 8px;
 }
 
+/* Enlaces de las listas del footer. */
 .pie-col ul li a {
     color: #D6E9F0;
     font-size: 0.92rem;
     transition: var(--transicion);
 }
 
+/* Cambia el color y desplaza ligeramente el enlace al pasar el cursor. */
 .pie-col ul li a:hover {
     color: var(--calido);
     padding-left: 4px;
 }
 
 /* Formulario newsletter en footer */
+
+/* Agrupa el campo de correo y el botón de suscripción. */
 .form-newsletter {
     display: flex;
     gap: 8px;
     margin-top: 12px;
 }
 
+/* Campo donde el usuario ingresa su correo. */
 .form-newsletter input {
     flex: 1;
     min-width: 0;
@@ -64,10 +74,12 @@
     font-size: 0.9rem;
 }
 
+/* Color del texto de ayuda mostrado dentro del campo vacío. */
 .form-newsletter input::placeholder {
     color: #92B5C4;
 }
 
+/* Botón para suscribirse al newsletter. */
 .form-newsletter button {
     background: var(--calido);
     color: var(--tinta);
@@ -79,10 +91,12 @@
     transition: var(--transicion);
 }
 
+/* Cambia el color del botón al pasar el cursor. */
 .form-newsletter button:hover {
     background: var(--calido-hover);
 }
 
+/* Franja inferior del footer con información adicional. */
 .pie-inferior {
     background: #082937;
     padding: 18px 0;
