@@ -12,6 +12,7 @@ function inicializarAdminUsuarios() {
     function renderizarTabla(filtroTexto = "") {
         let usuarios = obtenerUsuarios();
 
+        // Filtra los usuarios por nombre, apellidos, RUN o correo.
         if (filtroTexto) {
             const query = filtroTexto.toLowerCase();
             usuarios = usuarios.filter(u =>
@@ -22,13 +23,17 @@ function inicializarAdminUsuarios() {
             );
         }
 
+        // Muestra un mensaje cuando no existen usuarios que coincidan.
         if (usuarios.length === 0) {
             tablaBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 24px;">No se encontraron usuarios.</td></tr>';
             return;
         }
 
+        // Genera las filas de la tabla con los usuarios encontrados.
         tablaBody.innerHTML = usuarios.map(u => {
             let badgeRol = "badge-info";
+
+            // Cambia el estilo visual según el rol del usuario.
             if (u.rol === "Administrador") badgeRol = "badge-error";
             if (u.rol === "Vendedor") badgeRol = "badge-alerta";
 
@@ -52,7 +57,9 @@ function inicializarAdminUsuarios() {
     }
 
     const inputBuscar = document.getElementById("filtro-buscar-usuario");
+
     if (inputBuscar) {
+        // Actualiza la tabla mientras el administrador escribe en el buscador.
         inputBuscar.addEventListener("input", () => {
             renderizarTabla(inputBuscar.value);
         });
@@ -66,11 +73,14 @@ function confirmarEliminarUsuario(run) {
     if (!u) return;
 
     const sesion = obtenerSesionActual();
+
+    // Impide que el administrador elimine su propia cuenta.
     if (sesion && sesion.run === u.run) {
         alert("No puede eliminarse a usted mismo.");
         return;
     }
 
+    // Pide confirmación antes de eliminar al usuario.
     if (confirm(`¿Está seguro de eliminar al usuario "${u.nombre} ${u.apellidos}" (${u.run})?`)) {
         eliminarUsuario(run);
         mostrarToast("Usuario eliminado con éxito.", "info");
@@ -79,7 +89,7 @@ function confirmarEliminarUsuario(run) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Solo administrador
+    // Comprueba que el usuario tenga rol Administrador.
     if (verificarAccesoAdmin(false)) {
         inicializarAdminUsuarios();
     }
