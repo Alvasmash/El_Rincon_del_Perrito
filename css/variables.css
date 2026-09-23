@@ -30,11 +30,11 @@
     --info: #1D4ED8;
     --info-fondo: #DBEAFE;
 
-    /* Tipografía */
-    --fuente-titulos: "Fredoka", "Trebuchet MS", Arial, sans-serif;
-    --fuente-texto: "Work Sans", "Segoe UI", Arial, sans-serif;
+    /* Tipografías utilizadas por el proyecto. */
+    --fuente-titulos: "Trebuchet MS", Arial, sans-serif;
+    --fuente-texto: "Segoe UI", Arial, sans-serif;
 
-    /* Medidas y diseño */
+    /* Medidas y diseño reutilizadas en los distintos componentes. */
     --radio: 14px;
     --radio-chico: 8px;
     --radio-redondo: 9999px;
