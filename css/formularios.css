@@ -3,6 +3,7 @@
    Usado en Login, Registro, Contacto y Formularios de Admin
    ========================================================== */
 
+/* Tarjeta principal que contiene un formulario. */
 .tarjeta-formulario {
     background: var(--blanco);
     border-radius: var(--radio);
@@ -13,47 +14,57 @@
     border: 1px solid var(--celeste-suave);
 }
 
+/* Reduce el ancho de la tarjeta para formularios medianos. */
 .tarjeta-formulario.ancho-medio {
     max-width: 520px;
 }
 
+/* Aumenta el ancho de la tarjeta para formularios grandes. */
 .tarjeta-formulario.ancho-grande {
     max-width: 820px;
 }
 
+/* Encabezado del formulario. */
 .header-formulario {
     text-align: center;
     margin-bottom: 28px;
 }
 
+/* Logo mostrado en el encabezado del formulario. */
 .header-formulario img.logo-form {
     width: 56px;
     height: 56px;
     margin: 0 auto 12px;
 }
 
+/* Título principal del formulario. */
 .header-formulario h1 {
     font-size: 1.85rem;
     margin-bottom: 6px;
 }
 
+/* Texto descriptivo debajo del título. */
 .header-formulario p {
     color: var(--tinta-suave);
     font-size: 0.95rem;
 }
 
 /* Grupos de formulario */
+
+/* Agrupa una etiqueta, campo y sus mensajes de validación. */
 .form-grupo {
     margin-bottom: 20px;
     position: relative;
 }
 
+/* Organiza dos campos del formulario en columnas. */
 .form-fila-doble {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
 }
 
+/* Etiqueta de cada campo del formulario. */
 .form-grupo label {
     display: block;
     font-size: 0.92rem;
@@ -62,11 +73,13 @@
     color: var(--tinta);
 }
 
+/* Marca visualmente los campos obligatorios. */
 .form-grupo label .requerido {
     color: var(--error);
     margin-left: 2px;
 }
 
+/* Estilo base para inputs, selects y otros controles de formulario. */
 .form-control {
     width: 100%;
     padding: 10px 14px;
@@ -79,6 +92,7 @@
     transition: var(--transicion);
 }
 
+/* Resalta el campo cuando el usuario lo selecciona. */
 .form-control:focus {
     background: var(--blanco);
     border-color: var(--azul-boton);
@@ -86,22 +100,28 @@
     outline: none;
 }
 
+/* Ajusta específicamente el tamaño y comportamiento de los textarea. */
 textarea.form-control {
     min-height: 110px;
     resize: vertical;
 }
 
 /* Estados de validación */
+
+/* Marca visualmente un campo que contiene un error. */
 .form-control.campo-invalido {
     border-color: var(--error) !important;
     background-color: #FFF8F8 !important;
 }
 
+/* Marca visualmente un campo que fue validado correctamente. */
 .form-control.campo-valido {
     border-color: var(--exito) !important;
 }
 
 /* Mensajes de error y sugerencia */
+
+/* Mensaje mostrado cuando un campo no cumple una validación. */
 .mensaje-error {
     display: block;
     color: var(--error);
@@ -111,6 +131,7 @@ textarea.form-control {
     min-height: 18px;
 }
 
+/* Texto de ayuda o recomendación relacionado con un campo. */
 .mensaje-sugerencia {
     display: block;
     color: var(--tinta-clara);
@@ -118,6 +139,7 @@ textarea.form-control {
     margin-top: 4px;
 }
 
+/* Contador que muestra la cantidad de caracteres utilizados. */
 .contador-caracteres {
     font-size: 0.78rem;
     color: var(--tinta-clara);
@@ -126,6 +148,8 @@ textarea.form-control {
 }
 
 /* Enlaces al pie de formularios */
+
+/* Contenedor inferior de los formularios. */
 .pie-formulario {
     text-align: center;
     margin-top: 24px;
@@ -135,6 +159,7 @@ textarea.form-control {
     color: var(--tinta-suave);
 }
 
+/* Destaca los enlaces ubicados al final del formulario. */
 .pie-formulario a {
     font-weight: 600;
 }
