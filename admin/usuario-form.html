@@ -4,172 +4,308 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Usuario — Admin</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo utilizadas por el formulario. -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/formularios.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Icono mostrado en la pestaña del navegador. -->
     <link rel="icon" type="image/png" href="../Imagenes/pata_perrito.png">
 </head>
+
 <body>
     <div class="layout-admin">
-        
-    <aside class="sidebar-admin">
-        <div class="sidebar-encabezado">
-            <img src="../Imagenes/pata_perrito.png" alt="Logo">
-            <span>Panel de Gestión</span>
-        </div>
-        <nav class="sidebar-menu">
-            <a href="index.html" class="sidebar-link ">
-                <span>📊</span> Dashboard
-            </a>
-            <a href="productos.html" class="sidebar-link ">
-                <span>📦</span> Productos
-            </a>
-            <a href="producto-form.html" class="sidebar-link " id="link-sidebar-nuevo-prod">
-                <span>➕</span> Nuevo Producto
-            </a>
-            <a href="usuarios.html" class="sidebar-link " id="link-sidebar-usuarios">
-                <span>👥</span> Usuarios
-            </a>
-            <a href="usuario-form.html" class="sidebar-link activo" id="link-sidebar-nuevo-usr">
-                <span>👤</span> Nuevo Usuario
-            </a>
-            <a href="ordenes.html" class="sidebar-link ">
-                <span>📑</span> Órdenes
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
-                <span>🏠</span> Ir a la Tienda
-            </a>
-            <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
-                <span>🚪</span> Cerrar Sesión
-            </a>
-        </div>
-    </aside>
-    
+
+        <!-- Barra lateral de navegación del panel. -->
+        <aside class="sidebar-admin">
+            <div class="sidebar-encabezado">
+                <img src="../Imagenes/pata_perrito.png" alt="Logo">
+                <span>Panel de Gestión</span>
+            </div>
+
+            <!-- Opciones disponibles dentro del panel administrativo. -->
+            <nav class="sidebar-menu">
+                <a href="index.html" class="sidebar-link">
+                    <span>📊</span> Dashboard
+                </a>
+
+                <a href="productos.html" class="sidebar-link">
+                    <span>📦</span> Productos
+                </a>
+
+                <a href="producto-form.html" class="sidebar-link" id="link-sidebar-nuevo-prod">
+                    <span>➕</span> Nuevo Producto
+                </a>
+
+                <a href="usuarios.html" class="sidebar-link" id="link-sidebar-usuarios">
+                    <span>👥</span> Usuarios
+                </a>
+
+                <a href="usuario-form.html" class="sidebar-link activo" id="link-sidebar-nuevo-usr">
+                    <span>👤</span> Nuevo Usuario
+                </a>
+
+                <a href="ordenes.html" class="sidebar-link">
+                    <span>📑</span> Órdenes
+                </a>
+            </nav>
+
+            <!-- Acciones generales del panel. -->
+            <div class="sidebar-footer">
+                <a href="../html/index.html" class="sidebar-link" style="color: var(--celeste-suave);">
+                    <span>🏠</span> Ir a la Tienda
+                </a>
+
+                <a href="javascript:void(0)" onclick="cerrarSesionUsuario()" class="sidebar-link" style="color: #FF9B9B;">
+                    <span>🚪</span> Cerrar Sesión
+                </a>
+            </div>
+        </aside>
 
         <div class="contenido-admin">
-            
-    <header class="topbar-admin">
-        <h1>Gestión de Usuario</h1>
-        <div class="topbar-usuario">
-            <span id="nombre-usuario-admin">Cargando usuario...</span>
-            <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
-        </div>
-    </header>
-    
+
+            <!-- Barra superior con información del usuario actual. -->
+            <header class="topbar-admin">
+                <h1>Gestión de Usuario</h1>
+
+                <div class="topbar-usuario">
+                    <span id="nombre-usuario-admin">Cargando usuario...</span>
+                    <span class="badge badge-info" id="rol-usuario-admin">Rol</span>
+                </div>
+            </header>
 
             <main class="panel-principal">
+
+                <!-- Contenedor principal del formulario de usuario. -->
                 <section class="tarjeta-formulario ancho-grande" style="margin: 0 auto;">
                     <div class="header-formulario" style="text-align: left; margin-bottom: 20px;">
-                        <h2 id="titulo-form-usuario" style="font-size: 1.6rem; color: var(--azul-boton);">Nuevo Usuario</h2>
-                        <p>Crear o editar perfiles en el sistema con asignación de roles y validación de RUN chileno.</p>
+                        <h2 id="titulo-form-usuario" style="font-size: 1.6rem; color: var(--azul-boton);">
+                            Nuevo Usuario
+                        </h2>
+
+                        <p>
+                            Crear o editar perfiles en el sistema con asignación de roles y validación de RUN chileno.
+                        </p>
                     </div>
 
+                    <!-- novalidate permite controlar las validaciones mediante JavaScript. -->
                     <form id="form-usuario-admin" novalidate>
+
+                        <!-- RUN y rol del usuario. -->
                         <div class="form-fila-doble">
-                            <!-- RUN: Requerido, validar RUN (módulo 11 sin puntos ni guión, min 7, max 9) -->
+
+                            <!-- RUN: Se valida mediante el módulo 11. -->
                             <div class="form-grupo">
-                                <label for="usr-run">RUN (Sin puntos ni guión) <span class="requerido">*</span></label>
-                                <input type="text" id="usr-run" class="form-control" placeholder="Ej: 19011022K" minlength="7" maxlength="9" required>
+                                <label for="usr-run">
+                                    RUN (Sin puntos ni guión) <span class="requerido">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="usr-run"
+                                    class="form-control"
+                                    placeholder="Ej: 19011022K"
+                                    minlength="7"
+                                    maxlength="9"
+                                    required
+                                >
+
                                 <span class="mensaje-error" id="error-usr-run"></span>
-                                <span class="mensaje-sugerencia">Mín 7 y máx 9 caracteres. Valida dígito verificador.</span>
+                                <span class="mensaje-sugerencia">
+                                    Mín 7 y máx 9 caracteres. Valida dígito verificador.
+                                </span>
                             </div>
 
-                            <!-- Rol de Usuario (Administrador, Cliente, Vendedor) -->
+                            <!-- Permite seleccionar el rol que tendrá el usuario. -->
                             <div class="form-grupo">
-                                <label for="usr-rol">TIPO DE USUARIO / ROL <span class="requerido">*</span></label>
+                                <label for="usr-rol">
+                                    TIPO DE USUARIO / ROL <span class="requerido">*</span>
+                                </label>
+
                                 <select id="usr-rol" class="form-control" required>
                                     <option value="Cliente">Cliente (Acceso solo tienda)</option>
                                     <option value="Vendedor">Vendedor (Productos y órdenes)</option>
                                     <option value="Administrador">Administrador (Acceso total)</option>
                                 </select>
+
                                 <span class="mensaje-error" id="error-usr-rol"></span>
                             </div>
                         </div>
 
+                        <!-- Nombre y apellidos del usuario. -->
                         <div class="form-fila-doble">
-                            <!-- Nombre: Requerido, máx 50 -->
+
+                            <!-- Nombre: Requerido, máximo 50 caracteres. -->
                             <div class="form-grupo">
-                                <label for="usr-nombre">NOMBRE <span class="requerido">*</span></label>
-                                <input type="text" id="usr-nombre" class="form-control" placeholder="Ej: Marcela" maxlength="50" required>
+                                <label for="usr-nombre">
+                                    NOMBRE <span class="requerido">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="usr-nombre"
+                                    class="form-control"
+                                    placeholder="Ej: Marcela"
+                                    maxlength="50"
+                                    required
+                                >
+
                                 <span class="mensaje-error" id="error-usr-nombre"></span>
                             </div>
 
-                            <!-- Apellidos: Requerido, máx 100 -->
+                            <!-- Apellidos: Requerido, máximo 100 caracteres. -->
                             <div class="form-grupo">
-                                <label for="usr-apellidos">APELLIDOS <span class="requerido">*</span></label>
-                                <input type="text" id="usr-apellidos" class="form-control" placeholder="Ej: Soto Martínez" maxlength="100" required>
+                                <label for="usr-apellidos">
+                                    APELLIDOS <span class="requerido">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="usr-apellidos"
+                                    class="form-control"
+                                    placeholder="Ej: Soto Martínez"
+                                    maxlength="100"
+                                    required
+                                >
+
                                 <span class="mensaje-error" id="error-usr-apellidos"></span>
                             </div>
                         </div>
 
+                        <!-- Correo y contraseña del usuario. -->
                         <div class="form-fila-doble">
-                            <!-- Correo: Requerido, máx 100, solo @duocuc.cl, @profesor.duoc.cl, @gmail.com -->
+
+                            <!-- Correo: Se valida mediante las reglas definidas en JavaScript. -->
                             <div class="form-grupo">
-                                <label for="usr-correo">CORREO ELECTRÓNICO <span class="requerido">*</span></label>
-                                <input type="email" id="usr-correo" class="form-control" placeholder="ejemplo@duocuc.cl" maxlength="100" required>
+                                <label for="usr-correo">
+                                    CORREO ELECTRÓNICO <span class="requerido">*</span>
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="usr-correo"
+                                    class="form-control"
+                                    placeholder="ejemplo@duocuc.cl"
+                                    maxlength="100"
+                                    required
+                                >
+
                                 <span class="mensaje-error" id="error-usr-correo"></span>
-                                <span class="mensaje-sugerencia">Solo @duocuc.cl, @profesor.duoc.cl y @gmail.com</span>
+                                <span class="mensaje-sugerencia">
+                                    Solo @duocuc.cl, @profesor.duoc.cl y @gmail.com
+                                </span>
                             </div>
 
-                            <!-- Contraseña -->
+                            <!-- Contraseña del usuario. -->
                             <div class="form-grupo">
-                                <label for="usr-clave">CONTRASEÑA <span class="requerido">*</span></label>
-                                <input type="password" id="usr-clave" class="form-control" placeholder="••••••••" minlength="4" maxlength="20" required>
+                                <label for="usr-clave">
+                                    CONTRASEÑA <span class="requerido">*</span>
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="usr-clave"
+                                    class="form-control"
+                                    placeholder="••••••••"
+                                    minlength="4"
+                                    maxlength="20"
+                                    required
+                                >
+
                                 <span class="mensaje-error" id="error-usr-clave"></span>
-                                <span class="mensaje-sugerencia">Entre 4 y 20 caracteres.</span>
+                                <span class="mensaje-sugerencia">
+                                    Entre 4 y 20 caracteres.
+                                </span>
                             </div>
                         </div>
 
+                        <!-- Información opcional del usuario. -->
                         <div class="form-fila-doble">
-                            <!-- Fecha Nacimiento: Opcional -->
+
+                            <!-- Fecha de nacimiento: Campo opcional. -->
                             <div class="form-grupo">
                                 <label for="usr-fecha">FECHA NACIMIENTO (Opcional)</label>
-                                <input type="date" id="usr-fecha" class="form-control">
+
+                                <input
+                                    type="date"
+                                    id="usr-fecha"
+                                    class="form-control"
+                                >
                             </div>
 
-                            <!-- Teléfono -->
+                            <!-- Teléfono: Campo opcional. -->
                             <div class="form-grupo">
                                 <label for="usr-telefono">TELÉFONO (Opcional)</label>
-                                <input type="tel" id="usr-telefono" class="form-control" placeholder="+56912345678">
+
+                                <input
+                                    type="tel"
+                                    id="usr-telefono"
+                                    class="form-control"
+                                    placeholder="+56912345678"
+                                >
                             </div>
                         </div>
 
-                        <!-- Región y Comuna (Select dependiente de arreglo JS) -->
+                        <!-- Región y comuna seleccionadas de forma dependiente. -->
                         <div class="form-fila-doble">
+
+                            <!-- La lista de regiones se carga mediante JavaScript. -->
                             <div class="form-grupo">
-                                <label for="usr-region">REGIÓN <span class="requerido">*</span></label>
+                                <label for="usr-region">
+                                    REGIÓN <span class="requerido">*</span>
+                                </label>
+
                                 <select id="usr-region" class="form-control" required>
                                     <option value="">-- Seleccione región --</option>
                                 </select>
+
                                 <span class="mensaje-error" id="error-usr-region"></span>
                             </div>
 
+                            <!-- La comuna se habilita después de seleccionar una región. -->
                             <div class="form-grupo">
-                                <label for="usr-comuna">COMUNA <span class="requerido">*</span></label>
+                                <label for="usr-comuna">
+                                    COMUNA <span class="requerido">*</span>
+                                </label>
+
                                 <select id="usr-comuna" class="form-control" required disabled>
                                     <option value="">-- Seleccione comuna --</option>
                                 </select>
+
                                 <span class="mensaje-error" id="error-usr-comuna"></span>
                             </div>
                         </div>
 
-                        <!-- Dirección: Requerido, máx 300 -->
+                        <!-- Dirección del usuario. -->
                         <div class="form-grupo">
-                            <label for="usr-direccion">DIRECCIÓN <span class="requerido">*</span></label>
-                            <input type="text" id="usr-direccion" class="form-control" placeholder="Calle, número, depto o villa" maxlength="300" required>
+                            <label for="usr-direccion">
+                                DIRECCIÓN <span class="requerido">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="usr-direccion"
+                                class="form-control"
+                                placeholder="Calle, número, depto o villa"
+                                maxlength="300"
+                                required
+                            >
+
                             <span class="mensaje-error" id="error-usr-direccion"></span>
                         </div>
 
+                        <!-- Acciones para guardar o cancelar el formulario. -->
                         <div style="display: flex; gap: 12px; margin-top: 24px;">
-                            <button type="submit" class="boton" style="padding: 12px 24px;">Guardar Usuario</button>
-                            <a href="usuarios.html" class="boton boton-secundario">Cancelar</a>
+                            <button type="submit" class="boton" style="padding: 12px 24px;">
+                                Guardar Usuario
+                            </button>
+
+                            <a href="usuarios.html" class="boton boton-secundario">
+                                Cancelar
+                            </a>
                         </div>
                     </form>
                 </section>
@@ -177,6 +313,7 @@
         </div>
     </div>
 
+    <!-- Archivos con regiones, datos, validaciones y lógica del formulario. -->
     <script src="../js/regiones-comunas.js"></script>
     <script src="../js/productos-data.js"></script>
     <script src="../js/usuarios-data.js"></script>
