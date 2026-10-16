@@ -110,11 +110,11 @@ export default function AdminProducts({ onNavigate }) {
                     <tr key={p.id}>
                       <td>
                         <img
-                          src={`/assets/img/${p.imagen || 'cama.png'}`}
+                          src={`/Imagenes/${p.imagen || 'cama.png'}`}
                           alt={p.nombre}
                           className="rounded object-fit-cover"
                           style={{ width: '50px', height: '50px' }}
-                          onError={e => { e.target.src = '/assets/img/cama.png'; }}
+                          onError={e => { e.target.src = '/Imagenes/cama.png'; }}
                         />
                       </td>
                       <td className="fw-semibold text-secondary">{p.codigo}</td>
