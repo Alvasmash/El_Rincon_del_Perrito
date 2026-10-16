@@ -1,0 +1,79 @@
+/* ==========================================================
+   index.css — Estilos globales y paleta de El Rincón del Perrito
+   ========================================================== */
+:root {
+  --celeste-fondo: #EAF7FC;
+  --celeste: #4FB8DD;
+  --celeste-suave: #CDEEF8;
+  --celeste-fuerte: #1D8AB0;
+  --azul-boton: #167094;
+  --azul-boton-hover: #0F5A78;
+  --tinta: #0F3F52;
+  --tinta-suave: #476A79;
+  --calido: #FFB27A;
+  --calido-hover: #F29A5B;
+  --blanco: #FFFFFF;
+  --error: #B3261E;
+  --exito: #1B7A43;
+  --alerta: #B45309;
+  --fuente-titulos: "Fredoka", "Trebuchet MS", sans-serif;
+  --fuente-texto: "Work Sans", "Segoe UI", sans-serif;
+}
+
+body {
+  background-color: var(--celeste-fondo);
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fuente-titulos);
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+/* Personalización de botones con la paleta de la marca */
+.btn-perrito-primary {
+  background-color: var(--azul-boton) !important;
+  color: #fff !important;
+  border: none;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+.btn-perrito-primary:hover {
+  background-color: var(--azul-boton-hover) !important;
+  transform: translateY(-1px);
+}
+
+.btn-perrito-calido {
+  background-color: var(--calido) !important;
+  color: var(--tinta) !important;
+  border: none;
+  font-weight: 600;
+}
+.btn-perrito-calido:hover {
+  background-color: var(--calido-hover) !important;
+}
+
+/* Tarjetas y sombras suaves */
+.card-perrito {
+  border: 1px solid var(--celeste-suave);
+  border-radius: 12px;
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-perrito:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(15, 63, 82, 0.08);
+}
+
+/* Badge de oferta */
+.badge-oferta {
+  background: #E11D48;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
