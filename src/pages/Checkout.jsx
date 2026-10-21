@@ -12,15 +12,30 @@ export function Checkout({ onNavigate }) {
 
   /* Si el usuario ha iniciado sesión se añade de forma automática (Requisito Nota pág 6) */
   const [formData, setFormData] = useState({
-    nombre: user ? user.nombre : '',
-    apellidos: user ? user.apellidos : '',
-    correo: user ? user.correo : '',
-    calle: user ? user.direccion : '',
+    nombre: user ? (user.nombre || '') : '',
+    apellidos: user ? (user.apellidos || '') : '',
+    correo: user ? (user.correo || '') : '',
+    calle: user ? (user.direccion || '') : '',
     depto: '',
-    region: user ? user.region : 'Región Metropolitana de Santiago',
-    comuna: user ? user.comuna : 'Santiago',
+    region: user ? (user.region || 'Región Metropolitana de Santiago') : 'Región Metropolitana de Santiago',
+    comuna: user ? (user.comuna || 'Santiago') : 'Santiago',
     indicaciones: ''
   });
+
+  /* Sincronizar datos si el usuario inicia sesión */
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        nombre: prev.nombre || user.nombre || '',
+        apellidos: prev.apellidos || user.apellidos || '',
+        correo: prev.correo || user.correo || '',
+        calle: prev.calle || user.direccion || '',
+        region: user.region || prev.region || 'Región Metropolitana de Santiago',
+        comuna: user.comuna || prev.comuna || 'Santiago'
+      }));
+    }
+  }, [user]);
 
   const [errorMsg, setErrorMsg] = useState('');
   const [simulateError, setSimulateError] = useState(false);
@@ -58,28 +73,52 @@ export function Checkout({ onNavigate }) {
     /* Generar ID de orden */
     const orderNumber = '2024' + Math.floor(1000 + Math.random() * 9000);
 
+    const orderCustomer = {
+      nombre: formData.nombre,
+      apellidos: formData.apellidos,
+      apellido: formData.apellidos,
+      correo: formData.correo,
+      calle: formData.calle,
+      depto: formData.depto,
+      region: formData.region,
+      comuna: formData.comuna,
+      indicaciones: formData.indicaciones,
+      telefono: user?.telefono || ''
+    };
+
+    const orderAddress = {
+      calle: formData.calle,
+      depto: formData.depto,
+      region: formData.region,
+      comuna: formData.comuna
+    };
+
+    const orderData = {
+      id: orderNumber,
+      customer: orderCustomer,
+      cliente: orderCustomer,
+      direccion: orderAddress,
+      pago: {
+        metodo: 'Webpay Plus',
+        fecha: new Date().toLocaleString()
+      },
+      items: [...cartItems],
+      total: total
+    };
+
     if (simulateError) {
       onNavigate('payment-error', {
-        order: {
-          id: orderNumber,
-          customer: formData,
-          items: cartItems,
-          total: total
-        }
+        order: orderData,
+        orderId: orderNumber
       });
       return;
     }
 
     /* Crear orden y guardar en DB */
-    const newOrder = createOrder({
-      id: orderNumber,
-      customer: formData,
-      items: cartItems,
-      total: total
-    });
+    const newOrder = createOrder(orderData);
 
     clearCart();
-    onNavigate('payment-success', { order: newOrder });
+    onNavigate('payment-success', { order: newOrder, orderId: orderNumber });
   };
 
   if (cartItems.length === 0) {

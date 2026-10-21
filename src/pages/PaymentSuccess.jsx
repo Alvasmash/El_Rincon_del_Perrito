@@ -1,30 +1,85 @@
 /* Vista de compra exitosa con resumen y botones de boleta (Figura 7) */
 import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import { getOrders, getOrderById } from '../data/db';
 import { formatPrice } from '../data/validations';
 
-export function PaymentSuccess({ order, onNavigate }) {
-  const currentOrder = order || {
-    id: '20240705',
-    customer: {
-      nombre: 'Pedro',
-      apellidos: 'Hacker',
-      correo: 'pedro.hacker20@duocuc.cl',
-      calle: 'Los Crisantemos, Edificio Norte',
-      depto: 'Depto 603',
-      region: 'Región Metropolitana de Santiago',
-      comuna: 'Cerrillos',
-      indicaciones: 'El martes no estaremos en el depto, pero puede dejárselo con el conserje.'
-    },
-    items: [],
-    total: 28775
-  };
+export function PaymentSuccess({ order, orderId, onNavigate }) {
+  const { user } = useAuth();
+
+  // 1. Intentar usar la orden pasada en props (desde Checkout)
+  // 2. Si hay orderId, buscar la orden específica por ID
+  // 3. Si el usuario actual tiene compras, obtener su última orden
+  // 4. Si no, obtener la última orden registrada en el sistema
+  const allOrders = getOrders();
+  const userOrder = user
+    ? allOrders.find(
+        o =>
+          (o.customer?.correo && o.customer.correo.toLowerCase() === user.correo.toLowerCase()) ||
+          (o.cliente?.correo && o.cliente.correo.toLowerCase() === user.correo.toLowerCase())
+      )
+    : null;
+
+  const currentOrder =
+    order ||
+    (orderId ? getOrderById(orderId) : null) ||
+    userOrder ||
+    allOrders[0] || {
+      id: orderId ? String(orderId).replace('#', '') : '20240705',
+      customer: user
+        ? {
+            nombre: user.nombre || 'Cliente',
+            apellidos: user.apellidos || '',
+            correo: user.correo || '',
+            calle: user.direccion || 'Dirección registrada',
+            depto: '',
+            region: user.region || 'Región Metropolitana de Santiago',
+            comuna: user.comuna || 'Santiago',
+            indicaciones: ''
+          }
+        : {
+            nombre: 'Pedro',
+            apellidos: 'Hacker',
+            correo: 'pedro.hacker20@duocuc.cl',
+            calle: 'Los Crisantemos, Edificio Norte',
+            depto: 'Depto 603',
+            region: 'Región Metropolitana de Santiago',
+            comuna: 'Cerrillos',
+            indicaciones: 'El martes no estaremos en el depto, pero puede dejárselo con el conserje.'
+          },
+      items: [],
+      total: 28775
+    };
+
+  // Normalizar datos de cliente y dirección
+  const customer = currentOrder.customer || currentOrder.cliente || (user ? {
+    nombre: user.nombre || 'Cliente',
+    apellidos: user.apellidos || '',
+    correo: user.correo || '',
+    calle: user.direccion || '',
+    depto: '',
+    region: user.region || '',
+    comuna: user.comuna || '',
+    indicaciones: ''
+  } : {
+    nombre: 'Pedro',
+    apellidos: 'Hacker',
+    correo: 'pedro.hacker20@duocuc.cl',
+    calle: 'Los Crisantemos, Edificio Norte',
+    depto: 'Depto 603',
+    region: 'Región Metropolitana de Santiago',
+    comuna: 'Cerrillos',
+    indicaciones: 'El martes no estaremos en el depto, pero puede dejárselo con el conserje.'
+  });
+
+  const orderNum = String(currentOrder.id || '20240705').replace(/^#/, '');
 
   const handlePrint = () => {
     window.print();
   };
 
   const handleSendEmail = () => {
-    alert('¡Boleta electrónica enviada exitosamente a ' + currentOrder.customer.correo + '!');
+    alert('¡Boleta electrónica enviada exitosamente a ' + (customer.correo || 'tu correo') + '!');
   };
 
   return (
@@ -34,18 +89,18 @@ export function PaymentSuccess({ order, onNavigate }) {
         <div className="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
           <div className="d-flex align-items-center gap-2">
             <span className="fs-3 text-success">✅</span>
-            <h4 className="fw-bold text-success m-0">Se ha realizado la compra. nro #{currentOrder.id}</h4>
+            <h4 className="fw-bold text-success m-0">Se ha realizado la compra. nro #{orderNum}</h4>
           </div>
-          <span className="badge bg-light text-muted border small">Código orden: ORDER-{currentOrder.id}</span>
+          <span className="badge bg-light text-muted border small">Código orden: ORDER-{orderNum}</span>
         </div>
 
         {/* Datos del Cliente */}
         <div className="mb-4">
           <h6 className="fw-bold text-secondary mb-2">Información del cliente:</h6>
           <div className="row g-2 small bg-light p-3 rounded">
-            <div className="col-md-4"><strong>Nombre:</strong> {currentOrder.customer.nombre}</div>
-            <div className="col-md-4"><strong>Apellidos:</strong> {currentOrder.customer.apellidos}</div>
-            <div className="col-md-4"><strong>Correo:</strong> {currentOrder.customer.correo}</div>
+            <div className="col-md-4"><strong>Nombre:</strong> {customer.nombre}</div>
+            <div className="col-md-4"><strong>Apellidos:</strong> {customer.apellidos || customer.apellido || ''}</div>
+            <div className="col-md-4"><strong>Correo:</strong> {customer.correo}</div>
           </div>
         </div>
 
@@ -53,12 +108,12 @@ export function PaymentSuccess({ order, onNavigate }) {
         <div className="mb-4">
           <h6 className="fw-bold text-secondary mb-2">Dirección de entrega de los productos:</h6>
           <div className="row g-2 small bg-light p-3 rounded">
-            <div className="col-md-8"><strong>Calle:</strong> {currentOrder.customer.calle}</div>
-            <div className="col-md-4"><strong>Depto:</strong> {currentOrder.customer.depto || 'N/A'}</div>
-            <div className="col-md-6"><strong>Región:</strong> {currentOrder.customer.region}</div>
-            <div className="col-md-6"><strong>Comuna:</strong> {currentOrder.customer.comuna}</div>
-            {currentOrder.customer.indicaciones && (
-              <div className="col-12 mt-2 text-muted"><strong>Indicaciones:</strong> {currentOrder.customer.indicaciones}</div>
+            <div className="col-md-8"><strong>Calle:</strong> {customer.calle || currentOrder.direccion?.calle || 'N/A'}</div>
+            <div className="col-md-4"><strong>Depto:</strong> {customer.depto || currentOrder.direccion?.depto || 'N/A'}</div>
+            <div className="col-md-6"><strong>Región:</strong> {customer.region || currentOrder.direccion?.region || 'N/A'}</div>
+            <div className="col-md-6"><strong>Comuna:</strong> {customer.comuna || currentOrder.direccion?.comuna || 'N/A'}</div>
+            {(customer.indicaciones || currentOrder.indicaciones) && (
+              <div className="col-12 mt-2 text-muted"><strong>Indicaciones:</strong> {customer.indicaciones || currentOrder.indicaciones}</div>
             )}
           </div>
         </div>

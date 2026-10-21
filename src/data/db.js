@@ -352,7 +352,9 @@ export function getOrders() {
 }
 
 export function getOrderById(id) {
-  return getOrders().find(o => o.id === id);
+  if (!id) return null;
+  const cleanId = String(id).replace('#', '');
+  return getOrders().find(o => String(o.id).replace('#', '') === cleanId);
 }
 
 export function createOrder(orderData) {

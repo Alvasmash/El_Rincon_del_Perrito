@@ -229,7 +229,7 @@ export default function AdminDashboard({ onNavigate }) {
                       {recentOrders.map(o => (
                         <tr key={o.id}>
                           <td className="fw-semibold text-primary">{o.id}</td>
-                          <td>{o.cliente?.nombre ? `${o.cliente.nombre} ${o.cliente.apellido || ''}` : o.cliente?.correo || 'Cliente'}</td>
+                          <td>{(o.cliente?.nombre || o.customer?.nombre) ? `${o.cliente?.nombre || o.customer?.nombre} ${o.cliente?.apellido || o.customer?.apellidos || ''}` : o.cliente?.correo || o.customer?.correo || 'Cliente'}</td>
                           <td className="fw-bold">{formatCLP(o.total)}</td>
                           <td>
                             <span className="badge bg-success">Aprobada</span>

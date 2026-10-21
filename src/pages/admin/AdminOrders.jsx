@@ -54,11 +54,11 @@ export default function AdminOrders({ onNavigate }) {
                       <td className="fw-bold text-primary">{o.id}</td>
                       <td>{o.fecha || 'Reciente'}</td>
                       <td>
-                        <div className="fw-semibold">{o.cliente?.nombre ? `${o.cliente.nombre} ${o.cliente.apellido || ''}` : 'Cliente'}</div>
-                        <small className="text-muted">{o.cliente?.correo || ''}</small>
+                        <div className="fw-semibold">{(o.cliente?.nombre || o.customer?.nombre) ? `${o.cliente?.nombre || o.customer?.nombre} ${o.cliente?.apellido || o.customer?.apellidos || ''}` : 'Cliente'}</div>
+                        <small className="text-muted">{o.cliente?.correo || o.customer?.correo || ''}</small>
                       </td>
                       <td className="small">
-                        {o.direccion?.comuna ? `${o.direccion.comuna}, ${o.direccion.region}` : 'Chile'}
+                        {(o.direccion?.comuna || o.customer?.comuna) ? `${o.direccion?.comuna || o.customer?.comuna}, ${o.direccion?.region || o.customer?.region}` : 'Chile'}
                       </td>
                       <td>
                         <span className="badge bg-light text-dark border text-capitalize">
@@ -100,15 +100,15 @@ export default function AdminOrders({ onNavigate }) {
             <div className="row g-3 mb-4">
               <div className="col-12 col-md-4">
                 <h6 className="fw-bold text-dark">Información del Cliente</h6>
-                <p className="mb-1"><strong>Nombre:</strong> {selectedOrder.cliente?.nombre} {selectedOrder.cliente?.apellido}</p>
-                <p className="mb-1"><strong>Correo:</strong> {selectedOrder.cliente?.correo}</p>
-                <p className="mb-1"><strong>Teléfono:</strong> {selectedOrder.cliente?.telefono || 'No registrado'}</p>
+                <p className="mb-1"><strong>Nombre:</strong> {selectedOrder.cliente?.nombre || selectedOrder.customer?.nombre} {selectedOrder.cliente?.apellido || selectedOrder.customer?.apellidos || ''}</p>
+                <p className="mb-1"><strong>Correo:</strong> {selectedOrder.cliente?.correo || selectedOrder.customer?.correo}</p>
+                <p className="mb-1"><strong>Teléfono:</strong> {selectedOrder.cliente?.telefono || selectedOrder.customer?.telefono || 'No registrado'}</p>
               </div>
               <div className="col-12 col-md-4">
                 <h6 className="fw-bold text-dark">Dirección de Entrega</h6>
-                <p className="mb-1"><strong>Dirección:</strong> {selectedOrder.direccion?.calle} {selectedOrder.direccion?.depto}</p>
-                <p className="mb-1"><strong>Comuna:</strong> {selectedOrder.direccion?.comuna}</p>
-                <p className="mb-1"><strong>Región:</strong> {selectedOrder.direccion?.region}</p>
+                <p className="mb-1"><strong>Dirección:</strong> {selectedOrder.direccion?.calle || selectedOrder.customer?.calle} {selectedOrder.direccion?.depto || selectedOrder.customer?.depto || ''}</p>
+                <p className="mb-1"><strong>Comuna:</strong> {selectedOrder.direccion?.comuna || selectedOrder.customer?.comuna}</p>
+                <p className="mb-1"><strong>Región:</strong> {selectedOrder.direccion?.region || selectedOrder.customer?.region}</p>
               </div>
               <div className="col-12 col-md-4">
                 <h6 className="fw-bold text-dark">Resumen de Pago</h6>

@@ -18,7 +18,7 @@ import Checkout from './pages/Checkout';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentError from './pages/PaymentError';
 import About from './pages/About';
-import Blogs from './pages/Blogs';
+import Blogs, { BlogDetail } from './pages/Blogs';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -48,6 +48,8 @@ function AppContent() {
         setRouteParams({ ...params, id: paramValue });
       } else if (baseRoute.includes('user')) {
         setRouteParams({ ...params, rut: paramValue });
+      } else if (baseRoute.includes('payment') || baseRoute.includes('order')) {
+        setRouteParams({ ...params, id: paramValue, orderId: paramValue });
       } else {
         setRouteParams({ ...params, id: paramValue });
       }
@@ -72,6 +74,8 @@ function AppContent() {
             setRouteParams({ id: paramValue });
           } else if (baseRoute.includes('user')) {
             setRouteParams({ rut: paramValue });
+          } else if (baseRoute.includes('payment') || baseRoute.includes('order')) {
+            setRouteParams({ id: paramValue, orderId: paramValue });
           } else {
             setRouteParams({ id: paramValue });
           }
@@ -160,13 +164,15 @@ function AppContent() {
       case 'checkout':
         return <Checkout onNavigate={navigate} />;
       case 'payment-success':
-        return <PaymentSuccess orderId={routeParams.orderId || '#20240705'} onNavigate={navigate} />;
+        return <PaymentSuccess order={routeParams.order} orderId={routeParams.orderId || routeParams.id} onNavigate={navigate} />;
       case 'payment-error':
-        return <PaymentError onNavigate={navigate} />;
+        return <PaymentError order={routeParams.order} orderId={routeParams.orderId || routeParams.id} onNavigate={navigate} />;
       case 'about':
         return <About onNavigate={navigate} />;
       case 'blogs':
         return <Blogs onNavigate={navigate} />;
+      case 'blog-detail':
+        return <BlogDetail blogId={routeParams.id} onNavigate={navigate} />;
       case 'contact':
         return <Contact onNavigate={navigate} />;
       case 'login':
