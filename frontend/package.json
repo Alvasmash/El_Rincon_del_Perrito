@@ -12,6 +12,7 @@
     "test": "karma start karma.conf.cjs"
   },
   "dependencies": {
+    "axios": "^1.21.1",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.13.2",
     "react": "^18.3.1",
