@@ -1,6 +1,7 @@
 /* Formulario de Creación y Edición de Productos con validaciones */
 import React, { useState, useEffect } from 'react';
-import { getProducts, getProductById, createProduct, updateProduct, getCategories } from '../../data/db';
+import { getProductById, createProduct, updateProduct, getCategories } from '../../data/db';
+import { getApiErrorMessage } from '../../api/apiClient';
 
 export default function AdminProductForm({ productId, onNavigate }) {
   const isEdit = Boolean(productId);
@@ -22,27 +23,37 @@ export default function AdminProductForm({ productId, onNavigate }) {
   const [statusMsg, setStatusMsg] = useState(null);
 
   useEffect(() => {
-    const cats = getCategories();
-    setCategories(cats);
+    let active = true;
+    async function loadFormData() {
+      try {
+        const cats = await getCategories();
+        if (!active) return;
+        setCategories(cats);
 
-    if (isEdit) {
-      const prod = getProductById(productId);
-      if (prod) {
-        setFormData({
-          codigo: prod.codigo || '',
-          nombre: prod.nombre || '',
-          descripcion: prod.descripcion || '',
-          precio: prod.precio || '',
-          esOferta: Boolean(prod.esOferta),
-          precioOferta: prod.precioOferta || '',
-          stock: prod.stock !== undefined ? prod.stock : '',
-          stockCritico: prod.stockCritico || 3,
-          categoria: prod.categoria || (cats[0]?.id || 'camas'),
-          material: prod.material || '',
-          imagen: prod.imagen || 'cama.png'
-        });
+        if (isEdit) {
+          const prod = await getProductById(productId);
+          if (prod && active) {
+            setFormData({
+              codigo: prod.codigo || '',
+              nombre: prod.nombre || '',
+              descripcion: prod.descripcion || '',
+              precio: prod.precio || '',
+              esOferta: Boolean(prod.esOferta),
+              precioOferta: prod.precioOferta || '',
+              stock: prod.stock !== undefined ? prod.stock : '',
+              stockCritico: prod.stockCritico || 3,
+              categoria: prod.categoria || (cats[0]?.id || 'camas'),
+              material: prod.material || '',
+              imagen: prod.imagen || 'cama.png'
+            });
+          }
+        }
+      } catch (err) {
+        if (active) setStatusMsg({ type: 'danger', text: getApiErrorMessage(err, 'Error al cargar datos.') });
       }
     }
+    loadFormData();
+    return () => { active = false; };
   }, [productId, isEdit]);
 
   const handleChange = (e) => {
@@ -98,7 +109,7 @@ export default function AdminProductForm({ productId, onNavigate }) {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
@@ -116,17 +127,21 @@ export default function AdminProductForm({ productId, onNavigate }) {
       imagen: formData.imagen
     };
 
-    if (isEdit) {
-      updateProduct(productId, payload);
-      setStatusMsg({ type: 'success', text: '¡Producto actualizado exitosamente!' });
-    } else {
-      createProduct(payload);
-      setStatusMsg({ type: 'success', text: '¡Producto creado exitosamente!' });
-    }
+    try {
+      if (isEdit) {
+        await updateProduct(productId, payload);
+        setStatusMsg({ type: 'success', text: '¡Producto actualizado exitosamente!' });
+      } else {
+        await createProduct(payload);
+        setStatusMsg({ type: 'success', text: '¡Producto creado exitosamente!' });
+      }
 
-    setTimeout(() => {
-      onNavigate('admin-products');
-    }, 1200);
+      setTimeout(() => {
+        onNavigate('admin-products');
+      }, 1000);
+    } catch (err) {
+      setStatusMsg({ type: 'danger', text: getApiErrorMessage(err, 'No se pudo guardar el producto.') });
+    }
   };
 
   return (
@@ -309,10 +324,10 @@ export default function AdminProductForm({ productId, onNavigate }) {
                       <option value="juguetesv2.png">Juguete Pelota (juguetesv2.png)</option>
                       <option value="juguetesv3.png">Juguete Cuerda (juguetesv3.png)</option>
                       <option value="juguetesv4.png">Juguete Sonajero (juguetesv4.png)</option>
-                      <option value="collares.png">Collar Clásico (collares.png)</option>
-                      <option value="collaresv2.png">Collar Reflectante (collaresv2.png)</option>
-                      <option value="collaresv3.png">Collar Cuero (collaresv3.png)</option>
-                      <option value="collaresv4.png">Collar Acolchado (collaresv4.png)</option>
+                      <option value="collar.png">Collar Clásico (collar.png)</option>
+                      <option value="collarv2.png">Collar Reflectante (collarv2.png)</option>
+                      <option value="collarv3.png">Collar Outdoor (collarv3.png)</option>
+                      <option value="collarv4.png">Collar Paseo (collarv4.png)</option>
                     </select>
                   </div>
 

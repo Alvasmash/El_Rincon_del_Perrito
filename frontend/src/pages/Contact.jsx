@@ -1,11 +1,14 @@
 /* Formulario de contacto con validaciones en tiempo real (Figura 7) */
 import React, { useState } from 'react';
 import { validateEmail } from '../data/validations';
+import { sendContactMessage } from '../data/db';
+import { getApiErrorMessage } from '../api/apiClient';
 
 export function Contact() {
   const [formData, setFormData] = useState({ nombre: '', correo: '', comentario: '' });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,8 +27,9 @@ export function Contact() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setServerError('');
     const emailCheck = validateEmail(formData.correo);
     const newErrors = {};
 
@@ -38,9 +42,14 @@ export function Contact() {
       return;
     }
 
-    setSubmitted(true);
-    setFormData({ nombre: '', correo: '', comentario: '' });
-    setErrors({});
+    try {
+      await sendContactMessage(formData);
+      setSubmitted(true);
+      setFormData({ nombre: '', correo: '', comentario: '' });
+      setErrors({});
+    } catch (err) {
+      setServerError(getApiErrorMessage(err, 'No se pudo enviar el mensaje al servidor.'));
+    }
   };
 
   return (
@@ -52,6 +61,8 @@ export function Contact() {
           <h3 className="fw-bold text-primary mt-1">FORMULARIO DE CONTACTOS</h3>
           <p className="text-muted small">Escríbenos y resolveremos tus dudas a la brevedad.</p>
         </div>
+
+        {serverError && <div className="alert alert-danger py-2 text-center small mb-3">{serverError}</div>}
 
         {submitted && (
           <div className="alert alert-success py-2 text-center small mb-3">

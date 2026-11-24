@@ -1,13 +1,36 @@
 /* Vista principal de la tienda con banner y productos destacados */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getProducts, getCategories } from '../data/db';
+import { getApiErrorMessage } from '../api/apiClient';
 import { ProductCard } from '../components/ProductCard.jsx';
 import { useCart } from '../context/CartContext';
 
 export function Home({ onNavigate }) {
   const { addToCart } = useCart();
-  const products = getProducts();
-  const categories = getCategories();
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    let active = true;
+    async function loadHomeData() {
+      try {
+        const [prods, cats] = await Promise.all([getProducts(), getCategories()]);
+        if (active) {
+          setProducts(prods);
+          setCategories(cats);
+        }
+      } catch (err) {
+        if (active) setErrorMsg(getApiErrorMessage(err, 'No se pudieron cargar los productos del backend.'));
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+    loadHomeData();
+    return () => { active = false; };
+  }, []);
+
   const featured = products.slice(0, 8);
 
   return (
@@ -30,6 +53,8 @@ export function Home({ onNavigate }) {
           </div>
         </div>
       </div>
+
+      {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
 
       {/* Bloque de Categorías */}
       <div className="mb-5">
@@ -58,17 +83,21 @@ export function Home({ onNavigate }) {
       {/* Productos Destacados */}
       <div className="mb-5">
         <h3 className="fw-bold mb-3">Productos Destacados</h3>
-        <div className="row g-4">
-          {featured.map(prod => (
-            <div key={prod.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
-              <ProductCard
-                product={prod}
-                onAddToCart={(p) => addToCart(p)}
-                onSelect={(id) => onNavigate('product-detail', { id })}
-              />
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-4 text-muted">Cargando productos...</div>
+        ) : (
+          <div className="row g-4">
+            {featured.map(prod => (
+              <div key={prod.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <ProductCard
+                  product={prod}
+                  onAddToCart={(p) => addToCart(p)}
+                  onSelect={(id) => onNavigate('product-detail', { id })}
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

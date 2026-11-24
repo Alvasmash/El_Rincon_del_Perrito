@@ -5,9 +5,10 @@ import { useAuth } from '../context/AuthContext';
 import { REGIONES_Y_COMUNAS, getCommunesForRegion } from '../data/chileData';
 import { formatPrice, validateEmail } from '../data/validations';
 import { createOrder } from '../data/db';
+import { getApiErrorMessage } from '../api/apiClient';
 
 export function Checkout({ onNavigate }) {
-  const { cartItems, total, clearCart } = useCart();
+  const { cartItems, subtotal, discountAmount, total, clearCart } = useCart();
   const { user } = useAuth();
 
   /* Si el usuario ha iniciado sesión se añade de forma automática (Requisito Nota pág 6) */
@@ -57,8 +58,9 @@ export function Checkout({ onNavigate }) {
     }
   };
 
-  const handlePay = (e) => {
+  const handlePay = async (e) => {
     e.preventDefault();
+    setErrorMsg('');
     if (!formData.nombre || !formData.apellidos || !formData.correo || !formData.calle) {
       setErrorMsg('Por favor completa todos los campos requeridos con asterisco (*).');
       return;
@@ -103,6 +105,8 @@ export function Checkout({ onNavigate }) {
         fecha: new Date().toLocaleString()
       },
       items: [...cartItems],
+      subtotal: subtotal,
+      descuento: discountAmount,
       total: total
     };
 
@@ -114,11 +118,14 @@ export function Checkout({ onNavigate }) {
       return;
     }
 
-    /* Crear orden y guardar en DB */
-    const newOrder = createOrder(orderData);
-
-    clearCart();
-    onNavigate('payment-success', { order: newOrder, orderId: orderNumber });
+    try {
+      /* Crear orden y guardar en MySQL via backend */
+      const newOrder = await createOrder(orderData);
+      clearCart();
+      onNavigate('payment-success', { order: newOrder, orderId: newOrder.id || orderNumber });
+    } catch (err) {
+      setErrorMsg(getApiErrorMessage(err, 'No se pudo procesar la compra en el servidor.'));
+    }
   };
 
   if (cartItems.length === 0) {

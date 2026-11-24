@@ -1,6 +1,5 @@
 /* Contexto global para gestión del carrito de compras y cupones */
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getProductById } from '../data/db';
 
 const CartContext = createContext();
 
@@ -65,8 +64,7 @@ export function CartProvider({ children }) {
     setCartItems(prev => {
       return prev.map(item => {
         if (item.id === productId) {
-          const fresh = getProductById(productId);
-          const maxStock = fresh ? fresh.stock : item.stock;
+          const maxStock = item.stock ?? 99;
           const newQty = item.quantity + delta;
           if (newQty <= 0) return null;
           if (newQty > maxStock) return { ...item, quantity: maxStock };

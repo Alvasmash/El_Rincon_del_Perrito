@@ -1,6 +1,7 @@
 /* Formulario de Creación y Edición de Usuarios */
 import React, { useState, useEffect } from 'react';
-import { getUsers, getUserByRut, createUser, updateUser } from '../../data/db';
+import { getUserByRut, createUser, updateUser } from '../../data/db';
+import { getApiErrorMessage } from '../../api/apiClient';
 import { validateRut, validateInstitutionalEmail } from '../../data/validations';
 import { REGIONES_CHILE, getCommunesForRegion } from '../../data/chileData';
 
@@ -9,11 +10,11 @@ export default function AdminUserForm({ userRut, onNavigate }) {
   const [formData, setFormData] = useState({
     run: '',
     nombre: '',
-    apellido: '',
+    apellidos: '',
     correo: '',
-    password: '',
+    clave: '',
     rol: 'Cliente',
-    region: 'Metropolitana de Santiago',
+    region: 'Región Metropolitana de Santiago',
     comuna: 'Santiago',
     direccion: ''
   });
@@ -22,25 +23,35 @@ export default function AdminUserForm({ userRut, onNavigate }) {
   const [statusMsg, setStatusMsg] = useState(null);
 
   useEffect(() => {
-    if (isEdit) {
-      const u = getUserByRut(userRut);
-      if (u) {
-        setFormData({
-          run: u.run || '',
-          nombre: u.nombre || '',
-          apellido: u.apellido || '',
-          correo: u.correo || '',
-          password: u.password || '',
-          rol: u.rol || 'Cliente',
-          region: u.region || 'Metropolitana de Santiago',
-          comuna: u.comuna || 'Santiago',
-          direccion: u.direccion || ''
-        });
-        setCommunes(getCommunesForRegion(u.region || 'Metropolitana de Santiago'));
+    let active = true;
+    async function loadUser() {
+      if (isEdit) {
+        try {
+          const u = await getUserByRut(userRut);
+          if (u && active) {
+            const userRegion = u.region || 'Región Metropolitana de Santiago';
+            setFormData({
+              run: u.run || '',
+              nombre: u.nombre || '',
+              apellidos: u.apellidos || u.apellido || '',
+              correo: u.correo || '',
+              clave: '',
+              rol: u.rol || 'Cliente',
+              region: userRegion,
+              comuna: u.comuna || 'Santiago',
+              direccion: u.direccion || ''
+            });
+            setCommunes(getCommunesForRegion(userRegion));
+          }
+        } catch (err) {
+          if (active) setStatusMsg({ type: 'danger', text: getApiErrorMessage(err, 'No se pudo cargar el usuario.') });
+        }
+      } else {
+        setCommunes(getCommunesForRegion('Región Metropolitana de Santiago'));
       }
-    } else {
-      setCommunes(getCommunesForRegion('Metropolitana de Santiago'));
     }
+    loadUser();
+    return () => { active = false; };
   }, [userRut, isEdit]);
 
   const handleRegionChange = (e) => {
@@ -67,10 +78,8 @@ export default function AdminUserForm({ userRut, onNavigate }) {
 
     if (!isEdit) {
       const rutCheck = validateRut(formData.run);
-      if (!rutCheck.valid) {
+      if (!rutCheck.isValid) {
         errs.run = rutCheck.message;
-      } else if (getUserByRut(formData.run)) {
-        errs.run = 'Ya existe un usuario con este RUN.';
       }
     }
 
@@ -80,52 +89,56 @@ export default function AdminUserForm({ userRut, onNavigate }) {
 
     if (!formData.correo.trim()) {
       errs.correo = 'El correo es obligatorio.';
-    } else if (!validateInstitutionalEmail(formData.correo)) {
+    } else if (!validateInstitutionalEmail(formData.correo).isValid) {
       errs.correo = 'Debe ser correo válido (@duocuc.cl, @duoc.cl, @profesor.duoc.cl, @gmail.com).';
     }
 
-    if (!isEdit && (!formData.password || formData.password.length < 4 || formData.password.length > 20)) {
-      errs.password = 'La contraseña debe tener entre 4 y 20 caracteres.';
+    if (!isEdit && (!formData.clave || formData.clave.length < 4 || formData.clave.length > 20)) {
+      errs.clave = 'La contraseña debe tener entre 4 y 20 caracteres.';
     }
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    if (isEdit) {
-      updateUser(userRut, {
-        nombre: formData.nombre.trim(),
-        apellido: formData.apellido.trim(),
-        correo: formData.correo.trim().toLowerCase(),
-        password: formData.password || undefined,
-        rol: formData.rol,
-        region: formData.region,
-        comuna: formData.comuna,
-        direccion: formData.direccion.trim()
-      });
-      setStatusMsg({ type: 'success', text: 'Usuario actualizado exitosamente.' });
-    } else {
-      createUser({
-        run: formData.run.trim().toUpperCase(),
-        nombre: formData.nombre.trim(),
-        apellido: formData.apellido.trim(),
-        correo: formData.correo.trim().toLowerCase(),
-        password: formData.password,
-        rol: formData.rol,
-        region: formData.region,
-        comuna: formData.comuna,
-        direccion: formData.direccion.trim()
-      });
-      setStatusMsg({ type: 'success', text: 'Usuario creado exitosamente.' });
-    }
+    try {
+      if (isEdit) {
+        await updateUser(userRut, {
+          nombre: formData.nombre.trim(),
+          apellidos: formData.apellidos.trim(),
+          correo: formData.correo.trim().toLowerCase(),
+          clave: formData.clave || undefined,
+          rol: formData.rol,
+          region: formData.region,
+          comuna: formData.comuna,
+          direccion: formData.direccion.trim()
+        });
+        setStatusMsg({ type: 'success', text: 'Usuario actualizado exitosamente.' });
+      } else {
+        await createUser({
+          run: formData.run.trim().toUpperCase(),
+          nombre: formData.nombre.trim(),
+          apellidos: formData.apellidos.trim(),
+          correo: formData.correo.trim().toLowerCase(),
+          clave: formData.clave,
+          rol: formData.rol,
+          region: formData.region,
+          comuna: formData.comuna,
+          direccion: formData.direccion.trim()
+        });
+        setStatusMsg({ type: 'success', text: 'Usuario creado exitosamente.' });
+      }
 
-    setTimeout(() => {
-      onNavigate('admin-users');
-    }, 1200);
+      setTimeout(() => {
+        onNavigate('admin-users');
+      }, 1000);
+    } catch (err) {
+      setStatusMsg({ type: 'danger', text: getApiErrorMessage(err, 'No se pudo guardar el usuario.') });
+    }
   };
 
   return (
@@ -196,12 +209,12 @@ export default function AdminUserForm({ userRut, onNavigate }) {
                   </div>
 
                   <div className="col-12 col-md-6">
-                    <label className="form-label fw-semibold">Apellido</label>
+                    <label className="form-label fw-semibold">Apellidos</label>
                     <input
                       type="text"
-                      name="apellido"
+                      name="apellidos"
                       className="form-control"
-                      value={formData.apellido}
+                      value={formData.apellidos}
                       onChange={handleChange}
                     />
                   </div>
@@ -227,14 +240,14 @@ export default function AdminUserForm({ userRut, onNavigate }) {
                     </label>
                     <input
                       type="password"
-                      name="password"
-                      className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                      name="clave"
+                      className={`form-control ${errors.clave ? 'is-invalid' : ''}`}
                       placeholder="••••••••"
                       maxLength={20}
-                      value={formData.password}
+                      value={formData.clave}
                       onChange={handleChange}
                     />
-                    {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                    {errors.clave && <div className="invalid-feedback">{errors.clave}</div>}
                   </div>
 
                   {/* Región y Comuna dependiente */}

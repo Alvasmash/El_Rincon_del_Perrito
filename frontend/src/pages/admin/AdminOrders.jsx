@@ -1,18 +1,23 @@
 /* Vista de Historial y Detalle de Pedidos para el Administrador */
 import React, { useState, useEffect } from 'react';
 import { getOrders } from '../../data/db';
+import { getApiErrorMessage } from '../../api/apiClient';
 import { formatCLP } from '../../data/validations';
 
 export default function AdminOrders({ onNavigate }) {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    setOrders(getOrders());
+    getOrders()
+      .then(setOrders)
+      .catch(err => setErrorMsg(getApiErrorMessage(err, 'No se pudo cargar el historial de órdenes.')));
   }, []);
 
   return (
     <div className="container py-4">
+      {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
       {/* Cabecera */}
       <div className="d-flex flex-wrap justify-content-between align-items-center mb-4">
         <div>

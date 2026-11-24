@@ -8,8 +8,9 @@ export function Login({ onNavigate }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -25,7 +26,9 @@ export function Login({ onNavigate }) {
       return;
     }
 
-    const res = login(email, password);
+    setSubmitting(true);
+    const res = await login(email, password);
+    setSubmitting(false);
     if (!res.ok) {
       setErrorMsg(res.message);
       return;

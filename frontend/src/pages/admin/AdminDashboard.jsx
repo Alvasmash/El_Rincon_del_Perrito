@@ -1,10 +1,13 @@
 /* Vista de Panel de Control Administrativo (Figura 9 de la rúbrica) */
 import React, { useState, useEffect } from 'react';
-import { getProducts, getUsers, getOrders, getCategories } from '../../data/db';
+import { getProducts, getUsers, getOrders } from '../../data/db';
+import { getApiErrorMessage } from '../../api/apiClient';
+import { useAuth } from '../../context/AuthContext';
 import { formatCLP } from '../../data/validations';
 import AlertStock from '../../components/AlertStock';
 
 export default function AdminDashboard({ onNavigate }) {
+  const { isAdmin } = useAuth();
   const [stats, setStats] = useState({
     totalVentas: 0,
     totalProductos: 0,
@@ -13,28 +16,41 @@ export default function AdminDashboard({ onNavigate }) {
   });
   const [criticalProducts, setCriticalProducts] = useState([]);
   const [recentOrders, setRecentOrders] = useState([]);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    // Cargar datos consolidados para las métricas del panel
-    const products = getProducts();
-    const users = getUsers();
-    const orders = getOrders();
+    let active = true;
+    async function loadDashboard() {
+      try {
+        const [products, orders, users] = await Promise.all([
+          getProducts(),
+          getOrders(),
+          isAdmin ? getUsers() : Promise.resolve([])
+        ]);
 
-    const ventas = orders.reduce((acc, o) => acc + (o.total || 0), 0);
-    const criticos = products.filter(p => p.stock <= p.stockCritico);
+        if (!active) return;
+        const ventas = orders.reduce((acc, o) => acc + (o.total || 0), 0);
+        const criticos = products.filter(p => p.stock <= p.stockCritico);
 
-    setStats({
-      totalVentas: ventas,
-      totalProductos: products.length,
-      totalUsuarios: users.length,
-      stockCriticoCount: criticos.length
-    });
-    setCriticalProducts(criticos.slice(0, 5));
-    setRecentOrders(orders.slice(0, 5));
-  }, []);
+        setStats({
+          totalVentas: ventas,
+          totalProductos: products.length,
+          totalUsuarios: users.length,
+          stockCriticoCount: criticos.length
+        });
+        setCriticalProducts(criticos.slice(0, 5));
+        setRecentOrders(orders.slice(0, 5));
+      } catch (err) {
+        if (active) setErrorMsg(getApiErrorMessage(err, 'Error al cargar métricas del panel.'));
+      }
+    }
+    loadDashboard();
+    return () => { active = false; };
+  }, [isAdmin]);
 
   return (
     <div className="container py-4">
+      {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
       {/* Título y bienvenida */}
       <div className="d-flex flex-wrap justify-content-between align-items-center mb-4">
         <div>

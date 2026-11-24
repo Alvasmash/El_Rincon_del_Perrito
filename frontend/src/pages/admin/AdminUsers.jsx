@@ -1,6 +1,7 @@
 /* Vista de Administración de Usuarios y Roles */
 import React, { useState, useEffect } from 'react';
 import { getUsers, deleteUser } from '../../data/db';
+import { getApiErrorMessage } from '../../api/apiClient';
 import { useAuth } from '../../context/AuthContext';
 
 export default function AdminUsers({ onNavigate }) {
@@ -10,26 +11,39 @@ export default function AdminUsers({ onNavigate }) {
   const [filterRole, setFilterRole] = useState('all');
   const [message, setMessage] = useState(null);
 
+  const loadUsers = async () => {
+    try {
+      const data = await getUsers();
+      setUsers(data);
+    } catch (err) {
+      setMessage({ type: 'danger', text: getApiErrorMessage(err, 'No se pudieron cargar los usuarios.') });
+    }
+  };
+
   useEffect(() => {
-    setUsers(getUsers());
+    loadUsers();
   }, []);
 
-  const handleDelete = (run, nombre) => {
+  const handleDelete = async (run, nombre) => {
     if (currentUser && currentUser.run.toUpperCase() === run.toUpperCase()) {
       alert('No puedes eliminar tu propio usuario en sesión activa.');
       return;
     }
 
     if (window.confirm(`¿Estás seguro de eliminar al usuario ${nombre} (RUN: ${run})?`)) {
-      deleteUser(run);
-      setUsers(getUsers());
-      setMessage({ type: 'success', text: `Usuario ${nombre} eliminado correctamente.` });
-      setTimeout(() => setMessage(null), 3000);
+      try {
+        await deleteUser(run);
+        await loadUsers();
+        setMessage({ type: 'success', text: `Usuario ${nombre} eliminado correctamente.` });
+        setTimeout(() => setMessage(null), 3000);
+      } catch (err) {
+        setMessage({ type: 'danger', text: getApiErrorMessage(err, 'No se pudo eliminar el usuario.') });
+      }
     }
   };
 
   const filtered = users.filter(u => {
-    const fullName = `${u.nombre} ${u.apellido || ''}`.toLowerCase();
+    const fullName = `${u.nombre} ${u.apellidos || u.apellido || ''}`.toLowerCase();
     const matchText = fullName.includes(filterText.toLowerCase()) ||
                       u.run.toLowerCase().includes(filterText.toLowerCase()) ||
                       u.correo.toLowerCase().includes(filterText.toLowerCase());
@@ -124,7 +138,7 @@ export default function AdminUsers({ onNavigate }) {
                     <tr key={u.run}>
                       <td className="fw-mono fw-semibold">{u.run}</td>
                       <td>
-                        <div className="fw-bold text-dark">{u.nombre} {u.apellido}</div>
+                        <div className="fw-bold text-dark">{u.nombre} {u.apellidos || u.apellido}</div>
                       </td>
                       <td>{u.correo}</td>
                       <td className="small text-muted">

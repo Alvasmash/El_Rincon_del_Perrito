@@ -1,6 +1,7 @@
 /* Vista de detalle de producto con galería y selector de unidades */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getProductById, getProducts } from '../data/db';
+import { getApiErrorMessage } from '../api/apiClient';
 import { formatPrice } from '../data/validations';
 import { AlertStock } from '../components/AlertStock.jsx';
 import { ProductCard } from '../components/ProductCard.jsx';
@@ -8,21 +9,54 @@ import { useCart } from '../context/CartContext';
 
 export function ProductDetail({ productId, onNavigate }) {
   const { addToCart } = useCart();
+  const [product, setProduct] = useState(null);
+  const [related, setRelated] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [activeImg, setActiveImg] = useState(null);
 
-  const product = getProductById(productId);
-  if (!product) {
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setActiveImg(null);
+    setQuantity(1);
+    async function loadDetail() {
+      try {
+        const [prod, allProds] = await Promise.all([
+          getProductById(productId),
+          getProducts()
+        ]);
+        if (active) {
+          setProduct(prod);
+          setRelated(
+            allProds.filter(p => p.categoria === prod.categoria && p.id !== prod.id).slice(0, 4)
+          );
+        }
+      } catch (err) {
+        if (active) setErrorMsg(getApiErrorMessage(err, 'Producto no encontrado.'));
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+    if (productId) loadDetail();
+    return () => { active = false; };
+  }, [productId]);
+
+  if (loading) {
+    return <div className="container py-5 text-center text-muted">Cargando detalle del producto...</div>;
+  }
+
+  if (!product || errorMsg) {
     return (
       <div className="container py-5 text-center">
-        <h3>Producto no encontrado</h3>
+        <h3>{errorMsg || 'Producto no encontrado'}</h3>
         <button onClick={() => onNavigate('products')} className="btn btn-perrito-primary mt-3">Volver al catálogo</button>
       </div>
     );
   }
 
   const currentImg = activeImg || ('/Imagenes/' + (product.imagen || 'cama.png'));
-  const related = getProducts().filter(p => p.categoria === product.categoria && p.id !== product.id).slice(0, 4);
   const maxStock = product.stock ?? 0;
   const isOutOfStock = maxStock <= 0;
 

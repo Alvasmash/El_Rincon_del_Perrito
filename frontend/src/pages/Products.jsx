@@ -1,17 +1,46 @@
 /* Catálogo completo con buscador y filtros de categorías */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getProducts, getCategories } from '../data/db';
+import { getApiErrorMessage } from '../api/apiClient';
 import { ProductCard } from '../components/ProductCard.jsx';
 import { useCart } from '../context/CartContext';
 
 export function Products({ onNavigate, initialCategory = '', initialSearch = '' }) {
   const { addToCart } = useCart();
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchTerm, setSearchTerm] = useState(initialSearch);
   const [sortOrder, setSortOrder] = useState('default');
 
-  const products = getProducts();
-  const categories = getCategories();
+  useEffect(() => {
+    setSelectedCategory(initialCategory);
+  }, [initialCategory]);
+
+  useEffect(() => {
+    setSearchTerm(initialSearch);
+  }, [initialSearch]);
+
+  useEffect(() => {
+    let active = true;
+    async function loadData() {
+      try {
+        const [prods, cats] = await Promise.all([getProducts(), getCategories()]);
+        if (active) {
+          setProducts(prods);
+          setCategories(cats);
+        }
+      } catch (err) {
+        if (active) setErrorMsg(getApiErrorMessage(err, 'No se pudo cargar el catálogo.'));
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+    loadData();
+    return () => { active = false; };
+  }, []);
 
   /* Filtrado por categoría y búsqueda */
   let filtered = products.filter(p => {
@@ -21,13 +50,15 @@ export function Products({ onNavigate, initialCategory = '', initialSearch = '' 
   });
 
   /* Ordenar por precio */
-  if (sortOrder === 'asc') filtered.sort((a, b) => a.precio - b.precio);
-  if (sortOrder === 'desc') filtered.sort((a, b) => b.precio - a.precio);
+  if (sortOrder === 'asc') filtered = [...filtered].sort((a, b) => a.precio - b.precio);
+  if (sortOrder === 'desc') filtered = [...filtered].sort((a, b) => b.precio - a.precio);
 
   return (
     <div className="container py-4">
       <h2 className="fw-bold mb-1">Catálogo de Productos</h2>
       <p className="text-muted mb-4">Explora todos los artículos disponibles para tu mascota.</p>
+
+      {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
 
       {/* Barra de Filtros */}
       <div className="card p-3 mb-4 shadow-sm bg-white">
@@ -71,7 +102,9 @@ export function Products({ onNavigate, initialCategory = '', initialSearch = '' 
         Mostrando <strong>{filtered.length}</strong> producto(s) encontrados.
       </div>
 
-      {filtered.length === 0 ? (
+      {loading ? (
+        <div className="text-center py-5 text-muted">Cargando productos...</div>
+      ) : filtered.length === 0 ? (
         <div className="alert alert-info py-4 text-center">
           No se encontraron productos que coincidan con los filtros aplicados.
         </div>

@@ -1,45 +1,45 @@
 /* Vista de fallo en el pago con opción de reintentar (Figura 8) */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getOrders, getOrderById } from '../data/db';
+import { getOrderById } from '../data/db';
 import { formatPrice } from '../data/validations';
 
 export function PaymentError({ order, orderId, onNavigate }) {
   const { user } = useAuth();
+  const [loadedOrder, setLoadedOrder] = useState(order || null);
 
-  const allOrders = getOrders();
-  const userOrder = user
-    ? allOrders.find(
-        o =>
-          (o.customer?.correo && o.customer.correo.toLowerCase() === user.correo.toLowerCase()) ||
-          (o.cliente?.correo && o.cliente.correo.toLowerCase() === user.correo.toLowerCase())
-      )
-    : null;
+  useEffect(() => {
+    if (order) {
+      setLoadedOrder(order);
+      return;
+    }
+    if (orderId) {
+      getOrderById(orderId)
+        .then(res => { if (res) setLoadedOrder(res); })
+        .catch(() => {});
+    }
+  }, [order, orderId]);
 
-  const currentOrder =
-    order ||
-    (orderId ? getOrderById(orderId) : null) ||
-    userOrder ||
-    allOrders[0] || {
-      id: orderId ? String(orderId).replace('#', '') : '20240705',
-      customer: user
-        ? {
-            nombre: user.nombre || 'Cliente',
-            apellidos: user.apellidos || '',
-            correo: user.correo || '',
-            calle: user.direccion || 'Dirección registrada',
-            comuna: user.comuna || 'Santiago'
-          }
-        : {
-            nombre: 'Pedro',
-            apellidos: 'Hacker',
-            correo: 'pedro.hacker20@duocuc.cl',
-            calle: 'Los Crisantemos, Edificio Norte',
-            comuna: 'Cerrillos'
-          },
-      items: [],
-      total: 28775
-    };
+  const currentOrder = loadedOrder || {
+    id: orderId ? String(orderId).replace('#', '') : '20240705',
+    customer: user
+      ? {
+          nombre: user.nombre || 'Cliente',
+          apellidos: user.apellidos || '',
+          correo: user.correo || '',
+          calle: user.direccion || 'Dirección registrada',
+          comuna: user.comuna || 'Santiago'
+        }
+      : {
+          nombre: 'Pedro',
+          apellidos: 'Hacker',
+          correo: 'pedro.hacker20@duocuc.cl',
+          calle: 'Los Crisantemos, Edificio Norte',
+          comuna: 'Cerrillos'
+        },
+    items: [],
+    total: 28775
+  };
 
   const customer = currentOrder.customer || currentOrder.cliente || (user ? {
     nombre: user.nombre || 'Cliente',

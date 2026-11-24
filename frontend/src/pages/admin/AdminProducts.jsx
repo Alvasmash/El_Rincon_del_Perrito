@@ -1,6 +1,7 @@
 /* Vista de Catálogo de Productos para Administración */
 import React, { useState, useEffect } from 'react';
 import { getProducts, deleteProduct, getCategories } from '../../data/db';
+import { getApiErrorMessage } from '../../api/apiClient';
 import { formatCLP } from '../../data/validations';
 import AlertStock from '../../components/AlertStock';
 
@@ -11,17 +12,30 @@ export default function AdminProducts({ onNavigate }) {
   const [filterCat, setFilterCat] = useState('all');
   const [message, setMessage] = useState(null);
 
+  const loadData = async () => {
+    try {
+      const [prods, cats] = await Promise.all([getProducts(), getCategories()]);
+      setProducts(prods);
+      setCategories(cats);
+    } catch (err) {
+      setMessage({ type: 'danger', text: getApiErrorMessage(err, 'No se pudieron cargar los productos.') });
+    }
+  };
+
   useEffect(() => {
-    setProducts(getProducts());
-    setCategories(getCategories());
+    loadData();
   }, []);
 
-  const handleDelete = (id, nombre) => {
+  const handleDelete = async (id, nombre) => {
     if (window.confirm(`¿Estás seguro de eliminar el producto "${nombre}"?`)) {
-      deleteProduct(id);
-      setProducts(getProducts());
-      setMessage({ type: 'success', text: `Producto "${nombre}" eliminado correctamente.` });
-      setTimeout(() => setMessage(null), 3000);
+      try {
+        await deleteProduct(id);
+        await loadData();
+        setMessage({ type: 'success', text: `Producto "${nombre}" eliminado correctamente.` });
+        setTimeout(() => setMessage(null), 3000);
+      } catch (err) {
+        setMessage({ type: 'danger', text: getApiErrorMessage(err, 'No se pudo eliminar el producto.') });
+      }
     }
   };
 

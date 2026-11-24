@@ -1,6 +1,7 @@
 /* Vista de Gestión de Categorías para el Administrador */
 import React, { useState, useEffect } from 'react';
 import { getCategories, createCategory, deleteCategory, getProducts } from '../../data/db';
+import { getApiErrorMessage } from '../../api/apiClient';
 
 export default function AdminCategories({ onNavigate }) {
   const [categories, setCategories] = useState([]);
@@ -9,12 +10,21 @@ export default function AdminCategories({ onNavigate }) {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
 
+  const loadData = async () => {
+    try {
+      const [cats, prods] = await Promise.all([getCategories(), getProducts()]);
+      setCategories(cats);
+      setProducts(prods);
+    } catch (err) {
+      setMessage({ type: 'danger', text: getApiErrorMessage(err, 'No se pudieron cargar las categorías.') });
+    }
+  };
+
   useEffect(() => {
-    setCategories(getCategories());
-    setProducts(getProducts());
+    loadData();
   }, []);
 
-  const handleAdd = (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
     const errs = {};
     if (!newCat.id.trim()) {
@@ -32,20 +42,24 @@ export default function AdminCategories({ onNavigate }) {
       return;
     }
 
-    createCategory({
-      id: newCat.id.trim().toLowerCase(),
-      nombre: newCat.nombre.trim(),
-      descripcion: newCat.descripcion.trim()
-    });
+    try {
+      await createCategory({
+        id: newCat.id.trim().toLowerCase(),
+        nombre: newCat.nombre.trim(),
+        descripcion: newCat.descripcion.trim()
+      });
 
-    setCategories(getCategories());
-    setNewCat({ id: '', nombre: '', descripcion: '' });
-    setErrors({});
-    setMessage({ type: 'success', text: '¡Categoría agregada exitosamente!' });
-    setTimeout(() => setMessage(null), 3000);
+      await loadData();
+      setNewCat({ id: '', nombre: '', descripcion: '' });
+      setErrors({});
+      setMessage({ type: 'success', text: '¡Categoría agregada exitosamente!' });
+      setTimeout(() => setMessage(null), 3000);
+    } catch (err) {
+      setMessage({ type: 'danger', text: getApiErrorMessage(err, 'No se pudo agregar la categoría.') });
+    }
   };
 
-  const handleDelete = (id, nombre) => {
+  const handleDelete = async (id, nombre) => {
     const hasProducts = products.some(p => p.categoria === id);
     if (hasProducts) {
       alert(`No puedes eliminar la categoría "${nombre}" porque tiene productos asociados en el catálogo.`);
@@ -53,10 +67,14 @@ export default function AdminCategories({ onNavigate }) {
     }
 
     if (window.confirm(`¿Seguro que deseas eliminar la categoría "${nombre}"?`)) {
-      deleteCategory(id);
-      setCategories(getCategories());
-      setMessage({ type: 'info', text: `Categoría "${nombre}" eliminada.` });
-      setTimeout(() => setMessage(null), 3000);
+      try {
+        await deleteCategory(id);
+        await loadData();
+        setMessage({ type: 'info', text: `Categoría "${nombre}" eliminada.` });
+        setTimeout(() => setMessage(null), 3000);
+      } catch (err) {
+        setMessage({ type: 'danger', text: getApiErrorMessage(err, 'No se pudo eliminar la categoría.') });
+      }
     }
   };
 

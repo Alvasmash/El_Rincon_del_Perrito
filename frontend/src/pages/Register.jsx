@@ -20,6 +20,7 @@ export function Register({ onNavigate }) {
   });
 
   const [errorMsg, setErrorMsg] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const availableCommunes = getCommunesForRegion(formData.region);
 
   const handleChange = (e) => {
@@ -32,7 +33,7 @@ export function Register({ onNavigate }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -77,7 +78,8 @@ export function Register({ onNavigate }) {
       return;
     }
 
-    const res = register({
+    setSubmitting(true);
+    const res = await register({
       run: formData.run.trim().toUpperCase(),
       nombre: formData.nombre.trim(),
       apellidos: formData.apellidos.trim(),
@@ -89,6 +91,7 @@ export function Register({ onNavigate }) {
       direccion: formData.direccion.trim(),
       telefono: formData.telefono.trim()
     });
+    setSubmitting(false);
 
     if (!res.ok) {
       setErrorMsg(res.message);

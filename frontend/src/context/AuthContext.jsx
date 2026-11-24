@@ -1,6 +1,6 @@
-/* Contexto global para gestión de sesión y roles de usuario */
+/* Contexto global para gestión de sesión JWT y roles de usuario */
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getUserByEmail, createUser } from '../data/db';
+import apiClient, { getApiErrorMessage } from '../api/apiClient';
 
 const AuthContext = createContext();
 
@@ -15,42 +15,54 @@ export function AuthProvider({ children }) {
     }
   });
 
-  /* Guardar sesión en localStorage */
+  /* Sincronizar sesión en localStorage */
   useEffect(() => {
     if (user) {
       localStorage.setItem('rincon_perrito_session', JSON.stringify(user));
     } else {
       localStorage.removeItem('rincon_perrito_session');
+      localStorage.removeItem('rincon_perrito_token');
     }
   }, [user]);
 
-  /* Iniciar sesión */
-  const login = (email, password) => {
-    const found = getUserByEmail(email);
-    if (!found) {
-      return { ok: false, message: 'El usuario no existe.' };
+  /* Iniciar sesión contra POST /api/auth/login */
+  const login = async (email, password) => {
+    try {
+      const { data } = await apiClient.post('/auth/login', {
+        correo: email,
+        clave: password
+      });
+      localStorage.setItem('rincon_perrito_token', data.token);
+      setUser(data.user);
+      return { ok: true, user: data.user };
+    } catch (error) {
+      return {
+        ok: false,
+        message: getApiErrorMessage(error, 'Error al iniciar sesión con el backend.')
+      };
     }
-    if (found.clave !== password) {
-      return { ok: false, message: 'Contraseña incorrecta.' };
-    }
-    setUser(found);
-    return { ok: true, user: found };
   };
 
   /* Cerrar sesión */
   const logout = () => {
+    localStorage.removeItem('rincon_perrito_token');
+    localStorage.removeItem('rincon_perrito_session');
     setUser(null);
   };
 
-  /* Registro de nuevo usuario */
-  const register = (userData) => {
-    const existing = getUserByEmail(userData.correo);
-    if (existing) {
-      return { ok: false, message: 'Este correo ya está registrado.' };
+  /* Registro de nuevo usuario contra POST /api/auth/register */
+  const register = async (userData) => {
+    try {
+      const { data } = await apiClient.post('/auth/register', userData);
+      localStorage.setItem('rincon_perrito_token', data.token);
+      setUser(data.user);
+      return { ok: true, user: data.user };
+    } catch (error) {
+      return {
+        ok: false,
+        message: getApiErrorMessage(error, 'Error al registrar usuario en el servidor.')
+      };
     }
-    const created = createUser({ ...userData, rol: userData.rol || 'Cliente' });
-    setUser(created);
-    return { ok: true, user: created };
   };
 
   const isAdmin = user?.rol === 'Administrador';
