@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Representa la tabla "users" en MySQL con los datos del cliente, vendedor o administrador
 @Entity
 @Table(name = "users")
 public class User {

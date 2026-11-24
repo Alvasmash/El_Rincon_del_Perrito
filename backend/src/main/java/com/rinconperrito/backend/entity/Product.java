@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Representa la tabla "products" en MySQL con precio, oferta, stock y categoría de cada artículo
 @Entity
 @Table(name = "products")
 public class Product {

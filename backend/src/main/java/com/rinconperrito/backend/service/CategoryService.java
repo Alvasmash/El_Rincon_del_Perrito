@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+// Lógica de negocio para crear, editar y borrar categorías de productos
 @Service
 public class CategoryService {
 
@@ -20,10 +21,12 @@ public class CategoryService {
         this.productRepository = productRepository;
     }
 
+    // Devuelve todas las categorías guardadas
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
 
+    // Crea una categoría generando un ID en minúsculas y verificando que no esté duplicado
     public Category create(Category category) {
         String id = (category.getId() != null && !category.getId().isBlank())
                 ? category.getId().trim().toLowerCase()
@@ -35,6 +38,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
+    // Actualiza el nombre y descripción de una categoría
     public Category update(String id, Category updated) {
         Category existing = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada."));
@@ -43,6 +47,7 @@ public class CategoryService {
         return categoryRepository.save(existing);
     }
 
+    // Borra una categoría solo si no tiene productos asignados
     public void delete(String id) {
         if (!categoryRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada.");

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+// Lógica de negocio para iniciar sesión y registrar nuevos clientes
 @Service
 public class AuthService {
 
@@ -25,6 +26,7 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
+    // Revisa que el correo exista y que la contraseña coincida con la clave encriptada en MySQL
     public AuthResponse login(LoginRequest request) {
         String cleanEmail = request.getCorreo().trim().toLowerCase();
         User user = userRepository.findByCorreoIgnoreCase(cleanEmail)
@@ -35,10 +37,12 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Contraseña incorrecta.");
         }
 
+        // Si todo coincide, creamos un token JWT y devolvemos el usuario sin su clave
         String token = jwtService.generateToken(user.getCorreo(), user.getRol());
         return new AuthResponse(token, UserResponse.fromEntity(user));
     }
 
+    // Registra un cliente nuevo validando que no se repita correo ni RUN
     public AuthResponse register(RegisterRequest request) {
         String cleanEmail = request.getCorreo().trim().toLowerCase();
         String cleanRun = request.getRun().trim().toUpperCase();

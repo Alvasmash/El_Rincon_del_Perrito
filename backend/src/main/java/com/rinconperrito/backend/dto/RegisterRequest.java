@@ -3,6 +3,7 @@ package com.rinconperrito.backend.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+// Molde de los datos que envía el formulario de registro desde React
 public class RegisterRequest {
 
     @NotBlank(message = "El RUN es requerido.")

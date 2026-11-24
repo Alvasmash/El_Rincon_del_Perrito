@@ -2,6 +2,7 @@ package com.rinconperrito.backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
+// Molde de los datos que envía el frontend al iniciar sesión (correo y contraseña)
 public class LoginRequest {
 
     @NotBlank(message = "El correo es requerido.")

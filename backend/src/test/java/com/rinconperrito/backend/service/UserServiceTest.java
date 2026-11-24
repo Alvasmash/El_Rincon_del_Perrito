@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+// Pruebas unitarias de usuarios (no exponer contraseñas y encriptar con BCrypt al crear)
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 

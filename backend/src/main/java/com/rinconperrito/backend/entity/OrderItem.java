@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+// Representa cada producto individual dentro de una orden en la tabla "order_items"
 @Entity
 @Table(name = "order_items")
 public class OrderItem {

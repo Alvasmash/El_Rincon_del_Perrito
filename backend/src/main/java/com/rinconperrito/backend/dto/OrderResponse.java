@@ -5,6 +5,7 @@ import com.rinconperrito.backend.entity.OrderItem;
 
 import java.util.List;
 
+// Formato de orden de compra que devolvemos al frontend (compatible con PaymentSuccess y AdminOrders)
 public class OrderResponse {
     private String id;
     private String fecha;

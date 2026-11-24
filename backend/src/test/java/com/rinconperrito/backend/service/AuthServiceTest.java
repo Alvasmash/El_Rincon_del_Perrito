@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+// Pruebas unitarias de inicio de sesión y registro usando JUnit 5 y Mockito (sin conectar a MySQL real)
 @ExtendWith(MockitoExtension.class)
 class AuthServiceTest {
 

@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+// Pruebas unitarias de órdenes de compra (descuento de stock y validación de stock insuficiente)
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
 

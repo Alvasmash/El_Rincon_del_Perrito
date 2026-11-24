@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+// Esta clase se ejecuta sola cuando parte el backend y carga los datos iniciales si la base está vacía
 @Component
 public class DataInitializer implements CommandLineRunner {
 
@@ -32,6 +33,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        // Si todavía no hay categorías en MySQL, creamos las 4 categorías base de la tienda
         if (categoryRepository.count() == 0) {
             categoryRepository.saveAll(List.of(
                 new Category("camas", "Camas", "Camas cómodas, ortopédicas y térmicas para perritos"),
@@ -41,6 +43,7 @@ public class DataInitializer implements CommandLineRunner {
             ));
         }
 
+        // Si todavía no hay productos, cargamos el catálogo inicial de 12 artículos
         if (productRepository.count() == 0) {
             productRepository.saveAll(List.of(
                 new Product("cama-madera", "CAM001", "Cama de Madera para Perrito",
@@ -82,6 +85,7 @@ public class DataInitializer implements CommandLineRunner {
             ));
         }
 
+        // Si no hay usuarios, creamos las 3 cuentas de prueba con sus claves encriptadas usando BCrypt
         if (userRepository.count() == 0) {
             userRepository.saveAll(List.of(
                 new User("19011022K", "Administrador", "Principal Duoc", "admin@duocuc.cl",

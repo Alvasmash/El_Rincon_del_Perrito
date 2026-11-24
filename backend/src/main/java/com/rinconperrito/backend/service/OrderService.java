@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
 
+// Lógica de negocio para guardar compras y descontar stock de forma segura en MySQL
 @Service
 public class OrderService {
 
@@ -26,12 +27,14 @@ public class OrderService {
         this.productRepository = productRepository;
     }
 
+    // Lista todas las órdenes ordenadas desde la más reciente
     public List<OrderResponse> findAll() {
         return orderRepository.findAllByOrderByFechaDescIdDesc().stream()
                 .map(OrderResponse::fromEntity)
                 .toList();
     }
 
+    // Busca una orden específica por su número de pedido
     public OrderResponse findById(String id) {
         String cleanId = id.replace("#", "");
         Order order = orderRepository.findById(cleanId)
@@ -39,6 +42,7 @@ public class OrderService {
         return OrderResponse.fromEntity(order);
     }
 
+    // @Transactional asegura que si falla un producto (ej: sin stock), se deshaga toda la compra y no quede a medias
     @Transactional
     public OrderResponse create(OrderRequest request) {
         if (request.getItems() == null || request.getItems().isEmpty()) {

@@ -1,5 +1,6 @@
 package com.rinconperrito.backend.dto;
 
+// Respuesta que devuelve el backend cuando el login o registro salen bien (incluye token JWT y usuario)
 public class AuthResponse {
     private String token;
     private UserResponse user;

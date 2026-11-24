@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Representa la tabla "categories" en MySQL (ej: camas, juguetes, collares, ofertas)
 @Entity
 @Table(name = "categories")
 public class Category {

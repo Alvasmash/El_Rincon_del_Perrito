@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+// Representa la tabla "orders" en MySQL con los datos del pedido, cliente, dirección y productos comprados
 @Entity
 @Table(name = "orders")
 public class Order {

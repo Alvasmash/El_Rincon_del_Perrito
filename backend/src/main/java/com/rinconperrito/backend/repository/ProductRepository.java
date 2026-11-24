@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+// Repositorio JPA para productos: Spring genera automáticamente las consultas SQL
 public interface ProductRepository extends JpaRepository<Product, String> {
     boolean existsByCategoria(String categoria);
     boolean existsByCodigoIgnoreCase(String codigo);

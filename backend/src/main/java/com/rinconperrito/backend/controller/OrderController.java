@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Controlador REST para registrar compras y revisar el historial de pedidos (/api/orders)
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -19,16 +20,19 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    // Lista todas las órdenes para el panel de administración
     @GetMapping
     public List<OrderResponse> getAll() {
         return orderService.findAll();
     }
 
+    // Busca el detalle de una orden por su ID
     @GetMapping("/{id}")
     public OrderResponse getById(@PathVariable String id) {
         return orderService.findById(id);
     }
 
+    // Guarda una nueva compra desde el Checkout y descuenta el stock de los productos
     @PostMapping
     public ResponseEntity<OrderResponse> create(@RequestBody OrderRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.create(request));

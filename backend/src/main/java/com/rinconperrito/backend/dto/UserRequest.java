@@ -1,5 +1,6 @@
 package com.rinconperrito.backend.dto;
 
+// Datos que envía el panel de administrador para crear o editar un usuario
 public class UserRequest {
     private String run;
     private String nombre;

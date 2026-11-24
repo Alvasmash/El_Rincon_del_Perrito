@@ -2,6 +2,7 @@ package com.rinconperrito.backend.dto;
 
 import com.rinconperrito.backend.entity.User;
 
+// Datos del usuario que devolvemos al frontend; nunca incluye la contraseña por seguridad
 public class UserResponse {
     private String run;
     private String nombre;
@@ -16,6 +17,7 @@ public class UserResponse {
     public UserResponse() {
     }
 
+    // Convierte un objeto User de la base de datos en un UserResponse sin clave
     public static UserResponse fromEntity(User user) {
         UserResponse dto = new UserResponse();
         dto.setRun(user.getRun());
@@ -102,4 +104,3 @@ public class UserResponse {
         this.telefono = telefono;
     }
 }
-

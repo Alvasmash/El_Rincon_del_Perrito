@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+// Lógica de negocio para que el Administrador gestione usuarios y sus roles
 @Service
 public class UserService {
 
@@ -22,16 +23,19 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // Lista todos los usuarios transformados a UserResponse (sin enviar contraseñas)
     public List<UserResponse> findAll() {
         return userRepository.findAll().stream().map(UserResponse::fromEntity).toList();
     }
 
+    // Busca un usuario por RUN
     public UserResponse findByRun(String run) {
         User user = userRepository.findById(run.trim().toUpperCase())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado."));
         return UserResponse.fromEntity(user);
     }
 
+    // Crea un usuario nuevo encriptando su clave con BCrypt antes de guardar
     public UserResponse create(UserRequest req) {
         String cleanRun = req.getRun().trim().toUpperCase();
         String cleanEmail = req.getCorreo().trim().toLowerCase();
@@ -58,6 +62,7 @@ public class UserService {
         return UserResponse.fromEntity(userRepository.save(user));
     }
 
+    // Actualiza datos del usuario; si la clave viene vacía, mantiene la contraseña actual
     public UserResponse update(String run, UserRequest req) {
         User existing = userRepository.findById(run.trim().toUpperCase())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado."));
@@ -79,6 +84,7 @@ public class UserService {
         return UserResponse.fromEntity(userRepository.save(existing));
     }
 
+    // Borra un usuario por su RUN
     public void delete(String run) {
         String cleanRun = run.trim().toUpperCase();
         if (!userRepository.existsById(cleanRun)) {

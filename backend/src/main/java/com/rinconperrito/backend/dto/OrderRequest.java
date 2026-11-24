@@ -2,6 +2,7 @@ package com.rinconperrito.backend.dto;
 
 import java.util.List;
 
+// Estructura del JSON que envía el carrito/checkout del frontend al confirmar una compra
 public class OrderRequest {
     private String id;
     private CustomerInfo customer;

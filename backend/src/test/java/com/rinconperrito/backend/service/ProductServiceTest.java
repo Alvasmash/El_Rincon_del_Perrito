@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+// Pruebas unitarias de la lógica de productos usando JUnit 5 y Mockito
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 

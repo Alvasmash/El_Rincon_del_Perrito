@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Controlador REST que recibe los mensajes del formulario de contacto (/api/contact)
 @RestController
 @RequestMapping("/api/contact")
 public class ContactController {
@@ -18,11 +19,13 @@ public class ContactController {
         this.contactService = contactService;
     }
 
+    // Guarda un mensaje enviado desde la página Contacto
     @PostMapping
     public ResponseEntity<ContactMessage> submit(@RequestBody ContactMessage message) {
         return ResponseEntity.status(HttpStatus.CREATED).body(contactService.save(message));
     }
 
+    // Lista los mensajes recibidos (para Admin o Vendedor)
     @GetMapping
     public List<ContactMessage> getAll() {
         return contactService.findAll();

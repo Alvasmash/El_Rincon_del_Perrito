@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+// Pruebas unitarias de categorías (validación de eliminación con productos asociados e ID en minúsculas)
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
 

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Representa la tabla "contact_messages" en MySQL donde se guardan las consultas enviadas desde Contacto
 @Entity
 @Table(name = "contact_messages")
 public class ContactMessage {
