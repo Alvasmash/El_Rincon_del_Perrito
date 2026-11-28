@@ -1,26 +1,17 @@
-# Dependencias Frontend
+# Dependencias
 node_modules/
-frontend/node_modules/
 /.pnp
 .pnp.js
 
-# Build y producción Frontend
+# Build y producción
 dist/
 dist-ssr/
 build/
-frontend/dist/
 scratch/
 
-# Backend Maven / Java / IntelliJ IDEA
-backend/target/
-backend/.mvn/wrapper/maven-wrapper.jar
+# IDE y temporales
 .idea/
 *.iml
-*.iws
-*.ipr
-out/
-
-# Logs y temporales
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

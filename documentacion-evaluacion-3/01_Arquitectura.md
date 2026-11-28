@@ -2,16 +2,15 @@
 
 Mi proyecto es una aplicación web Full Stack para la tienda online de accesorios para perros **"El Rincón del Perrito"**. Está dividida en dos proyectos que trabajan juntos dentro del mismo repositorio: el **frontend** (lo que ve y usa el usuario en el navegador) y el **backend** (el servidor que guarda los datos en MySQL y valida la seguridad).
 
-## 1. Estructura general del repositorio
+## 1. Estructura general en dos repositorios
 
-Al abrir la carpeta `El_Rincon_del_Perrito`, las carpetas principales son:
+El proyecto está separado en **dos repositorios independientes** dentro de la carpeta `Rincon_Perrito`:
 
-- `frontend/`: Aplicación web en React 18 con Vite, Bootstrap 5 y pruebas con Jasmine y Karma.
-- `backend/`: API REST en Java 21 con Spring Boot 4.0.3, Maven, Spring Data JPA, Spring Security + JWT y pruebas con JUnit 5 y Mockito.
-- `docker-compose.yml`: Archivo que levanta la base de datos MySQL 8.4 y el contenedor del backend en una misma red.
-- `documentacion-evaluacion-3/`: Documentos de apoyo para la Evaluación 3.
+- `El_Rincon_del_Perrito/` (Frontend): Aplicación web en React 18 con Vite, Bootstrap 5, Axios y pruebas con Jasmine y Karma. Se abre en **Visual Studio Code**.
+- `El_Rincon_del_Perrito_Backend/` (Backend): API REST en Java 21 con Spring Boot 4.0.3, Maven, Spring Data JPA, Spring Security + JWT, Swagger (`springdoc-openapi`), `Dockerfile`, `docker-compose.yml` y pruebas con JUnit 5 y Mockito. Se abre en **IntelliJ IDEA**.
+- `documentacion-evaluacion-3/`: Documentos de apoyo para la Evaluación 3 dentro del repositorio del frontend.
 
-## 2. Qué hace el Frontend (`frontend/`)
+## 2. Qué hace el Frontend (`El_Rincon_del_Perrito/`)
 
 El frontend se encarga de toda la interfaz visual y la interacción con el usuario en `http://localhost:3000`:
 
@@ -22,7 +21,7 @@ El frontend se encarga de toda la interfaz visual y la interacción con el usuar
 - Ofrece un panel administrativo (`src/pages/admin/`) para que el Administrador o Vendedor gestione productos, categorías, pedidos y usuarios.
 - Se comunica con el backend mediante **Axios** configurado en `src/api/apiClient.js` y `src/data/db.js`.
 
-## 3. Qué hace el Backend (`backend/`)
+## 3. Qué hace el Backend (`El_Rincon_del_Perrito_Backend/`)
 
 El backend corre en `http://localhost:8080` y se encarga de la lógica del negocio, la seguridad y la base de datos:
 

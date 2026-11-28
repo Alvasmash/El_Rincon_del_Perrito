@@ -2,16 +2,16 @@
 
 El backend utiliza **Docker** y **Docker Compose** para levantar la base de datos **MySQL 8.4** y la aplicación **Spring Boot 4.0.3** sin tener que instalar ni configurar MySQL manualmente para el proyecto.
 
-## 1. Archivos Docker del proyecto
+## 1. Archivos Docker del proyecto (en `El_Rincon_del_Perrito_Backend/`)
 
-- `backend/Dockerfile`: Compila el proyecto con Maven y Java 21 (`maven:3.9.9-eclipse-temurin-21`), genera el archivo `.jar` y luego lo copia a una imagen más liviana (`eclipse-temurin:21-jre`) que expone el puerto `8080`.
+- `Dockerfile`: Compila el proyecto con Maven y Java 21 (`maven:3.9.9-eclipse-temurin-21`), genera el archivo `.jar` y luego lo copia a una imagen más liviana (`eclipse-temurin:21-jre`) que expone el puerto `8080`.
 - `docker-compose.yml`: Define dos servicios conectados en la red interna `rincon-network`:
   1. **`mysql`** (`rincon-perrito-mysql`): Usa la imagen `mysql:8.4`, crea la base de datos `rincon_perrito`, guarda los datos en el volumen persistente `mysql_data` y tiene un `healthcheck` para avisar cuando MySQL ya acepta conexiones. Se expone en el puerto `3307` del computador (`3307:3306`) para evitar choque con el puerto `3306` si ya existe otro MySQL instalado en Windows.
-  2. **`backend`** (`rincon-perrito-backend`): Se construye desde `./backend/Dockerfile`, espera a que `mysql` esté `healthy` (`depends_on: condition: service_healthy`), se conecta a `mysql:3306` dentro de la red Docker y expone la API en `http://localhost:8080`.
+  2. **`backend`** (`rincon-perrito-backend`): Se construye desde `./Dockerfile`, espera a que `mysql` esté `healthy` (`depends_on: condition: service_healthy`), se conecta a `mysql:3306` dentro de la red Docker y expone la API en `http://localhost:8080` (junto con Swagger en `http://localhost:8080/swagger-ui/index.html`).
 
 ## 2. Opción A: Levantar todo el backend y MySQL con Docker
 
-Asegúrate de tener **Docker Desktop** abierto y con estado **Engine running**. Luego abre una terminal en la raíz del repositorio (`El_Rincon_del_Perrito`):
+Asegúrate de tener **Docker Desktop** abierto y con estado **Engine running**. Luego abre una terminal en la carpeta del backend (`El_Rincon_del_Perrito_Backend`):
 
 ```powershell
 docker compose up -d --build
@@ -50,10 +50,10 @@ Como el profesor indicó trabajar el backend desde IntelliJ IDEA:
    ```powershell
    docker compose up -d mysql
    ```
-3. Abre la carpeta `El_Rincon_del_Perrito/backend` en **IntelliJ IDEA**.
+3. Abre la carpeta `El_Rincon_del_Perrito_Backend` en **IntelliJ IDEA**.
 4. Espera a que Maven cargue las dependencias del `pom.xml`.
 5. Ejecuta la clase `RinconPerritoBackendApplication`.
-6. Por defecto, `backend/src/main/resources/application.properties` apunta a `localhost:3307/rincon_perrito` con usuario `root` y clave `root123`, así que se conectará directo al contenedor `rincon-perrito-mysql`.
+6. Por defecto, `src/main/resources/application.properties` apunta a `localhost:3307/rincon_perrito` con usuario `root` y clave `root123`, así que se conectará directo al contenedor `rincon-perrito-mysql`.
 
 ## 4. Comandos útiles de Docker y pruebas del backend
 

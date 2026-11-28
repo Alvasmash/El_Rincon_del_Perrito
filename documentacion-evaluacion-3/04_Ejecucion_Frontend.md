@@ -1,18 +1,18 @@
 # 04. Ejecución del Frontend desde Visual Studio Code
 
-El frontend está en la carpeta `frontend/` y fue construido con **React 18.3.1**, **Vite 5.3.4**, **Bootstrap 5.3.3** y **Axios**. Para las pruebas unitarias utiliza **Jasmine 5** y **Karma 6**.
+El frontend está en el repositorio `El_Rincon_del_Perrito` y fue construido con **React 18.3.1**, **Vite 5.3.4**, **Bootstrap 5.3.3** y **Axios**. Para las pruebas unitarias utiliza **Jasmine 5** y **Karma 6**.
 
 ## 1. Cómo abrir el proyecto en Visual Studio Code
 
 1. Abre **Visual Studio Code**.
 2. Ve a **Archivo -> Abrir carpeta** (`File -> Open Folder`).
 3. Selecciona la carpeta:
-   `C:\Users\zente\OneDrive\Escritorio\Rincon_Perrito\El_Rincon_del_Perrito\frontend`
+   `C:\Users\zente\OneDrive\Escritorio\Rincon_Perrito\El_Rincon_del_Perrito`
 4. Abre la terminal integrada de VS Code (`Ctrl + ñ` o menú **Terminal -> Nuevo terminal**).
 
 ## 2. Instalar dependencias (solo la primera vez o si cambian paquetes)
 
-Si todavía no existe la carpeta `node_modules` dentro de `frontend/`, ejecuta:
+Si todavía no existe la carpeta `node_modules` dentro del proyecto, ejecuta:
 
 ```powershell
 npm.cmd install

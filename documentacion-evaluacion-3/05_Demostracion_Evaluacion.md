@@ -5,19 +5,20 @@ Esta guía resume el orden exacto para presentar la aplicación funcionando fren
 ## Parte 1: Preparar Docker y Backend
 
 1. **Abrir Docker Desktop** y mostrar al profesor que está activo (`Engine running`).
-2. **Levantar los servicios con Docker** (en la raíz `El_Rincon_del_Perrito`):
+2. **Levantar los servicios con Docker** (en la carpeta `El_Rincon_del_Perrito_Backend`):
    ```powershell
    docker compose up -d
    docker ps
    ```
    Muestra que están arriba los contenedores `rincon-perrito-mysql` (MySQL 8.4) y `rincon-perrito-backend` (Spring Boot en el puerto `8080`).
    *(Si el profesor pide ejecutar el backend desde IntelliJ IDEA, detén solo el contenedor backend con `docker compose stop backend`, deja `rincon-perrito-mysql` corriendo, y dale Play a `RinconPerritoBackendApplication` en IntelliJ).*
-3. **Comprobar que el backend responde:**
-   Abre en el navegador `http://localhost:8080/api/products` para mostrar el JSON real con los 12 productos que vienen de MySQL.
+3. **Comprobar que el backend responde y mostrar Swagger:**
+   - Abre en el navegador `http://localhost:8080/swagger-ui/index.html` para mostrar todos los endpoints documentados en Swagger.
+   - También puedes abrir `http://localhost:8080/api/products` para ver el JSON directo con los 12 productos que vienen de MySQL.
 
 ## Parte 2: Iniciar el Frontend en Visual Studio Code
 
-1. Abre la carpeta `frontend/` en **Visual Studio Code**.
+1. Abre la carpeta `El_Rincon_del_Perrito` en **Visual Studio Code**.
 2. En la terminal integrada ejecuta:
    ```powershell
    npm.cmd run dev
